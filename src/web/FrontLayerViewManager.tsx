@@ -203,12 +203,14 @@ export class FrontLayerViewManager {
             />
         );
 
-        const container = document.getElementsByClassName('app-container')[0];
+        if (typeof document !== 'undefined') {
+          const container = document.getElementsByClassName('app-container')[0];
 
-        if (shouldReactDOMHydrate) {
-          ReactDOM.hydrate(rootView, container);
-        } else {
-          ReactDOM.render(rootView, container);
+          if (shouldReactDOMHydrate) {
+            ReactDOM.hydrate(rootView, container);
+          } else {
+            ReactDOM.render(rootView, container);
+          } 
         }
     }
 

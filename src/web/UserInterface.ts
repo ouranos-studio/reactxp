@@ -86,12 +86,21 @@ export class UserInterface extends RX.UserInterface {
 
     measureWindow(rootViewId?: string): RX.Types.LayoutInfo {
         // Mo multi window support, default to main window
-        return {
+        if (typeof window !== 'undefined') {
+          return {
             x: 0,
             y: 0,
             width: window.innerWidth,
             height: window.innerHeight
-        };
+          };
+        } else {
+          return {
+            x: 0,
+            y: 0,
+            width: 0,
+            height: 0,
+          };
+        }
     }
 
     getContentSizeMultiplier(): SyncTasks.Promise<number> {
@@ -118,7 +127,7 @@ export class UserInterface extends RX.UserInterface {
 
     getPixelRatio(): number {
         let pixelRatio = 0;
-        if (window.devicePixelRatio) {
+        if (typeof window !== 'undefined' && window.devicePixelRatio) {
             pixelRatio = window.devicePixelRatio;
         }
 
