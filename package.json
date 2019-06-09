@@ -5,6 +5,7 @@
   "author": "ReactXP Team <reactxp@microsoft.com>",
   "license": "MIT",
   "scripts": {
+    "prepare": "npm run build",
     "build": "npm run tslint && tsc",
     "build-release": "npm run tslint-release && tsc",
     "watch": "npm run tslint && tsc --watch",
