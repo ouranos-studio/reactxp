@@ -180,7 +180,7 @@ export class FrontLayerViewManager {
         }
     }
 
-    private _renderRootView() {
+    private _renderRootView(shouldReactDOMHydrate?: boolean) {
         const topModal = this._modalStack.length > 0 ?
             this._modalStack[this._modalStack.length - 1].modal : undefined;
         const activePopup = (!this._activePopupOptions || this._activePopupShowDelay > 0) ? undefined :
@@ -205,7 +205,11 @@ export class FrontLayerViewManager {
 
         const container = document.getElementsByClassName('app-container')[0];
 
-        ReactDOM.render(rootView, container);
+        if (shouldReactDOMHydrate) {
+          ReactDOM.hydrate(rootView, container);
+        } else {
+          ReactDOM.render(rootView, container);
+        }
     }
 
     isPopupDisplayed(popupId?: string): boolean {
