@@ -125,8 +125,8 @@ export class UserInterface extends RX.UserInterface {
         return pixelRatio;
     }
 
-    setMainView(element: React.ReactElement<any>): void {
-        FrontLayerViewManager.setMainView(element);
+    setMainView(element: React.ReactElement<any>, shouldHydrate?: boolean): void {
+        FrontLayerViewManager.setMainView(element, shouldHydrate);
     }
 
     registerRootView(viewKey: string, getComponentFunc: Function) {
