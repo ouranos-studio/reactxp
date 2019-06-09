@@ -37,9 +37,9 @@ export class FrontLayerViewManager {
     private _isRtlAllowed = true;
     private _isRtlForced = false;
 
-    setMainView(element: React.ReactElement<any>): void {
+    setMainView(element: React.ReactElement<any>, shouldHydrate?: boolean): void {
         this._mainView = element;
-        this._renderRootView();
+        this._renderRootView(shouldHydrate);
     }
 
     isModalDisplayed(modalId?: string): boolean {
