@@ -184,6 +184,10 @@ export class Scrollbar {
             return _nativeSrollBarWidth;
         }
 
+        if (typeof document === 'undefined') {
+          return 0;
+        }
+
         const inner = document.createElement('p');
         inner.style.width = '100%';
         inner.style.height = '100%';
@@ -220,6 +224,9 @@ export class Scrollbar {
             return;
         }
 
+        if (typeof document === 'undefined') {
+            return;
+        }
         // We set the CSS style sheet here to avoid the need
         // for users of this class to carry along another CSS
         // file.
@@ -244,6 +251,9 @@ export class Scrollbar {
     }
 
     private _tryLtrOverride() {
+        if (typeof document === 'undefined') {
+          return;
+        }
         const rtlbox = document.createElement('div');
         rtlbox.style.cssText = 'position: absolute; overflow-y: scroll; width: 30px; visibility: hidden;';
         // tslint:disable-next-line
@@ -519,7 +529,9 @@ export class Scrollbar {
             this._hasHiddenScrollbar = !!options.hiddenScrollbar;
         }
         Scrollbar._installStyleSheet();
-        this._addScrollbars();
+        if (typeof document !== 'undefined') {
+          this._addScrollbars();
+        }
         this.show();
         this._container.addEventListener('mouseenter', this._updateCallback);
 
