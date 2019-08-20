@@ -98,7 +98,7 @@ export class UserInterface extends RX.UserInterface {
             x: 0,
             y: 0,
             width: 0,
-            height: 0,
+            height: 0
           };
         }
     }

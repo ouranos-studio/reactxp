@@ -210,7 +210,7 @@ export class FrontLayerViewManager {
             ReactDOM.hydrate(rootView, container);
           } else {
             ReactDOM.render(rootView, container);
-          } 
+          }
         }
     }
 
