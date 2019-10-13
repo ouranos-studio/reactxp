@@ -175,7 +175,7 @@ export class View extends ViewBase<RX.Types.ViewProps, RX.Types.Stateless, RN.Vi
         }
     }
 
-    componentWillReceiveProps(nextProps: RX.Types.ViewProps) {
+    UNSAFE_componentWillReceiveProps(nextProps: RX.Types.ViewProps) {
         this._updateMixin(nextProps, false);
         this._buildInternalProps(nextProps);
 
@@ -184,7 +184,7 @@ export class View extends ViewBase<RX.Types.ViewProps, RX.Types.Stateless, RN.Vi
         }
     }
 
-    componentWillUpdate(nextProps: RX.Types.ViewProps, nextState: {}) {
+    UNSAFE_componentWillUpdate(nextProps: RX.Types.ViewProps, nextState: {}) {
         //
         // Exit fast if not an "animated children" case
         if (!(nextProps.animateChildEnter || nextProps.animateChildMove || nextProps.animateChildLeave)) {
@@ -570,7 +570,7 @@ export class View extends ViewBase<RX.Types.ViewProps, RX.Types.Stateless, RN.Vi
     }
 
     blur() {
-        if (this._nativeComponent && this._nativeComponent.blur) {
+        if (ViewBase._supportsNativeFocusBlur && this._nativeComponent && this._nativeComponent.blur) {
             this._nativeComponent.blur();
         }
     }
@@ -587,7 +587,7 @@ export class View extends ViewBase<RX.Types.ViewProps, RX.Types.Stateless, RN.Vi
         if (this._isMounted) {
             AccessibilityUtil.setAccessibilityFocus(this);
         }
-        if (this._nativeComponent) {
+        if (ViewBase._supportsNativeFocusBlur && this._nativeComponent) {
             if (this._nativeComponent.focus) {
                 this._nativeComponent.focus();
             } else if ((this._nativeComponent as any)._component) {

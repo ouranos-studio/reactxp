@@ -235,15 +235,6 @@ export interface ButtonStyle extends ViewStyle {
 export type ButtonStyleRuleSet = StyleRuleSet<ButtonStyle>;
 
 // ------------------------------------------------------------
-// WebView Style Rules
-// ------------------------------------------------------------
-
-export interface WebViewStyle extends ViewStyle {
-}
-
-export type WebViewStyleRuleSet = StyleRuleSet<WebViewStyle>;
-
-// ------------------------------------------------------------
 // ActivityIndicator Style Rules
 // ------------------------------------------------------------
 
@@ -626,8 +617,8 @@ export enum LimitFocusType {
 // View
 export interface ViewPropsShared<C = React.Component> extends CommonProps<C>, CommonAccessibilityProps {
     title?: string;
-    ignorePointerEvents?: boolean;
-    blockPointerEvents?: boolean; // Native-only prop for disabling touches on self and all child views
+    ignorePointerEvents?: boolean; // Prop for disabling touches on self
+    blockPointerEvents?: boolean; // Prop for disabling touches on self and all child views
     shouldRasterizeIOS?: boolean; // iOS-only prop, if view should be rendered as a bitmap before compositing
     viewLayerTypeAndroid?: ViewLayerType; // Android only property
 
@@ -847,7 +838,7 @@ export interface ScrollViewProps extends CommonStyledProps<ScrollViewStyleRuleSe
     // The following props are valid only on native platforms and
     // have no meaning on the web implementation.
     keyboardDismissMode?: 'none' | 'interactive' | 'on-drag';
-    keyboardShouldPersistTaps?: boolean;
+    keyboardShouldPersistTaps?: boolean | 'always' | 'never' | 'handled';
 
     // This controls how often the scroll event will be fired while scrolling
     // (in milliseconds between events). A lower number yields better accuracy for code
@@ -978,73 +969,6 @@ export interface ActivityIndicatorProps extends CommonStyledProps<ActivityIndica
     color: string;
     size?: 'large' | 'medium' | 'small' | 'tiny';
     deferTime?: number; // Number of ms to wait before displaying
-}
-
-// WebView
-export interface WebViewNavigationState {
-    canGoBack: boolean;
-    canGoForward: boolean;
-    loading: boolean;
-    url: string;
-    title: string;
-    readonly navigationType:
-        | 'click'
-        | 'formsubmit'
-        | 'backforward'
-        | 'reload'
-        | 'formresubmit'
-        | 'other';
-}
-
-export interface WebViewErrorState extends WebViewNavigationState {
-    description: string;
-    domain: string;
-    code: string;
-}
-
-export enum WebViewSandboxMode {
-    None = 0,
-    AllowForms = 1 << 0,
-    AllowModals = 1 << 1,
-    AllowOrientationLock = 1 << 2,
-    AllowPointerLock = 1 << 3,
-    AllowPopups = 1 << 4,
-    AllowPopupsToEscapeSandbox = 1 << 5,
-    AllowPresentation = 1 << 6,
-    AllowSameOrigin = 1 << 7,
-    AllowScripts = 1 << 8,
-    AllowTopNavigation = 1 << 9,
-    AllowMixedContentAlways = 1 << 10,
-    AllowMixedContentCompatibilityMode = 1 << 11
-}
-
-export interface WebViewSource {
-    html: string;
-    baseUrl?: string;
-}
-
-export interface WebViewProps extends CommonStyledProps<WebViewStyleRuleSet, RX.WebView> {
-    url?: string;
-    source?: WebViewSource;
-    headers?: Headers;
-    onLoad?: (e: SyntheticEvent) => void;
-    onNavigationStateChange?: (navigationState: WebViewNavigationState) => void;
-    scalesPageToFit?: boolean;
-    injectedJavaScript?: string;
-    javaScriptEnabled?: boolean;
-    mediaPlaybackRequiresUserAction?: boolean;
-    allowsInlineMediaPlayback?: boolean;
-
-    // Native only
-    startInLoadingState?: boolean;
-    domStorageEnabled?: boolean;
-    onShouldStartLoadWithRequest?: (shouldStartLoadEvent: WebViewShouldStartLoadEvent) => boolean;
-    onLoadStart?: (e: SyntheticEvent) => void;
-    onError?: (e: SyntheticEvent) => void;
-    onMessage?: (e: WebViewMessageEvent) => void;
-
-    // Web only; overrides javaScriptEnabled if used
-    sandbox?: WebViewSandboxMode;
 }
 
 // 'context' mode makes it attempt to behave like a context menu -- defaulting
@@ -1305,18 +1229,6 @@ export interface WheelEvent extends SyntheticEvent {
     deltaZ: number;
 }
 
-export interface WebViewShouldStartLoadEvent {
-    url: string;
-}
-
-export interface WebViewNavigationEvent extends SyntheticEvent {
-    nativeEvent: WebViewNavigationState;
-}
-
-export interface WebViewErrorEvent extends SyntheticEvent {
-    nativeEvent: WebViewErrorState;
-}
-
 export type ViewOnLayoutEvent = {
     x: number;
     y: number;
@@ -1331,11 +1243,6 @@ export interface KeyboardEvent extends SyntheticEvent {
     keyCode: number;
     metaKey: boolean;
     key: string;
-}
-
-export interface WebViewMessageEvent extends SyntheticEvent {
-    data: string;
-    origin: string;
 }
 
 //
@@ -1403,15 +1310,3 @@ export interface LayoutInfo {
 // Platform
 // ----------------------------------------------------------------------
 export type PlatformType = 'web' | 'ios' | 'android' | 'windows' | 'macos';
-
-//
-// Network
-// ----------------------------------------------------------------------
-export enum DeviceNetworkType {
-    Unknown,
-    None,
-    Wifi,
-    Mobile2G,
-    Mobile3G,
-    Mobile4G
-}

@@ -19,12 +19,12 @@ import {
     WebViewSourceUri as RNWebViewSourceUri
 } from 'react-native-webview/lib/WebViewTypes';
 
-import * as RX from '../common/Interfaces';
+import * as RX from 'reactxp';
 
-import Styles from './Styles';
+import * as Types from '../common/Types';
 
 const _styles = {
-    webViewDefault: Styles.createWebViewStyle({
+    webViewDefault: RX.Styles.createViewStyle({
         flex: 1,
         alignSelf: 'stretch'
     })
@@ -32,18 +32,13 @@ const _styles = {
 
 type MixedContentMode = 'never' | 'always' | 'compatibility' | undefined;
 
-export class WebView extends React.Component<RX.Types.WebViewProps, RX.Types.Stateless> implements RX.WebView {
+export class WebView extends React.Component<Types.WebViewProps, RX.Types.Stateless> implements Types.WebView {
     private _mountedComponent: RNWebView | undefined;
 
     render() {
         const styles = [_styles.webViewDefault, this.props.style] as RN.StyleProp<RN.ViewStyle>;
         const source = this._buildSource();
         const injectedJavascript = this._buildInjectedJavascript();
-
-        // Force use of webkit on iOS (applies to RN 0.57 and newer only).
-        const extendedProps: RNWebViewProps = {
-            useWebKit: true
-        };
 
         return (
             <RNWebView
@@ -65,18 +60,17 @@ export class WebView extends React.Component<RX.Types.WebViewProps, RX.Types.Sta
                 onMessage={ this.props.onMessage ? this._onMessage : undefined }
                 testID={ this.props.testId }
                 mixedContentMode={ this._sandboxToMixedContentMode(this.props.sandbox) }
-                { ...extendedProps }
             />
         );
     }
 
-    private _sandboxToMixedContentMode(sandbox?: RX.Types.WebViewSandboxMode): MixedContentMode {
+    private _sandboxToMixedContentMode(sandbox?: Types.WebViewSandboxMode): MixedContentMode {
         if (!!sandbox) {
-            if (sandbox & RX.Types.WebViewSandboxMode.AllowMixedContentAlways) {
+            if (sandbox & Types.WebViewSandboxMode.AllowMixedContentAlways) {
                 return 'always';
             }
 
-            if (sandbox & RX.Types.WebViewSandboxMode.AllowMixedContentCompatibilityMode) {
+            if (sandbox & Types.WebViewSandboxMode.AllowMixedContentCompatibilityMode) {
                 return 'compatibility';
             }
         }
@@ -89,7 +83,7 @@ export class WebView extends React.Component<RX.Types.WebViewProps, RX.Types.Sta
 
     protected _onMessage = (e: RNWebViewMessageEvent) => {
         if (this.props.onMessage) {
-            const event: RX.Types.WebViewMessageEvent = {
+            const event: Types.WebViewMessageEvent = {
                 defaultPrevented: e.defaultPrevented,
                 nativeEvent: e.nativeEvent,
                 cancelable: e.cancelable,

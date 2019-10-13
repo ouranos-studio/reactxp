@@ -4,7 +4,6 @@
 
 import _ = require('lodash');
 import RX = require('reactxp');
-import SyncTasks = require('synctasks');
 
 import * as CommonStyles from '../CommonStyles';
 import { AutoExecutableTest, TestResult, TestType } from '../Test';
@@ -167,7 +166,8 @@ class UserInterfaceView extends RX.Component<RX.CommonProps, UserInterfaceState>
             }
 
             if (!approxEquals(childRelative.x, 20) || !approxEquals(childRelative.y, 20)) {
-                result.errors.push(`Expected relative position of child view to be 20x20 from parent. Got ${childRelative.x}x${childRelative.y}`);
+                result.errors.push(`Expected relative position of child view to be 20x20 from parent. ` +
+                    `Got ${childRelative.x}x${childRelative.y}`);
             }
         }).catch(err => {
             result.errors.push('Error occurred when measuring views.');
@@ -181,7 +181,7 @@ class UserInterfaceView extends RX.Component<RX.CommonProps, UserInterfaceState>
         });
 
         // Wait for all async tasks to complete.
-        SyncTasks.all([measureTask, multiplierTask]).then(() => {
+        Promise.all([measureTask, multiplierTask]).then(() => {
             // Mark the test as complete.
             complete(result);
         });

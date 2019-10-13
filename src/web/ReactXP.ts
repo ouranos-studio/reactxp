@@ -32,7 +32,6 @@ import InternationalImpl from './International';
 import { Link as LinkImpl } from './Link';
 import LinkingImpl from './Linking';
 import ModalImpl from './Modal';
-import NetworkImpl from './Network';
 import { Picker as PickerImpl } from './Picker';
 import PlatformImpl from './Platform';
 import { ScrollView as ScrollViewImpl } from './ScrollView';
@@ -45,7 +44,6 @@ import UserInterfaceImpl from './UserInterface';
 import UserPresenceImpl from './UserPresence';
 import ViewImpl from './View';
 import { ViewBase } from './ViewBase';
-import { WebView as WebViewImpl } from './WebView';
 setSortAndFilterFunc(FocusManager.sortAndFilterAutoFocusCandidates);
 
 // -- STRANGE THINGS GOING ON HERE --
@@ -85,8 +83,6 @@ module ReactXP {
     export let Location: RXInterfaces.Location = LocationImpl;
     export type Modal = RXInterfaces.Modal;
     export let Modal: RXInterfaces.Modal = ModalImpl;
-    export type Network = RXInterfaces.Network;
-    export let Network: RXInterfaces.Network = NetworkImpl;
     export type Platform = RXInterfaces.Platform;
     export let Platform: RXInterfaces.Platform = PlatformImpl;
     export type Popup = RXInterfaces.Popup;
@@ -109,8 +105,6 @@ module ReactXP {
     export let UserPresence: RXInterfaces.UserPresence = UserPresenceImpl;
     export type View = RXInterfaces.View;
     export let View: typeof RXInterfaces.View = ViewImpl;
-    export type WebView = RXInterfaces.WebView;
-    export let WebView: RXInterfaces.WebViewConstructor = WebViewImpl;
 
     export import Animated = AnimatedImpl;
     export import CommonProps = RXTypes.CommonProps;

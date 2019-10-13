@@ -25,7 +25,6 @@ import LinkImpl from '../native-common/Link';
 import LocationImpl from '../common/Location';
 import ModalImpl from '../native-common/Modal';
 import RXModuleInterface = require('../common/ModuleInterface');
-import NetworkImpl from '../native-common/Network';
 import PickerImpl from '../native-common/Picker';
 import PlatformImpl from '../native-common/Platform';
 import PopupImpl from '../native-common/Popup';
@@ -37,7 +36,6 @@ import TextInputImpl from '../native-common/TextInput';
 import RXTypes = require('../common/Types');
 import UserInterfaceImpl from '../native-common/UserInterface';
 import UserPresenceImpl from '../native-common/UserPresence';
-import WebViewImpl from '../native-common/WebView';
 
 import AccessibilityImpl from './Accessibility';
 import AccessibilityPlatformUtil from './AccessibilityUtil';
@@ -83,8 +81,6 @@ module ReactXP {
     export let Location: RXInterfaces.Location = LocationImpl;
     export type Modal = RXInterfaces.Modal;
     export let Modal: RXInterfaces.Modal = ModalImpl;
-    export type Network = RXInterfaces.Network;
-    export let Network: RXInterfaces.Network = NetworkImpl;
     export type Platform = RXInterfaces.Platform;
     export let Platform: RXInterfaces.Platform = PlatformImpl;
     export type Popup = RXInterfaces.Popup;
@@ -107,8 +103,6 @@ module ReactXP {
     export let UserPresence: RXInterfaces.UserPresence = UserPresenceImpl;
     export type View = RXInterfaces.View;
     export let View: typeof RXInterfaces.View = ViewImpl;
-    export type WebView = RXInterfaces.WebView;
-    export let WebView: RXInterfaces.WebViewConstructor = WebViewImpl;
 
     const macAnimatedClasses =  {
         ...CommonAnimatedClasses,

@@ -193,7 +193,7 @@ export class Value extends RX.Types.AnimatedValue {
     // After an animation is stopped or completed, updates
     // the final value.
     _updateFinalValue(value: number | string) {
-        this._value = value;
+        this.setValue(value);
     }
 }
 
@@ -485,7 +485,7 @@ function createAnimatedComponent<PropsType extends RX.Types.CommonProps<C>, C>(C
             }
         }
 
-        componentWillReceiveProps(props: RX.Types.CommonStyledProps<RX.Types.StyleRuleSet<Object>, C>) {
+        UNSAFE_componentWillReceiveProps(props: RX.Types.CommonStyledProps<RX.Types.StyleRuleSet<Object>, C>) {
             this._updateStyles(props);
         }
 

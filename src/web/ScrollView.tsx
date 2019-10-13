@@ -144,7 +144,7 @@ export class ScrollView extends ViewBase<RX.Types.ScrollViewProps, RX.Types.Stat
         return this._customScrollbarEnabled ? this._renderWithCustomScrollbar() : this._renderNormal();
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         this._onPropsChange(this.props);
     }
 
@@ -155,8 +155,8 @@ export class ScrollView extends ViewBase<RX.Types.ScrollViewProps, RX.Types.Stat
         this._createCustomScrollbarsIfNeeded(this.props);
     }
 
-    componentWillReceiveProps(newProps: RX.Types.ScrollViewProps) {
-        super.componentWillReceiveProps(newProps);
+    UNSAFE_componentWillReceiveProps(newProps: RX.Types.ScrollViewProps) {
+        super.UNSAFE_componentWillReceiveProps(newProps);
         this._onPropsChange(newProps);
     }
 
@@ -209,6 +209,8 @@ export class ScrollView extends ViewBase<RX.Types.ScrollViewProps, RX.Types.Stat
                 if (this.props.scrollYAnimatedValue) {
                     this.props.scrollYAnimatedValue.setValue(container.scrollTop);
                 }
+            }).catch(e => {
+                console.warn('ScrollView onLayout exception: ' + JSON.stringify(e));
             });
         }
     }, (this.props.scrollEventThrottle || _defaultScrollThrottleValue), { leading: true, trailing: true });
@@ -250,16 +252,17 @@ export class ScrollView extends ViewBase<RX.Types.ScrollViewProps, RX.Types.Stat
     }
 
     private _getContainerStyle(): RX.Types.ScrollViewStyleRuleSet {
+        const { scrollEnabled = true } = this.props;
         const styles: any = [{ display: 'block' }];
         const sourceStyles = this._customScrollbarEnabled ? _customStyles : _styles;
 
         styles.push(sourceStyles.defaultStyle);
 
-        if (this.props.horizontal && this.props.vertical) {
+        if (scrollEnabled && this.props.horizontal && this.props.vertical) {
             styles.push(sourceStyles.bothStyle);
-        } else if (this.props.horizontal) {
+        } else if (scrollEnabled && this.props.horizontal) {
             styles.push(sourceStyles.horizontalStyle);
-        } else {
+        } else if (scrollEnabled) {
             styles.push(sourceStyles.verticalStyle);
         }
 

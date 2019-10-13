@@ -8,7 +8,6 @@
 import * as assert from 'assert';
 import * as RX from 'reactxp';
 import { ComponentBase } from 'resub';
-import * as SyncTasks from 'synctasks';
 
 import KeyCodes from '../utilities/KeyCodes';
 import { Colors } from '../app/Styles';
@@ -83,11 +82,11 @@ export default class Modal extends ComponentBase<ModalProps, ModalState> {
         return newState;
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         // To give children a chance to cancel the ESC handler,
         // subscribing in componentWillMount so that the children
         // could subscribe after.
-        super.componentWillMount();
+        super.UNSAFE_componentWillMount();
 
         RX.Input.keyUpEvent.subscribe(this._onKeyUp);
     }
@@ -113,8 +112,8 @@ export default class Modal extends ComponentBase<ModalProps, ModalState> {
         RX.Input.keyUpEvent.unsubscribe(this._onKeyUp);
     }
 
-    componentWillUpdate(newProps: ModalProps, newState: ModalState, newContext: any) {
-        super.componentWillUpdate(newProps, newState, newContext);
+    UNSAFE_componentWillUpdate(newProps: ModalProps, newState: ModalState, newContext: any) {
+        super.UNSAFE_componentWillUpdate(newProps, newState, newContext);
 
         // We assume the modalId doesn't change.
         assert.ok(newProps.modalId === this.props.modalId);
@@ -198,18 +197,16 @@ export default class Modal extends ComponentBase<ModalProps, ModalState> {
         });
     }
 
-    static dismissAnimated(modalId: string): SyncTasks.Promise<void> {
+    static dismissAnimated(modalId: string): Promise<void> {
         let modal = Modal._visibleModalMap[modalId];
         if (!modal) {
-            return SyncTasks.Rejected('Modal ID not found');
+            return Promise.reject('Modal ID not found');
         }
 
-        let deferred = SyncTasks.Defer<void>();
-        modal._animateClose(() => {
-            RX.Modal.dismiss(modalId);
-            deferred.resolve(void 0);
-        });
-
-        return deferred.promise();
+        return new Promise<void>(resolve => {
+            modal._animateClose(() => {
+                RX.Modal.dismiss(modalId);
+                resolve(void 0);
+            });
     }
 }

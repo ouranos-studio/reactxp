@@ -1,9 +1,10 @@
 {
   "name": "rxptest",
-  "version": "1.6.0",
+  "version": "2.0.0-rc.1",
   "private": true,
   "main": "index.js",
   "scripts": {
+    "sync": "sync-glob '../../dist' ./node_modules/reactxp/dist",
     "web-watch": "webpack --progress --colors --watch",
     "rn-watch": "tsc --watch",
     "start": "node node_modules/react-native/local-cli/cli.js start",
@@ -19,6 +20,7 @@
     "awesome-typescript-loader": "^5.2.1",
     "rnpm-plugin-windows": "^0.2.9",
     "source-map-loader": "^0.2.4",
+    "sync-glob": "^1.4.0",
     "ts-node": "^8.1.0",
     "tslint": "^5.16.0",
     "tslint-loader": "^3.5.4",
@@ -29,11 +31,14 @@
     "webpack-dev-server": "^3.3.1"
   },
   "dependencies": {
+    "@react-native-community/netinfo": "^3.2.0",
     "react": "16.8.3",
     "react-dom": "16.8.3",
     "react-native": "0.59.5",
     "react-native-webview": "^5.7.2",
     "react-native-windows": "^0.57.1",
-    "reactxp": "^1.6.1"
+    "reactxp": "^2.0.0-rc.1",
+    "reactxp-netinfo": "0.0.1-alpha.1",
+    "reactxp-webview": "0.0.1-alpha.1"
   }
 }
