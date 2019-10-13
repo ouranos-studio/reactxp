@@ -122,6 +122,8 @@ var ScrollView = /** @class */ (function (_super) {
                     if (_this.props.scrollYAnimatedValue) {
                         _this.props.scrollYAnimatedValue.setValue(container.scrollTop);
                     }
+                }).catch(function (e) {
+                    console.warn('ScrollView onLayout exception: ' + JSON.stringify(e));
                 });
             }
         }, (_this.props.scrollEventThrottle || _defaultScrollThrottleValue), { leading: true, trailing: true });
@@ -191,7 +193,7 @@ var ScrollView = /** @class */ (function (_super) {
     ScrollView.prototype.render = function () {
         return this._customScrollbarEnabled ? this._renderWithCustomScrollbar() : this._renderNormal();
     };
-    ScrollView.prototype.componentWillMount = function () {
+    ScrollView.prototype.UNSAFE_componentWillMount = function () {
         this._onPropsChange(this.props);
     };
     ScrollView.prototype.componentDidMount = function () {
@@ -199,8 +201,8 @@ var ScrollView = /** @class */ (function (_super) {
         this._mounted = true;
         this._createCustomScrollbarsIfNeeded(this.props);
     };
-    ScrollView.prototype.componentWillReceiveProps = function (newProps) {
-        _super.prototype.componentWillReceiveProps.call(this, newProps);
+    ScrollView.prototype.UNSAFE_componentWillReceiveProps = function (newProps) {
+        _super.prototype.UNSAFE_componentWillReceiveProps.call(this, newProps);
         this._onPropsChange(newProps);
     };
     ScrollView.prototype.componentWillUnmount = function () {
@@ -247,16 +249,17 @@ var ScrollView = /** @class */ (function (_super) {
         }
     };
     ScrollView.prototype._getContainerStyle = function () {
+        var _a = this.props.scrollEnabled, scrollEnabled = _a === void 0 ? true : _a;
         var styles = [{ display: 'block' }];
         var sourceStyles = this._customScrollbarEnabled ? _customStyles : _styles;
         styles.push(sourceStyles.defaultStyle);
-        if (this.props.horizontal && this.props.vertical) {
+        if (scrollEnabled && this.props.horizontal && this.props.vertical) {
             styles.push(sourceStyles.bothStyle);
         }
-        else if (this.props.horizontal) {
+        else if (scrollEnabled && this.props.horizontal) {
             styles.push(sourceStyles.horizontalStyle);
         }
-        else {
+        else if (scrollEnabled) {
             styles.push(sourceStyles.verticalStyle);
         }
         return Styles_1.default.combine([styles, this.props.style]);

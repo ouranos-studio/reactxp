@@ -7,7 +7,6 @@
  * Web-specific implementation of the cross-platform Image abstraction.
  */
 import * as React from 'react';
-import * as SyncTasks from 'synctasks';
 import { Types } from '../common/Interfaces';
 export interface ImageState {
     showImgTag: boolean;
@@ -25,13 +24,13 @@ export declare class Image extends React.Component<Types.ImageProps, ImageState>
     getChildContext(): {
         isRxParentAText: boolean;
     };
-    static prefetch(url: string): SyncTasks.Promise<boolean>;
-    static getMetadata(url: string): SyncTasks.Promise<Types.ImageMetadata>;
+    static prefetch(url: string): Promise<boolean>;
+    static getMetadata(url: string): Promise<Types.ImageMetadata>;
     private _isMounted;
     private _nativeImageWidth;
     private _nativeImageHeight;
     constructor(props: Types.ImageProps);
-    componentWillReceiveProps(nextProps: Types.ImageProps): void;
+    UNSAFE_componentWillReceiveProps(nextProps: Types.ImageProps): void;
     componentDidMount(): void;
     componentWillUnmount(): void;
     private _initializeAndSetState;

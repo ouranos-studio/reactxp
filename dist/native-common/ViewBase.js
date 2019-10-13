@@ -21,6 +21,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+var RN = require("react-native");
 var RX = require("../common/Interfaces");
 var lodashMini_1 = require("./utils/lodashMini");
 var ViewBase = /** @class */ (function (_super) {
@@ -69,6 +70,7 @@ var ViewBase = /** @class */ (function (_super) {
         }
         return props.style;
     };
+    ViewBase._supportsNativeFocusBlur = RN.Platform.OS !== 'android';
     return ViewBase;
 }(RX.ViewBase));
 exports.ViewBase = ViewBase;

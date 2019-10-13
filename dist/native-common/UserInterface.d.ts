@@ -9,7 +9,6 @@
  */
 import * as React from 'react';
 import * as RN from 'react-native';
-import * as SyncTasks from 'synctasks';
 import * as RX from '../common/Interfaces';
 export declare class UserInterface extends RX.UserInterface {
     private _touchLatencyThresholhdMs;
@@ -17,11 +16,11 @@ export declare class UserInterface extends RX.UserInterface {
     private _rootViewUsingPropsFactory;
     private _rootViewRegistry;
     constructor();
-    measureLayoutRelativeToWindow(component: React.Component<any, any>): SyncTasks.Promise<RX.Types.LayoutInfo>;
-    measureLayoutRelativeToAncestor(component: React.Component<any, any>, ancestor: React.Component<any, any>): SyncTasks.Promise<RX.Types.LayoutInfo>;
+    measureLayoutRelativeToWindow(component: React.Component<any, any>): Promise<RX.Types.LayoutInfo>;
+    measureLayoutRelativeToAncestor(component: React.Component<any, any>, ancestor: React.Component<any, any>): Promise<RX.Types.LayoutInfo>;
     measureWindow(rootViewId?: string): RX.Types.LayoutInfo;
-    getContentSizeMultiplier(): SyncTasks.Promise<number>;
-    getMaxContentSizeMultiplier(): SyncTasks.Promise<number>;
+    getContentSizeMultiplier(): Promise<number>;
+    getMaxContentSizeMultiplier(): Promise<number>;
     setMaxContentSizeMultiplier(maxContentSizeMultiplier: number): void;
     useCustomScrollbars(enable?: boolean): void;
     dismissKeyboard(): void;

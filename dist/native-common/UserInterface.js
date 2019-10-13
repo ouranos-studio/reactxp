@@ -35,10 +35,10 @@ var __assign = (this && this.__assign) || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var RN = require("react-native");
-var SyncTasks = require("synctasks");
 var AppConfig_1 = require("../common/AppConfig");
 var assert_1 = require("../common/assert");
 var RX = require("../common/Interfaces");
+var PromiseDefer_1 = require("../common/utils/PromiseDefer");
 var MainViewStore_1 = require("./MainViewStore");
 var UserInterface = /** @class */ (function (_super) {
     __extends(UserInterface, _super);
@@ -56,7 +56,7 @@ var UserInterface = /** @class */ (function (_super) {
         return _this;
     }
     UserInterface.prototype.measureLayoutRelativeToWindow = function (component) {
-        var deferred = SyncTasks.Defer();
+        var deferred = new PromiseDefer_1.Defer();
         var nodeHandle = RN.findNodeHandle(component);
         assert_1.default(!!nodeHandle);
         RN.NativeModules.UIManager.measureInWindow(nodeHandle, function (x, y, width, height) {
@@ -70,7 +70,7 @@ var UserInterface = /** @class */ (function (_super) {
         return deferred.promise();
     };
     UserInterface.prototype.measureLayoutRelativeToAncestor = function (component, ancestor) {
-        var deferred = SyncTasks.Defer();
+        var deferred = new PromiseDefer_1.Defer();
         var nodeHandle = RN.findNodeHandle(component);
         var ancestorNodeHander = RN.findNodeHandle(ancestor);
         RN.NativeModules.UIManager.measureLayout(nodeHandle, ancestorNodeHander, function () {
@@ -105,7 +105,7 @@ var UserInterface = /** @class */ (function (_super) {
         };
     };
     UserInterface.prototype.getContentSizeMultiplier = function () {
-        var deferred = SyncTasks.Defer();
+        var deferred = new PromiseDefer_1.Defer();
         // TODO: #727532 Remove conditional after implementing UIManager.getContentSizeMultiplier for UWP
         // TODO:(alregner) Remove conditional after implementing UIManager.getContentSizeMultiplier for macos
         if (RN.Platform.OS === 'windows' || RN.Platform.OS === 'macos') {
@@ -117,7 +117,7 @@ var UserInterface = /** @class */ (function (_super) {
         return deferred.promise();
     };
     UserInterface.prototype.getMaxContentSizeMultiplier = function () {
-        var deferred = SyncTasks.Defer();
+        var deferred = new PromiseDefer_1.Defer();
         // TODO: #727532 Remove conditional after implementing UIManager.getContentSizeMultiplier for UWP
         // TODO:(alregner) Remove conditional after implementing UIManager.getContentSizeMultiplier for macos
         if (RN.Platform.OS === 'windows' || RN.Platform.OS === 'macos') {

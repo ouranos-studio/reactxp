@@ -152,14 +152,14 @@ var View = /** @class */ (function (_super) {
         }
         return _this;
     }
-    View.prototype.componentWillReceiveProps = function (nextProps) {
+    View.prototype.UNSAFE_componentWillReceiveProps = function (nextProps) {
         this._updateMixin(nextProps, false);
         this._buildInternalProps(nextProps);
         if (('arbitrateFocus' in nextProps) && (this.props.arbitrateFocus !== nextProps.arbitrateFocus)) {
             this._updateFocusArbitratorProvider(nextProps);
         }
     };
-    View.prototype.componentWillUpdate = function (nextProps, nextState) {
+    View.prototype.UNSAFE_componentWillUpdate = function (nextProps, nextState) {
         //
         // Exit fast if not an "animated children" case
         if (!(nextProps.animateChildEnter || nextProps.animateChildMove || nextProps.animateChildLeave)) {
@@ -470,7 +470,7 @@ var View = /** @class */ (function (_super) {
         // Nothing to do.
     };
     View.prototype.blur = function () {
-        if (this._nativeComponent && this._nativeComponent.blur) {
+        if (ViewBase_1.default._supportsNativeFocusBlur && this._nativeComponent && this._nativeComponent.blur) {
             this._nativeComponent.blur();
         }
     };
@@ -482,7 +482,7 @@ var View = /** @class */ (function (_super) {
         if (this._isMounted) {
             AccessibilityUtil_1.default.setAccessibilityFocus(this);
         }
-        if (this._nativeComponent) {
+        if (ViewBase_1.default._supportsNativeFocusBlur && this._nativeComponent) {
             if (this._nativeComponent.focus) {
                 this._nativeComponent.focus();
             }

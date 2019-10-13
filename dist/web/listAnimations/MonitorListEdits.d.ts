@@ -41,11 +41,11 @@ export declare class MonitorListEdits extends React.Component<MonitorListEditsPr
     private _childrenToRender;
     private _phase;
     private _willAnimatePhaseInfo;
-    componentWillMount(): void;
+    UNSAFE_componentWillMount(): void;
     componentDidMount(): void;
     componentWillUnmount(): void;
     shouldComponentUpdate(): boolean;
-    componentWillUpdate(nextProps: MonitorListEditsProps): void;
+    UNSAFE_componentWillUpdate(nextProps: MonitorListEditsProps): void;
     render(): JSX.Element;
     componentDidUpdate(prevProps: MonitorListEditsProps): void;
     private _saveRef;

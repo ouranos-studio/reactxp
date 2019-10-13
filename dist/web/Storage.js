@@ -21,7 +21,6 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var SyncTasks = require("synctasks");
 var RX = require("../common/Interfaces");
 var Storage = /** @class */ (function (_super) {
     __extends(Storage, _super);
@@ -30,24 +29,24 @@ var Storage = /** @class */ (function (_super) {
     }
     Storage.prototype.getItem = function (key) {
         var value = window.localStorage.getItem(key);
-        return SyncTasks.Resolved(value === null ? undefined : value);
+        return Promise.resolve(value === null ? undefined : value);
     };
     Storage.prototype.setItem = function (key, value) {
         try {
             window.localStorage.setItem(key, value);
         }
         catch (e) {
-            return SyncTasks.Rejected(e);
+            return Promise.resolve(e);
         }
-        return SyncTasks.Resolved();
+        return Promise.resolve(void 0);
     };
     Storage.prototype.removeItem = function (key) {
         window.localStorage.removeItem(key);
-        return SyncTasks.Resolved();
+        return Promise.resolve(void 0);
     };
     Storage.prototype.clear = function () {
         window.localStorage.clear();
-        return SyncTasks.Resolved();
+        return Promise.resolve(void 0);
     };
     return Storage;
 }(RX.Storage));

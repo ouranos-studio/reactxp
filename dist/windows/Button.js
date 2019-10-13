@@ -86,6 +86,8 @@ var Button = /** @class */ (function (_super) {
                                         _this.props.onContextMenu(mouseEvent);
                                     }
                                 }
+                            }).catch(function (e) {
+                                console.warn('Button measureKayoutRelativeToWindow exception: ' + JSON.stringify(e));
                             });
                         }
                     }

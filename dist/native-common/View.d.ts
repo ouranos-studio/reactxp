@@ -37,8 +37,8 @@ export declare class View extends ViewBase<RX.Types.ViewProps, RX.Types.Stateles
     private _opacityAnimatedStyle;
     private _focusArbitratorProvider;
     constructor(props: RX.Types.ViewProps, context?: ViewContext);
-    componentWillReceiveProps(nextProps: RX.Types.ViewProps): void;
-    componentWillUpdate(nextProps: RX.Types.ViewProps, nextState: {}): void;
+    UNSAFE_componentWillReceiveProps(nextProps: RX.Types.ViewProps): void;
+    UNSAFE_componentWillUpdate(nextProps: RX.Types.ViewProps, nextState: {}): void;
     componentDidMount(): void;
     componentWillUnmount(): void;
     private _updateMixin;

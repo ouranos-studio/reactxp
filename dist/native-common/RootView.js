@@ -67,7 +67,7 @@ var BaseRootView = /** @class */ (function (_super) {
         _this._mainViewProps = _this._getPropsForMainView();
         return _this;
     }
-    BaseRootView.prototype.componentWillMount = function () {
+    BaseRootView.prototype.UNSAFE_componentWillMount = function () {
         var _this = this;
         this._frontLayerViewChangedSubscription = FrontLayerViewManager_1.default.event_changed.subscribe(function () {
             // Setting empty state will trigger a render.
@@ -145,8 +145,8 @@ var RootViewUsingStore = /** @class */ (function (_super) {
         };
         return _this;
     }
-    RootViewUsingStore.prototype.componentWillMount = function () {
-        _super.prototype.componentWillMount.call(this);
+    RootViewUsingStore.prototype.UNSAFE_componentWillMount = function () {
+        _super.prototype.UNSAFE_componentWillMount.call(this);
         MainViewStore_1.default.subscribe(this._changeListener);
         this.setState(this._getStateFromStore());
     };

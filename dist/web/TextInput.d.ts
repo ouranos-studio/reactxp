@@ -25,7 +25,7 @@ export declare class TextInput extends React.Component<Types.TextInputProps, Tex
     private _isFocused;
     private _ariaLiveEnabled;
     constructor(props: Types.TextInputProps, context?: TextInputContext);
-    componentWillReceiveProps(nextProps: Types.TextInputProps): void;
+    UNSAFE_componentWillReceiveProps(nextProps: Types.TextInputProps): void;
     componentDidMount(): void;
     componentWillUnmount(): void;
     render(): JSX.Element;

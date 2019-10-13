@@ -92,11 +92,6 @@ var Styles = /** @class */ (function (_super) {
         if (cacheStyle === void 0) { cacheStyle = true; }
         return this._adaptStyles(ruleSet, cacheStyle);
     };
-    // Creates opaque styles that can be used for WebView
-    Styles.prototype.createWebViewStyle = function (ruleSet, cacheStyle) {
-        if (cacheStyle === void 0) { cacheStyle = true; }
-        return this._adaptStyles(ruleSet, cacheStyle);
-    };
     // Creates opaque styles that can be used for Text
     Styles.prototype.createTextStyle = function (ruleSet, cacheStyle) {
         if (cacheStyle === void 0) { cacheStyle = true; }

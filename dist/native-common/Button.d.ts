@@ -44,7 +44,7 @@ export declare class Button extends ButtonBase {
     render(): JSX.Element;
     componentDidMount(): void;
     componentWillUnmount(): void;
-    componentWillReceiveProps(nextProps: Types.ButtonProps): void;
+    UNSAFE_componentWillReceiveProps(nextProps: Types.ButtonProps): void;
     getChildContext(): ButtonContext;
     setNativeProps(nativeProps: RN.ViewProps): void;
     touchableHandleActivePressIn: (e: Types.SyntheticEvent) => void;

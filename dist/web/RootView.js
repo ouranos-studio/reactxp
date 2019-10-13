@@ -248,7 +248,7 @@ var RootView = /** @class */ (function (_super) {
             focusClass: this.props.mouseFocusOutline
         };
     };
-    RootView.prototype.componentWillReceiveProps = function (prevProps) {
+    RootView.prototype.UNSAFE_componentWillReceiveProps = function (prevProps) {
         if (this.props.activePopup !== prevProps.activePopup) {
             this._stopHidePopupTimer();
             // If the popup changes, reset our state.

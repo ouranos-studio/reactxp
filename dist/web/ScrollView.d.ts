@@ -18,9 +18,9 @@ export declare class ScrollView extends ViewBase<RX.Types.ScrollViewProps, RX.Ty
     private _dragging;
     componentDidUpdate(): void;
     render(): JSX.Element;
-    componentWillMount(): void;
+    UNSAFE_componentWillMount(): void;
     componentDidMount(): void;
-    componentWillReceiveProps(newProps: RX.Types.ScrollViewProps): void;
+    UNSAFE_componentWillReceiveProps(newProps: RX.Types.ScrollViewProps): void;
     componentWillUnmount(): void;
     protected _getContainer(): HTMLElement | null;
     private _onScroll;

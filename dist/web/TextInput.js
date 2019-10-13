@@ -235,7 +235,7 @@ var TextInput = /** @class */ (function (_super) {
         };
         return _this;
     }
-    TextInput.prototype.componentWillReceiveProps = function (nextProps) {
+    TextInput.prototype.UNSAFE_componentWillReceiveProps = function (nextProps) {
         var _this = this;
         var nextState = {};
         if (nextProps.value !== undefined && nextProps.value !== this.state.inputValue) {

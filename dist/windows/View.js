@@ -119,8 +119,8 @@ var View = /** @class */ (function (_super) {
     View.prototype._getContextMenuOffset = function () {
         return { x: 0, y: 0 };
     };
-    View.prototype.componentWillReceiveProps = function (nextProps) {
-        _super.prototype.componentWillReceiveProps.call(this, nextProps);
+    View.prototype.UNSAFE_componentWillReceiveProps = function (nextProps) {
+        _super.prototype.UNSAFE_componentWillReceiveProps.call(this, nextProps);
         if (AppConfig_1.default.isDevelopmentMode()) {
             if (this.props.restrictFocusWithin !== nextProps.restrictFocusWithin) {
                 console.error('View: restrictFocusWithin is readonly and changing it during the component life cycle has no effect');
@@ -185,6 +185,8 @@ var View = /** @class */ (function (_super) {
                         _this.props.onContextMenu(mouseEvent);
                     }
                 }
+            }).catch(function (e) {
+                console.warn('View measureKayoutRelativeToWindow exception: ' + JSON.stringify(e));
             });
         }
     };

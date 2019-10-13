@@ -35,8 +35,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var PropTypes = require("prop-types");
 var React = require("react");
 var RN = require("react-native");
-var SyncTasks = require("synctasks");
 var Image_1 = require("../common/Image");
+var PromiseDefer_1 = require("../common/utils/PromiseDefer");
 var _ = require("./utils/lodashMini");
 var Platform_1 = require("./Platform");
 var Styles_1 = require("./Styles");
@@ -52,7 +52,7 @@ var Image = /** @class */ (function (_super) {
     __extends(Image, _super);
     function Image() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.state = { forceCache: false, lastNativeError: undefined, headers: _this._buildHeaders() };
+        _this.state = { forceCache: false, lastNativeError: undefined, headers: Image._maybeOverrideHeaders(_this.props) };
         _this._onMount = function (component) {
             _this._mountedComponent = component || undefined;
         };
@@ -70,7 +70,7 @@ var Image = /** @class */ (function (_super) {
             if (!_this._mountedComponent) {
                 return;
             }
-            if (!_this.state.forceCache && !!_this._getMaxStaleHeader()) {
+            if (!_this.state.forceCache && !!Image._getMaxStaleHeader(_this.props.headers)) {
                 // Some platforms will not use expired cache data unless explicitly told so.
                 // Let's try again with cache: 'only-if-cached'.
                 _this.setState({ forceCache: true, lastNativeError: e.nativeEvent.error });
@@ -88,15 +88,15 @@ var Image = /** @class */ (function (_super) {
         return _this;
     }
     Image.prefetch = function (url) {
-        return SyncTasks.fromThenable(RN.Image.prefetch(url));
+        return RN.Image.prefetch(url);
     };
     Image.getMetadata = function (url) {
-        return SyncTasks.fromThenable(Image.prefetch(url)).then(function (success) {
+        return Image.prefetch(url).then(function (success) {
             if (!success) {
-                return SyncTasks.Rejected("Prefetching url " + url + " did not succeed.");
+                return Promise.reject("Prefetching url " + url + " did not succeed.");
             }
             else {
-                var defer_1 = SyncTasks.Defer();
+                var defer_1 = new PromiseDefer_1.Defer();
                 RN.Image.getSize(url, function (width, height) {
                     defer_1.resolve({ width: width, height: height });
                 }, function (error) {
@@ -128,11 +128,11 @@ var Image = /** @class */ (function (_super) {
         }
         return (React.createElement(RN.Image, __assign({ style: styles }, props)));
     };
-    Image.prototype.componentWillReceiveProps = function (nextProps) {
+    Image.prototype.UNSAFE_componentWillReceiveProps = function (nextProps) {
         var sourceOrHeaderChanged = (nextProps.source !== this.props.source ||
             !_.isEqual(nextProps.headers || {}, this.props.headers || {}));
         if (sourceOrHeaderChanged) {
-            this.setState({ forceCache: false, lastNativeError: undefined, headers: this._buildHeaders() });
+            this.setState({ forceCache: false, lastNativeError: undefined, headers: Image._maybeOverrideHeaders(nextProps) });
         }
     };
     Image.prototype.setNativeProps = function (nativeProps) {
@@ -161,35 +161,35 @@ var Image = /** @class */ (function (_super) {
         }
         return Image_1.DEFAULT_RESIZE_MODE;
     };
-    Image.prototype._buildHeaders = function () {
-        if (this.props.headers) {
-            var cacheControlHeader = this._getMaxStaleHeader();
+    Image._maybeOverrideHeaders = function (props) {
+        if (props.headers) {
+            var cacheControlHeader = Image._getMaxStaleHeader(props.headers);
             if (cacheControlHeader) {
                 // Filter out Cache-Control: max-stale. It has the opposite effect on iOS: instead of having
                 // the cache return stale data it disables the cache altogether. We emulate the header by
                 // retrying with cache: 'only-if-cached'.
-                return _.omit(this.props.headers, [cacheControlHeader]);
+                return _.omit(props.headers, [cacheControlHeader]);
             }
         }
-        return this.props.headers;
+        return undefined;
     };
     Image.prototype._buildSource = function () {
         // Check if require'd image resource
         if (typeof this.props.source === 'number') {
             return this.props.source;
         }
-        var source = { uri: this.props.source, headers: this.state.headers };
+        var source = { uri: this.props.source, headers: this.state.headers || this.props.headers };
         if (this.state.forceCache) {
             source.cache = 'only-if-cached';
         }
         return source;
     };
-    Image.prototype._getMaxStaleHeader = function () {
-        if (Platform_1.default.getType() === 'ios' && this.props.headers) {
-            for (var key in this.props.headers) {
+    Image._getMaxStaleHeader = function (headers) {
+        if (Platform_1.default.getType() === 'ios' && headers) {
+            for (var key in headers) {
                 // We don't know how stale the cached data is so we're matching only the simple 'max-stale' attribute
                 // without a value.
-                if (key.toLowerCase() === 'cache-control' && this.props.headers[key].toLowerCase() === 'max-stale') {
+                if (key.toLowerCase() === 'cache-control' && headers[key].toLowerCase() === 'max-stale') {
                     return key;
                 }
             }

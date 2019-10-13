@@ -21,9 +21,9 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var SyncTasks = require("synctasks");
 var AppConfig_1 = require("../common/AppConfig");
 var RX = require("../common/Interfaces");
+var PromiseDefer_1 = require("../common/utils/PromiseDefer");
 var Timers_1 = require("../common/utils/Timers");
 var FrontLayerViewManager_1 = require("./FrontLayerViewManager");
 var _ = require("./utils/lodashMini");
@@ -64,7 +64,7 @@ var ViewBase = /** @class */ (function (_super) {
             }
         }
     };
-    ViewBase.prototype.componentWillReceiveProps = function (nextProps) {
+    ViewBase.prototype.UNSAFE_componentWillReceiveProps = function (nextProps) {
         if (!!this.props.onLayout !== !!nextProps.onLayout) {
             if (this.props.onLayout) {
                 this._checkViewCheckerUnbuild();
@@ -76,7 +76,9 @@ var ViewBase = /** @class */ (function (_super) {
     };
     ViewBase._checkViews = function () {
         _.each(ViewBase._viewCheckingList, function (view) {
-            view._checkAndReportLayout();
+            view._checkAndReportLayout().catch(function (e) {
+                console.warn('ScrollView onLayout exception: ' + JSON.stringify(e));
+            });
         });
     };
     ViewBase._reportLayoutChange = function (func) {
@@ -106,11 +108,11 @@ var ViewBase = /** @class */ (function (_super) {
     ViewBase.prototype._checkAndReportLayout = function () {
         var _this = this;
         if (!this._isMounted) {
-            return SyncTasks.Resolved();
+            return Promise.resolve(void 0);
         }
         var container = this._getContainer();
         if (!container) {
-            return SyncTasks.Resolved();
+            return Promise.resolve(void 0);
         }
         var newX = container.offsetLeft;
         var newY = container.offsetTop;
@@ -125,7 +127,7 @@ var ViewBase = /** @class */ (function (_super) {
             this._lastY = newY;
             this._lastWidth = newWidth;
             this._lastHeight = newHeight;
-            var deferred_1 = SyncTasks.Defer();
+            var deferred_1 = new PromiseDefer_1.Defer();
             ViewBase._reportLayoutChange(function () {
                 if (!_this._isMounted || !_this.props.onLayout) {
                     deferred_1.resolve(void 0);
@@ -141,7 +143,7 @@ var ViewBase = /** @class */ (function (_super) {
             });
             return deferred_1.promise();
         }
-        return SyncTasks.Resolved();
+        return Promise.resolve(void 0);
     };
     ViewBase.prototype._checkViewCheckerBuild = function () {
         // Enable the timer to check for layout changes. Use a different duration
@@ -187,11 +189,15 @@ var ViewBase = /** @class */ (function (_super) {
                 // execution because the browser would have to do a reflow. Avoid that
                 // by deferring the work.
                 setTimeout(function () {
-                    _this._checkAndReportLayout();
+                    _this._checkAndReportLayout().catch(function (e) {
+                        console.warn('ScrollView onLayout exception: ' + JSON.stringify(e));
+                    });
                 }, 0);
             }
             else {
-                this._checkAndReportLayout();
+                this._checkAndReportLayout().catch(function (e) {
+                    console.warn('ScrollView onLayout exception: ' + JSON.stringify(e));
+                });
             }
         }
         this._isPopupDisplayed = isPopupDisplayed;

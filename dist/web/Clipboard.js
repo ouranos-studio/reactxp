@@ -21,7 +21,6 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var SyncTasks = require("synctasks");
 var RX = require("../common/Interfaces");
 var Clipboard = /** @class */ (function (_super) {
     __extends(Clipboard, _super);
@@ -38,7 +37,7 @@ var Clipboard = /** @class */ (function (_super) {
     Clipboard.prototype.getText = function () {
         // Not supported in web platforms. This should can be only handled
         // in the paste event handlers.
-        return SyncTasks.Rejected('Not supported on web');
+        return Promise.reject('Not supported on web');
     };
     Clipboard._createInvisibleNode = function () {
         var node = document.createElement('textarea');

@@ -34,9 +34,9 @@ var __assign = (this && this.__assign) || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var PropTypes = require("prop-types");
 var React = require("react");
-var SyncTasks = require("synctasks");
 var assert_1 = require("../common/assert");
 var Image_1 = require("../common/Image");
+var PromiseDefer_1 = require("../common/utils/PromiseDefer");
 var _ = require("./utils/lodashMini");
 var restyleForInlineText_1 = require("./utils/restyleForInlineText");
 var Styles_1 = require("./Styles");
@@ -166,7 +166,7 @@ var Image = /** @class */ (function (_super) {
         return { isRxParentAText: false };
     };
     Image.prefetch = function (url) {
-        var defer = SyncTasks.Defer();
+        var defer = new PromiseDefer_1.Defer();
         var img = new window.Image();
         img.onload = (function (event) {
             defer.resolve(true);
@@ -181,7 +181,7 @@ var Image = /** @class */ (function (_super) {
         return defer.promise();
     };
     Image.getMetadata = function (url) {
-        var defer = SyncTasks.Defer();
+        var defer = new PromiseDefer_1.Defer();
         var img = new window.Image();
         img.onload = (function (event) {
             defer.resolve({
@@ -198,7 +198,7 @@ var Image = /** @class */ (function (_super) {
         img.src = url;
         return defer.promise();
     };
-    Image.prototype.componentWillReceiveProps = function (nextProps) {
+    Image.prototype.UNSAFE_componentWillReceiveProps = function (nextProps) {
         var sourceOrHeaderChanged = (nextProps.source !== this.props.source ||
             !_.isEqual(nextProps.headers || {}, this.props.headers || {}));
         if (!nextProps.onLoad !== !this.props.onLoad || !nextProps.onError !== !this.props.onError || sourceOrHeaderChanged) {

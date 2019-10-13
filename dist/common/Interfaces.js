@@ -189,13 +189,6 @@ var Location = /** @class */ (function () {
     return Location;
 }());
 exports.Location = Location;
-var Network = /** @class */ (function () {
-    function Network() {
-        this.connectivityChangedEvent = new subscribableevent_1.default();
-    }
-    return Network;
-}());
-exports.Network = Network;
 var Platform = /** @class */ (function () {
     function Platform() {
     }

@@ -111,7 +111,7 @@ var MonitorListEdits = /** @class */ (function (_super) {
         _this._phase = ComponentPhaseEnum.rest;
         return _this;
     }
-    MonitorListEdits.prototype.componentWillMount = function () {
+    MonitorListEdits.prototype.UNSAFE_componentWillMount = function () {
         this._childrenKeys = extractChildrenKeys(this.props.children);
         this._childrenMap = createChildrenMap(this.props.children);
     };
@@ -124,7 +124,7 @@ var MonitorListEdits = /** @class */ (function (_super) {
     MonitorListEdits.prototype.shouldComponentUpdate = function () {
         return this._phase !== ComponentPhaseEnum.animating;
     };
-    MonitorListEdits.prototype.componentWillUpdate = function (nextProps) {
+    MonitorListEdits.prototype.UNSAFE_componentWillUpdate = function (nextProps) {
         assert_1.default(this._phase !== ComponentPhaseEnum.animating, 'componentWillUpdate should never run while the component is animating due to the implementation of shouldComponentUpdate');
         var prevChildrenKeys = this._childrenKeys;
         var nextChildrenKeys = extractChildrenKeys(nextProps.children);

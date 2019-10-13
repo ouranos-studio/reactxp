@@ -63,7 +63,7 @@ export declare class RootView extends React.Component<RootViewProps, RootViewSta
         focusManager: FocusManager;
     };
     private _getInitialState;
-    componentWillReceiveProps(prevProps: RootViewProps): void;
+    UNSAFE_componentWillReceiveProps(prevProps: RootViewProps): void;
     componentDidUpdate(prevProps: RootViewProps, prevState: RootViewState): void;
     componentDidMount(): void;
     componentWillUnmount(): void;

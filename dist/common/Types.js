@@ -115,22 +115,6 @@ var PreferredPanGesture;
     PreferredPanGesture[PreferredPanGesture["Horizontal"] = 0] = "Horizontal";
     PreferredPanGesture[PreferredPanGesture["Vertical"] = 1] = "Vertical";
 })(PreferredPanGesture = exports.PreferredPanGesture || (exports.PreferredPanGesture = {}));
-var WebViewSandboxMode;
-(function (WebViewSandboxMode) {
-    WebViewSandboxMode[WebViewSandboxMode["None"] = 0] = "None";
-    WebViewSandboxMode[WebViewSandboxMode["AllowForms"] = 1] = "AllowForms";
-    WebViewSandboxMode[WebViewSandboxMode["AllowModals"] = 2] = "AllowModals";
-    WebViewSandboxMode[WebViewSandboxMode["AllowOrientationLock"] = 4] = "AllowOrientationLock";
-    WebViewSandboxMode[WebViewSandboxMode["AllowPointerLock"] = 8] = "AllowPointerLock";
-    WebViewSandboxMode[WebViewSandboxMode["AllowPopups"] = 16] = "AllowPopups";
-    WebViewSandboxMode[WebViewSandboxMode["AllowPopupsToEscapeSandbox"] = 32] = "AllowPopupsToEscapeSandbox";
-    WebViewSandboxMode[WebViewSandboxMode["AllowPresentation"] = 64] = "AllowPresentation";
-    WebViewSandboxMode[WebViewSandboxMode["AllowSameOrigin"] = 128] = "AllowSameOrigin";
-    WebViewSandboxMode[WebViewSandboxMode["AllowScripts"] = 256] = "AllowScripts";
-    WebViewSandboxMode[WebViewSandboxMode["AllowTopNavigation"] = 512] = "AllowTopNavigation";
-    WebViewSandboxMode[WebViewSandboxMode["AllowMixedContentAlways"] = 1024] = "AllowMixedContentAlways";
-    WebViewSandboxMode[WebViewSandboxMode["AllowMixedContentCompatibilityMode"] = 2048] = "AllowMixedContentCompatibilityMode";
-})(WebViewSandboxMode = exports.WebViewSandboxMode || (exports.WebViewSandboxMode = {}));
 //
 // Location
 // ----------------------------------------------------------------------
@@ -163,15 +147,3 @@ var AppActivationState;
     AppActivationState[AppActivationState["Inactive"] = 3] = "Inactive";
     AppActivationState[AppActivationState["Extension"] = 4] = "Extension";
 })(AppActivationState = exports.AppActivationState || (exports.AppActivationState = {}));
-//
-// Network
-// ----------------------------------------------------------------------
-var DeviceNetworkType;
-(function (DeviceNetworkType) {
-    DeviceNetworkType[DeviceNetworkType["Unknown"] = 0] = "Unknown";
-    DeviceNetworkType[DeviceNetworkType["None"] = 1] = "None";
-    DeviceNetworkType[DeviceNetworkType["Wifi"] = 2] = "Wifi";
-    DeviceNetworkType[DeviceNetworkType["Mobile2G"] = 3] = "Mobile2G";
-    DeviceNetworkType[DeviceNetworkType["Mobile3G"] = 4] = "Mobile3G";
-    DeviceNetworkType[DeviceNetworkType["Mobile4G"] = 5] = "Mobile4G";
-})(DeviceNetworkType = exports.DeviceNetworkType || (exports.DeviceNetworkType = {}));

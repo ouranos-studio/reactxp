@@ -16,7 +16,6 @@ export declare class Styles extends RX.Styles {
     createAnimatedViewStyle(ruleSet: RX.Types.AnimatedViewStyle): RX.Types.AnimatedViewStyleRuleSet;
     createScrollViewStyle(ruleSet: RX.Types.ScrollViewStyle, cacheStyle?: boolean): RX.Types.ScrollViewStyleRuleSet;
     createButtonStyle(ruleSet: RX.Types.ButtonStyle, cacheStyle?: boolean): RX.Types.ButtonStyleRuleSet;
-    createWebViewStyle(ruleSet: RX.Types.WebViewStyle, cacheStyle?: boolean): RX.Types.WebViewStyleRuleSet;
     createTextStyle(ruleSet: RX.Types.TextStyle, cacheStyle?: boolean): RX.Types.TextStyleRuleSet;
     createAnimatedTextStyle(ruleSet: RX.Types.AnimatedTextStyle): RX.Types.AnimatedTextStyleRuleSet;
     createTextInputStyle(ruleSet: RX.Types.TextInputStyle, cacheStyle?: boolean): RX.Types.TextInputStyleRuleSet;

@@ -9,7 +9,6 @@
  */
 import * as React from 'react';
 import SubscribableEvent from 'subscribableevent';
-import * as SyncTasks from 'synctasks';
 import * as Types from './Types';
 export { Types };
 export declare abstract class ActivityIndicator extends React.Component<Types.ActivityIndicatorProps> {
@@ -46,10 +45,10 @@ export declare abstract class UserInterface {
     abstract useCustomScrollbars(enable?: boolean): void;
     abstract isHighPixelDensityScreen(): boolean;
     abstract getPixelRatio(): number;
-    abstract measureLayoutRelativeToWindow(component: React.Component<any>): SyncTasks.Promise<Types.LayoutInfo>;
-    abstract measureLayoutRelativeToAncestor(component: React.Component<any>, ancestor: React.Component<any>): SyncTasks.Promise<Types.LayoutInfo>;
+    abstract measureLayoutRelativeToWindow(component: React.Component<any>): Promise<Types.LayoutInfo>;
+    abstract measureLayoutRelativeToAncestor(component: React.Component<any>, ancestor: React.Component<any>): Promise<Types.LayoutInfo>;
     abstract measureWindow(rootViewId?: string): Types.Dimensions;
-    abstract getContentSizeMultiplier(): SyncTasks.Promise<number>;
+    abstract getContentSizeMultiplier(): Promise<number>;
     contentSizeMultiplierChangedEvent: SubscribableEvent<(multiplier: number) => void>;
     abstract setMaxContentSizeMultiplier(maxContentSizeMultiplier: number): void;
     abstract dismissKeyboard(): void;
@@ -72,11 +71,11 @@ export declare abstract class Popup {
     abstract isDisplayed(popupId?: string): boolean;
 }
 export declare abstract class Linking {
-    abstract getInitialUrl(): SyncTasks.Promise<string | undefined>;
+    abstract getInitialUrl(): Promise<string | undefined>;
     deepLinkRequestEvent: SubscribableEvent<(url: string) => void>;
-    abstract openUrl(url: string): SyncTasks.Promise<void>;
-    abstract launchSms(smsData: Types.SmsInfo): SyncTasks.Promise<void>;
-    abstract launchEmail(emailData: Types.EmailInfo): SyncTasks.Promise<void>;
+    abstract openUrl(url: string): Promise<void>;
+    abstract launchSms(smsData: Types.SmsInfo): Promise<void>;
+    abstract launchEmail(emailData: Types.EmailInfo): Promise<void>;
     protected abstract _createEmailUrl(emailInfo: Types.EmailInfo): string;
 }
 export declare abstract class Accessibility {
@@ -102,8 +101,8 @@ export declare class Component<P, T> extends React.Component<P, T> {
 }
 export interface ImageConstructor {
     new (props: Types.ImageProps): Image;
-    prefetch(url: string): SyncTasks.Promise<boolean>;
-    getMetadata(url: string): SyncTasks.Promise<Types.ImageMetadata>;
+    prefetch(url: string): Promise<boolean>;
+    getMetadata(url: string): Promise<Types.ImageMetadata>;
 }
 export declare abstract class Image extends React.Component<Types.ImageProps> {
     abstract getNativeWidth(): number | undefined;
@@ -111,7 +110,7 @@ export declare abstract class Image extends React.Component<Types.ImageProps> {
 }
 export declare abstract class Clipboard {
     abstract setText(text: string): void;
-    abstract getText(): SyncTasks.Promise<string>;
+    abstract getText(): Promise<string>;
 }
 export declare abstract class Link extends React.Component<Types.LinkProps> implements FocusableComponent {
     abstract focus(): void;
@@ -119,25 +118,20 @@ export declare abstract class Link extends React.Component<Types.LinkProps> impl
     abstract blur(): void;
 }
 export declare abstract class Storage {
-    abstract getItem(key: string): SyncTasks.Promise<string | undefined>;
-    abstract setItem(key: string, value: string): SyncTasks.Promise<void>;
-    abstract removeItem(key: string): SyncTasks.Promise<void>;
-    abstract clear(): SyncTasks.Promise<void>;
+    abstract getItem(key: string): Promise<string | undefined>;
+    abstract setItem(key: string, value: string): Promise<void>;
+    abstract removeItem(key: string): Promise<void>;
+    abstract clear(): Promise<void>;
 }
 export declare abstract class Location {
     abstract isAvailable(): boolean;
     abstract setConfiguration(config: LocationConfiguration): void;
-    abstract getCurrentPosition(options?: PositionOptions): SyncTasks.Promise<Position>;
-    abstract watchPosition(successCallback: Types.LocationSuccessCallback, errorCallback?: Types.LocationFailureCallback, options?: PositionOptions): SyncTasks.Promise<Types.LocationWatchId>;
+    abstract getCurrentPosition(options?: PositionOptions): Promise<Position>;
+    abstract watchPosition(successCallback: Types.LocationSuccessCallback, errorCallback?: Types.LocationFailureCallback, options?: PositionOptions): Promise<Types.LocationWatchId>;
     abstract clearWatch(watchID: Types.LocationWatchId): void;
 }
 export interface LocationConfiguration {
     skipPermissionRequests: boolean;
-}
-export declare abstract class Network {
-    abstract isConnected(): SyncTasks.Promise<boolean>;
-    abstract getType(): SyncTasks.Promise<Types.DeviceNetworkType>;
-    connectivityChangedEvent: SubscribableEvent<(isConnected: boolean) => void>;
 }
 export declare abstract class Platform {
     abstract getType(): Types.PlatformType;
@@ -171,7 +165,6 @@ export declare abstract class Styles {
     abstract createAnimatedViewStyle(ruleSet: Types.AnimatedViewStyle): Types.AnimatedViewStyleRuleSet;
     abstract createScrollViewStyle(ruleSet: Types.ScrollViewStyle, cacheStyle?: boolean): Types.ScrollViewStyleRuleSet;
     abstract createButtonStyle(ruleSet: Types.ButtonStyle, cacheStyle?: boolean): Types.ButtonStyleRuleSet;
-    abstract createWebViewStyle(ruleSet: Types.WebViewStyle, cacheStyle?: boolean): Types.WebViewStyleRuleSet;
     abstract createTextStyle(ruleSet: Types.TextStyle, cacheStyle?: boolean): Types.TextStyleRuleSet;
     abstract createAnimatedTextStyle(ruleSet: Types.AnimatedTextStyle): Types.AnimatedTextStyleRuleSet;
     abstract createTextInputStyle(ruleSet: Types.TextInputStyle, cacheStyle?: boolean): Types.TextInputStyleRuleSet;
@@ -218,15 +211,6 @@ export declare abstract class View extends ViewBase<Types.ViewProps> implements 
     abstract blur(): void;
 }
 export declare abstract class GestureView extends ViewBase<Types.GestureViewProps> {
-}
-export interface WebViewConstructor {
-    new (props: Types.WebViewProps): WebView;
-}
-export interface WebView extends ViewBase<Types.WebViewProps> {
-    postMessage(message: string, targetOrigin?: string): void;
-    reload(): void;
-    goBack(): void;
-    goForward(): void;
 }
 export interface Animated {
     Image: typeof AnimatedImage;

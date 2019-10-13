@@ -6,12 +6,11 @@
  *
  * Common implementation for deep linking.
  */
-import * as SyncTasks from 'synctasks';
 import * as RX from './Interfaces';
 export declare abstract class Linking extends RX.Linking {
-    protected abstract _openUrl(url: string): SyncTasks.Promise<void>;
-    launchSms(phoneInfo: RX.Types.SmsInfo): SyncTasks.Promise<void>;
-    openUrl(url: string): SyncTasks.Promise<void>;
+    protected abstract _openUrl(url: string): Promise<void>;
+    launchSms(phoneInfo: RX.Types.SmsInfo): Promise<void>;
+    openUrl(url: string): Promise<void>;
     protected _createEmailUrl(emailInfo: RX.Types.EmailInfo): string;
     protected _createSmsUrl(smsInfo: RX.Types.SmsInfo): string;
     private _isEmailValid;

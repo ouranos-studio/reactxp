@@ -42,7 +42,7 @@ export declare class View extends ViewCommon implements React.ChildContextProvid
     private _popupContainer;
     private _popupToken;
     constructor(props: Types.ViewProps, context?: ViewContext);
-    componentWillReceiveProps(nextProps: Types.ViewProps): void;
+    UNSAFE_componentWillReceiveProps(nextProps: Types.ViewProps): void;
     enableFocusManager(): void;
     disableFocusManager(): void;
     componentDidMount(): void;

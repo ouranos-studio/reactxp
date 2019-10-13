@@ -42,8 +42,6 @@ declare module ReactXP {
     let Location: RXInterfaces.Location;
     type Modal = RXInterfaces.Modal;
     let Modal: RXInterfaces.Modal;
-    type Network = RXInterfaces.Network;
-    let Network: RXInterfaces.Network;
     type Platform = RXInterfaces.Platform;
     let Platform: RXInterfaces.Platform;
     type Popup = RXInterfaces.Popup;
@@ -66,8 +64,6 @@ declare module ReactXP {
     let UserPresence: RXInterfaces.UserPresence;
     type View = RXInterfaces.View;
     let View: typeof RXInterfaces.View;
-    type WebView = RXInterfaces.WebView;
-    let WebView: RXInterfaces.WebViewConstructor;
     export import Animated = AnimatedImpl;
     export import CommonProps = RXTypes.CommonProps;
     export import CommonStyledProps = RXTypes.CommonStyledProps;

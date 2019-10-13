@@ -53,8 +53,7 @@ export declare class Button extends ButtonBase {
      * 2- Long press > leave button > release touch
      * 3- Tap
      *
-     * Case where onPressOut is not triggered and the bubbling is NOT canceled:
-     * 4- Press in > leave button > release touch
+     * All other cases: onPressOut is not triggered and the bubbling is NOT canceled:
      */
     private _onTouchEnd;
     private _onMouseEnter;

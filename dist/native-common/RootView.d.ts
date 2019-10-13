@@ -25,7 +25,7 @@ declare abstract class BaseRootView<P extends BaseRootViewProps> extends React.C
     protected _rootViewId?: string | null;
     protected abstract _getPropsForMainView(): {};
     constructor(props: P);
-    componentWillMount(): void;
+    UNSAFE_componentWillMount(): void;
     componentDidMount(): void;
     componentWillUnmount(): void;
     render(): JSX.Element;
@@ -35,7 +35,7 @@ declare abstract class BaseRootView<P extends BaseRootViewProps> extends React.C
 declare class RootViewUsingStore extends BaseRootView<BaseRootViewProps> {
     private _changeListener;
     constructor(props: BaseRootViewProps);
-    componentWillMount(): void;
+    UNSAFE_componentWillMount(): void;
     componentWillUnmount(): void;
     private _onChange;
     private _getStateFromStore;

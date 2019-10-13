@@ -78,6 +78,11 @@ var GestureView = /** @class */ (function (_super) {
             }
         };
         _this._onMouseDown = function (e) {
+            if (_this.props.onPan || _this.props.onPanHorizontal || _this.props.onPanVertical) {
+                // Disable mousedown default action that initiates a drag/drop operation and breaks panning with a not-allowed cursor.
+                // https://w3c.github.io/uievents/#mousedown
+                e.preventDefault();
+            }
             if (_this.props.onLongPress) {
                 _this._startLongPressTimer(e);
             }

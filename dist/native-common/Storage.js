@@ -22,15 +22,15 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var RN = require("react-native");
-var SyncTasks = require("synctasks");
 var RX = require("../common/Interfaces");
+var PromiseDefer_1 = require("../common/utils/PromiseDefer");
 var Storage = /** @class */ (function (_super) {
     __extends(Storage, _super);
     function Storage() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Storage.prototype.getItem = function (key) {
-        var deferred = SyncTasks.Defer();
+        var deferred = new PromiseDefer_1.Defer();
         RN.AsyncStorage.getItem(key, function (error, result) {
             if (!error) {
                 deferred.resolve(result || undefined);
@@ -44,7 +44,7 @@ var Storage = /** @class */ (function (_super) {
         return deferred.promise();
     };
     Storage.prototype.setItem = function (key, value) {
-        var deferred = SyncTasks.Defer();
+        var deferred = new PromiseDefer_1.Defer();
         RN.AsyncStorage.setItem(key, value, function (error) {
             if (!error) {
                 deferred.resolve(void 0);
@@ -58,7 +58,7 @@ var Storage = /** @class */ (function (_super) {
         return deferred.promise();
     };
     Storage.prototype.removeItem = function (key) {
-        var deferred = SyncTasks.Defer();
+        var deferred = new PromiseDefer_1.Defer();
         RN.AsyncStorage.removeItem(key, function (error) {
             if (!error) {
                 deferred.resolve(void 0);
@@ -72,7 +72,7 @@ var Storage = /** @class */ (function (_super) {
         return deferred.promise();
     };
     Storage.prototype.clear = function () {
-        var deferred = SyncTasks.Defer();
+        var deferred = new PromiseDefer_1.Defer();
         RN.AsyncStorage.clear(function (error) {
             if (!error) {
                 deferred.resolve(void 0);

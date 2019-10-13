@@ -22,7 +22,6 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var RN = require("react-native");
-var SyncTasks = require("synctasks");
 var RX = require("../common/Interfaces");
 var Clipboard = /** @class */ (function (_super) {
     __extends(Clipboard, _super);
@@ -33,7 +32,7 @@ var Clipboard = /** @class */ (function (_super) {
         RN.Clipboard.setString(text);
     };
     Clipboard.prototype.getText = function () {
-        return SyncTasks.fromThenable(RN.Clipboard.getString());
+        return RN.Clipboard.getString();
     };
     return Clipboard;
 }(RX.Clipboard));

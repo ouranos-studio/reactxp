@@ -23,8 +23,8 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var ReactDOM = require("react-dom");
-var SyncTasks = require("synctasks");
 var RX = require("../common/Interfaces");
+var PromiseDefer_1 = require("../common/utils/PromiseDefer");
 var FrontLayerViewManager_1 = require("./FrontLayerViewManager");
 var ScrollViewConfig_1 = require("./ScrollViewConfig");
 var UserInterface = /** @class */ (function (_super) {
@@ -39,7 +39,7 @@ var UserInterface = /** @class */ (function (_super) {
         return _this;
     }
     UserInterface.prototype.measureLayoutRelativeToWindow = function (component) {
-        var deferred = SyncTasks.Defer();
+        var deferred = new PromiseDefer_1.Defer();
         var componentDomNode = null;
         try {
             componentDomNode = ReactDOM.findDOMNode(component);
@@ -62,7 +62,7 @@ var UserInterface = /** @class */ (function (_super) {
         return deferred.promise();
     };
     UserInterface.prototype.measureLayoutRelativeToAncestor = function (component, ancestor) {
-        var deferred = SyncTasks.Defer();
+        var deferred = new PromiseDefer_1.Defer();
         var componentDomNode = null;
         var ancestorDomNode = null;
         try {
@@ -109,12 +109,12 @@ var UserInterface = /** @class */ (function (_super) {
     UserInterface.prototype.getContentSizeMultiplier = function () {
         // Browsers don't support font-specific scaling. They scale all of their
         // UI elements the same.
-        return SyncTasks.Resolved(1);
+        return Promise.resolve(1);
     };
     UserInterface.prototype.getMaxContentSizeMultiplier = function () {
         // Browsers don't support font-specific scaling. They scale all of their
         // UI elements the same.
-        return SyncTasks.Resolved(0);
+        return Promise.resolve(0);
     };
     UserInterface.prototype.setMaxContentSizeMultiplier = function (maxContentSizeMultiplier) {
         // Browsers don't support font-specific scaling. They scale all of their

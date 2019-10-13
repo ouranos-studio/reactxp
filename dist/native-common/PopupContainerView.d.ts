@@ -28,7 +28,7 @@ export declare class PopupContainerView extends PopupContainerViewBase<PopupCont
     private _respositionPopupTimer;
     constructor(props: PopupContainerViewProps, context?: PopupContainerViewContext);
     private _getInitialState;
-    componentWillReceiveProps(prevProps: PopupContainerViewProps): void;
+    UNSAFE_componentWillReceiveProps(prevProps: PopupContainerViewProps): void;
     componentDidUpdate(prevProps: PopupContainerViewProps, prevState: PopupContainerViewState): void;
     componentDidMount(): void;
     componentWillUnmount(): void;

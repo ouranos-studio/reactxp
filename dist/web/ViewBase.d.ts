@@ -7,7 +7,6 @@
  * A base class for the Web-specific implementation of the cross-platform View abstraction.
  */
 /// <reference types="react" />
-import * as SyncTasks from 'synctasks';
 import * as RX from '../common/Interfaces';
 export declare abstract class ViewBase<P extends RX.Types.ViewPropsShared<C>, S, C extends RX.View | RX.ScrollView> extends RX.ViewBase<P, S> {
     private static _viewCheckingTimer;
@@ -19,7 +18,7 @@ export declare abstract class ViewBase<P extends RX.Types.ViewPropsShared<C>, S,
     protected _isMounted: boolean;
     private _isPopupDisplayed;
     static setActivationState(newState: RX.Types.AppActivationState): void;
-    componentWillReceiveProps(nextProps: RX.Types.ViewPropsShared<C>): void;
+    UNSAFE_componentWillReceiveProps(nextProps: RX.Types.ViewPropsShared<C>): void;
     protected static _checkViews(): void;
     private static _layoutReportList;
     private static _layoutReportingTimer;
@@ -29,7 +28,7 @@ export declare abstract class ViewBase<P extends RX.Types.ViewPropsShared<C>, S,
     protected _lastY: number;
     protected _lastWidth: number;
     protected _lastHeight: number;
-    protected _checkAndReportLayout(): SyncTasks.Promise<void>;
+    protected _checkAndReportLayout(): Promise<void>;
     private _checkViewCheckerBuild;
     private _checkViewCheckerUnbuild;
     componentDidMount(): void;

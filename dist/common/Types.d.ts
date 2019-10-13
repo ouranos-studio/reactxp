@@ -161,9 +161,6 @@ export declare type ScrollViewStyleRuleSet = StyleRuleSet<ScrollViewStyle>;
 export interface ButtonStyle extends ViewStyle {
 }
 export declare type ButtonStyleRuleSet = StyleRuleSet<ButtonStyle>;
-export interface WebViewStyle extends ViewStyle {
-}
-export declare type WebViewStyleRuleSet = StyleRuleSet<WebViewStyle>;
 export interface ActivityIndicatorStyle extends ViewStyle {
 }
 export declare type ActivityIndicatorStyleRuleSet = StyleRuleSet<ActivityIndicatorStyle>;
@@ -565,7 +562,7 @@ export interface ScrollViewProps extends CommonStyledProps<ScrollViewStyleRuleSe
     showsVerticalScrollIndicator?: boolean;
     scrollEnabled?: boolean;
     keyboardDismissMode?: 'none' | 'interactive' | 'on-drag';
-    keyboardShouldPersistTaps?: boolean;
+    keyboardShouldPersistTaps?: boolean | 'always' | 'never' | 'handled';
     scrollEventThrottle?: number;
     bounces?: boolean;
     pagingEnabled?: boolean;
@@ -636,57 +633,6 @@ export interface ActivityIndicatorProps extends CommonStyledProps<ActivityIndica
     color: string;
     size?: 'large' | 'medium' | 'small' | 'tiny';
     deferTime?: number;
-}
-export interface WebViewNavigationState {
-    canGoBack: boolean;
-    canGoForward: boolean;
-    loading: boolean;
-    url: string;
-    title: string;
-    readonly navigationType: 'click' | 'formsubmit' | 'backforward' | 'reload' | 'formresubmit' | 'other';
-}
-export interface WebViewErrorState extends WebViewNavigationState {
-    description: string;
-    domain: string;
-    code: string;
-}
-export declare enum WebViewSandboxMode {
-    None = 0,
-    AllowForms = 1,
-    AllowModals = 2,
-    AllowOrientationLock = 4,
-    AllowPointerLock = 8,
-    AllowPopups = 16,
-    AllowPopupsToEscapeSandbox = 32,
-    AllowPresentation = 64,
-    AllowSameOrigin = 128,
-    AllowScripts = 256,
-    AllowTopNavigation = 512,
-    AllowMixedContentAlways = 1024,
-    AllowMixedContentCompatibilityMode = 2048
-}
-export interface WebViewSource {
-    html: string;
-    baseUrl?: string;
-}
-export interface WebViewProps extends CommonStyledProps<WebViewStyleRuleSet, RX.WebView> {
-    url?: string;
-    source?: WebViewSource;
-    headers?: Headers;
-    onLoad?: (e: SyntheticEvent) => void;
-    onNavigationStateChange?: (navigationState: WebViewNavigationState) => void;
-    scalesPageToFit?: boolean;
-    injectedJavaScript?: string;
-    javaScriptEnabled?: boolean;
-    mediaPlaybackRequiresUserAction?: boolean;
-    allowsInlineMediaPlayback?: boolean;
-    startInLoadingState?: boolean;
-    domStorageEnabled?: boolean;
-    onShouldStartLoadWithRequest?: (shouldStartLoadEvent: WebViewShouldStartLoadEvent) => boolean;
-    onLoadStart?: (e: SyntheticEvent) => void;
-    onError?: (e: SyntheticEvent) => void;
-    onMessage?: (e: WebViewMessageEvent) => void;
-    sandbox?: WebViewSandboxMode;
 }
 export declare type PopupPosition = 'top' | 'right' | 'bottom' | 'left' | 'context';
 export interface PopupOptions {
@@ -850,15 +796,6 @@ export interface WheelEvent extends SyntheticEvent {
     deltaY: number;
     deltaZ: number;
 }
-export interface WebViewShouldStartLoadEvent {
-    url: string;
-}
-export interface WebViewNavigationEvent extends SyntheticEvent {
-    nativeEvent: WebViewNavigationState;
-}
-export interface WebViewErrorEvent extends SyntheticEvent {
-    nativeEvent: WebViewErrorState;
-}
 export declare type ViewOnLayoutEvent = {
     x: number;
     y: number;
@@ -872,10 +809,6 @@ export interface KeyboardEvent extends SyntheticEvent {
     keyCode: number;
     metaKey: boolean;
     key: string;
-}
-export interface WebViewMessageEvent extends SyntheticEvent {
-    data: string;
-    origin: string;
 }
 export declare let Children: React.ReactChildren;
 export declare type Dimensions = {
@@ -917,11 +850,3 @@ export interface LayoutInfo {
     height: number;
 }
 export declare type PlatformType = 'web' | 'ios' | 'android' | 'windows' | 'macos';
-export declare enum DeviceNetworkType {
-    Unknown = 0,
-    None = 1,
-    Wifi = 2,
-    Mobile2G = 3,
-    Mobile3G = 4,
-    Mobile4G = 5
-}

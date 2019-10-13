@@ -82,10 +82,12 @@ var _styles = {
 };
 if (typeof document !== 'undefined') {
     var ignorePointerEvents = '.reactxp-ignore-pointer-events  * { pointer-events: auto; }';
+    var blockPointerEvents = '.reactxp-block-pointer-events * { pointer-events: none !important; }';
     var head = document.head;
     var style = document.createElement('style');
     style.type = 'text/css';
     style.appendChild(document.createTextNode(ignorePointerEvents));
+    style.appendChild(document.createTextNode(blockPointerEvents));
     head.appendChild(style);
 }
 var View = /** @class */ (function (_super) {
@@ -315,7 +317,13 @@ var View = /** @class */ (function (_super) {
             onKeyDown: this.props.onKeyPress,
             id: this.props.id
         };
-        if (this.props.ignorePointerEvents) {
+        if (this.props.blockPointerEvents) {
+            // Make this element and all children transparent to pointer events
+            props.className = 'reactxp-block-pointer-events';
+            combinedStyles.pointerEvents = 'none';
+        }
+        else if (this.props.ignorePointerEvents) {
+            // Make this element transparent to pointer events, but allow children to still receive events
             props.className = 'reactxp-ignore-pointer-events';
             combinedStyles.pointerEvents = 'none';
         }
@@ -333,8 +341,8 @@ var View = /** @class */ (function (_super) {
             restyleForInlineText_1.default(reactElement) :
             reactElement;
     };
-    View.prototype.componentWillReceiveProps = function (nextProps) {
-        _super.prototype.componentWillReceiveProps.call(this, nextProps);
+    View.prototype.UNSAFE_componentWillReceiveProps = function (nextProps) {
+        _super.prototype.UNSAFE_componentWillReceiveProps.call(this, nextProps);
         if (AppConfig_1.default.isDevelopmentMode()) {
             if (this.props.restrictFocusWithin !== nextProps.restrictFocusWithin) {
                 console.error('View: restrictFocusWithin is readonly and changing it during the component life cycle has no effect');

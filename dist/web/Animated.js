@@ -179,7 +179,7 @@ var Value = /** @class */ (function (_super) {
     // After an animation is stopped or completed, updates
     // the final value.
     Value.prototype._updateFinalValue = function (value) {
-        this._value = value;
+        this.setValue(value);
     };
     return Value;
 }(RX.Types.AnimatedValue));
@@ -407,7 +407,7 @@ function createAnimatedComponent(Component) {
                 console.error('setNativeProps not supported on web');
             }
         };
-        AnimatedComponentGenerated.prototype.componentWillReceiveProps = function (props) {
+        AnimatedComponentGenerated.prototype.UNSAFE_componentWillReceiveProps = function (props) {
             this._updateStyles(props);
         };
         AnimatedComponentGenerated.prototype.setValue = function (valueObject, newValue) {

@@ -22,7 +22,6 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var RN = require("react-native");
-var SyncTasks = require("synctasks");
 var Interfaces_1 = require("../common/Interfaces");
 var Linking_1 = require("../common/Linking");
 var Linking = /** @class */ (function (_super) {
@@ -35,7 +34,7 @@ var Linking = /** @class */ (function (_super) {
         return _this;
     }
     Linking.prototype._openUrl = function (url) {
-        return SyncTasks.fromThenable(RN.Linking.canOpenURL(url))
+        return RN.Linking.canOpenURL(url)
             .then(function (value) {
             if (!value) {
                 var linkingError = {
@@ -43,10 +42,10 @@ var Linking = /** @class */ (function (_super) {
                     url: url,
                     description: 'No app found to handle url: ' + url
                 };
-                return SyncTasks.Rejected(linkingError);
+                return Promise.reject(linkingError);
             }
             else {
-                return SyncTasks.fromThenable(RN.Linking.openURL(url));
+                return RN.Linking.openURL(url);
             }
         }).catch(function (error) {
             var linkingError = {
@@ -54,18 +53,18 @@ var Linking = /** @class */ (function (_super) {
                 url: url,
                 description: error
             };
-            return SyncTasks.Rejected(linkingError);
+            return Promise.reject(linkingError);
         });
     };
     Linking.prototype.getInitialUrl = function () {
-        return SyncTasks.fromThenable(RN.Linking.getInitialURL())
+        return RN.Linking.getInitialURL()
             .then(function (url) { return !!url ? url : undefined; })
             .catch(function (error) {
             var linkingError = {
                 code: Interfaces_1.Types.LinkingErrorCode.InitialUrlNotFound,
                 description: error
             };
-            return SyncTasks.Rejected(linkingError);
+            return Promise.reject(linkingError);
         });
     };
     // Launches Email app

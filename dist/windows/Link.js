@@ -88,6 +88,8 @@ var Link = /** @class */ (function (_super) {
                                     _this.props.onContextMenu(mouseEvent);
                                 }
                             }
+                        }).catch(function (e) {
+                            console.warn('Link measureKayoutRelativeToWindow exception: ' + JSON.stringify(e));
                         });
                     }
                 }

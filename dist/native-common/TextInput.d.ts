@@ -16,7 +16,7 @@ export declare class TextInput extends React.Component<Types.TextInputProps, Tex
     private _selection;
     protected _mountedComponent: RN.TextInput | undefined;
     constructor(props: Types.TextInputProps, context?: TextInputContext);
-    componentWillReceiveProps(nextProps: Types.TextInputProps): void;
+    UNSAFE_componentWillReceiveProps(nextProps: Types.TextInputProps): void;
     componentDidMount(): void;
     protected _render(props: RN.TextInputProps, onMount: (textInput: RN.TextInput | null) => void): JSX.Element;
     render(): JSX.Element;

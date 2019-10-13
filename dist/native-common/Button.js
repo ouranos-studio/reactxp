@@ -255,7 +255,7 @@ var Button = /** @class */ (function (_super) {
         this._mixin_componentWillUnmount();
         this._isMounted = false;
     };
-    Button.prototype.componentWillReceiveProps = function (nextProps) {
+    Button.prototype.UNSAFE_componentWillReceiveProps = function (nextProps) {
         // If opacity styles were updated as a part of props update, we need to reflect that in the opacity animation value
         this._setOpacityStyles(nextProps, this.props);
     };

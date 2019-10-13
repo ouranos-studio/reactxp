@@ -57,7 +57,7 @@ var PopupContainerView = /** @class */ (function (_super) {
             constrainedPopupHeight: 0
         };
     };
-    PopupContainerView.prototype.componentWillReceiveProps = function (prevProps) {
+    PopupContainerView.prototype.UNSAFE_componentWillReceiveProps = function (prevProps) {
         if (this.props.popupOptions !== prevProps.popupOptions) {
             // If the popup changes, reset our state.
             this.setState(this._getInitialState());

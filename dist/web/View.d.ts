@@ -44,7 +44,7 @@ export declare class View extends ViewBase<RX.Types.ViewProps, RX.Types.Stateles
     setFocusRestricted(restricted: boolean): void;
     setFocusLimited(limited: boolean): void;
     render(): React.ReactElement<any, string | ((props: any) => React.ReactElement<any, string | any | (new (props: any) => React.Component<any, any, any>)> | null) | (new (props: any) => React.Component<any, any, any>)>;
-    componentWillReceiveProps(nextProps: RX.Types.ViewProps): void;
+    UNSAFE_componentWillReceiveProps(nextProps: RX.Types.ViewProps): void;
     enableFocusManager(): void;
     disableFocusManager(): void;
     componentDidMount(): void;

@@ -21,7 +21,6 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var SyncTasks = require("synctasks");
 var Interfaces_1 = require("../common/Interfaces");
 var Linking_1 = require("../common/Linking");
 var Linking = /** @class */ (function (_super) {
@@ -40,7 +39,7 @@ var Linking = /** @class */ (function (_super) {
                 url: url,
                 description: 'Window was blocked by popup blocker'
             };
-            return SyncTasks.Rejected(linkingError);
+            return Promise.reject(linkingError);
         }
         // SECURITY WARNING:
         //   Destroy the back-link to this window. Otherwise the (untrusted) URL we are about to load can redirect OUR window.
@@ -51,16 +50,16 @@ var Linking = /** @class */ (function (_super) {
             otherWindow.opener = null;
         }
         otherWindow.location.href = url;
-        return SyncTasks.Resolved();
+        return Promise.resolve(void 0);
     };
     Linking.prototype.launchEmail = function (emailInfo) {
         // Format email info
         var emailUrl = this._createEmailUrl(emailInfo);
         window.location.href = emailUrl;
-        return SyncTasks.Resolved();
+        return Promise.resolve(void 0);
     };
     Linking.prototype.getInitialUrl = function () {
-        return SyncTasks.Resolved(undefined);
+        return Promise.resolve(undefined);
     };
     return Linking;
 }(Linking_1.Linking));

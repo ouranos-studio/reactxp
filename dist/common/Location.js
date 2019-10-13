@@ -21,8 +21,8 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var SyncTasks = require("synctasks");
 var RX = require("./Interfaces");
+var PromiseDefer_1 = require("./utils/PromiseDefer");
 var Location = /** @class */ (function (_super) {
     __extends(Location, _super);
     function Location() {
@@ -45,8 +45,6 @@ var Location = /** @class */ (function (_super) {
     // Get the current location of the user. This method returns a promise that either
     // resolves to the position or rejects with an error code.
     Location.prototype.getCurrentPosition = function (options) {
-        var deferred = SyncTasks.Defer();
-        var reportedError = false;
         if (!this.isAvailable()) {
             var error = {
                 code: RX.Types.LocationErrorType.PositionUnavailable,
@@ -55,8 +53,10 @@ var Location = /** @class */ (function (_super) {
                 POSITION_UNAVAILABLE: 1,
                 TIMEOUT: 0
             };
-            return deferred.reject(error).promise();
+            return Promise.reject(error);
         }
+        var deferred = new PromiseDefer_1.Defer();
+        var reportedError = false;
         navigator.geolocation.getCurrentPosition(function (position) {
             deferred.resolve(position);
         }, function (error) {
@@ -75,7 +75,7 @@ var Location = /** @class */ (function (_super) {
     // future locations and errors will be piped through the provided callbacks.
     Location.prototype.watchPosition = function (successCallback, errorCallback, options) {
         if (!this.isAvailable()) {
-            return SyncTasks.Rejected(RX.Types.LocationErrorType.PositionUnavailable);
+            return Promise.reject(RX.Types.LocationErrorType.PositionUnavailable);
         }
         var watchId = navigator.geolocation.watchPosition(function (position) {
             successCallback(position);
@@ -84,7 +84,7 @@ var Location = /** @class */ (function (_super) {
                 errorCallback(error.code);
             }
         }, options);
-        return SyncTasks.Resolved(watchId);
+        return Promise.resolve(watchId);
     };
     // Clears a location watcher from watchPosition.
     Location.prototype.clearWatch = function (watchID) {

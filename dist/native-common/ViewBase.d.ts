@@ -10,6 +10,7 @@
 import * as RN from 'react-native';
 import * as RX from '../common/Interfaces';
 export declare abstract class ViewBase<P extends RX.Types.ViewPropsShared<C>, S, T extends RN.View | RN.ScrollView, C extends RX.View | RX.ScrollView> extends RX.ViewBase<P, S> {
+    protected static readonly _supportsNativeFocusBlur: boolean;
     private static _defaultViewStyle;
     private _layoutEventValues;
     abstract render(): JSX.Element;
