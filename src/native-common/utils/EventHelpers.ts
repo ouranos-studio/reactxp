@@ -6,6 +6,7 @@
  */
 import { Platform } from 'react-native';
 
+import * as EventHelpersCommon from '../../common/utils/EventHelpers';
 import { Types } from '../../common/Interfaces';
 
 import { clone } from './lodashMini';
@@ -13,7 +14,6 @@ import { clone } from './lodashMini';
 const _isNativeMacOs = Platform.OS === 'macos';
 // These helpers promote a SyntheticEvent to their higher level counterparts
 export class EventHelpers {
-
     toKeyboardEvent(e: Types.SyntheticEvent): Types.KeyboardEvent {
         // Conversion to a KeyboardEvent-like event if needed
         let keyEvent = e as Types.KeyboardEvent;
@@ -297,7 +297,7 @@ export class EventHelpers {
             mouseEvent.clientY = mouseEvent.pageY = nativeEvent.pageY;
         }
 
-        mouseEvent.button = this.toMouseButton(e.nativeEvent);
+        mouseEvent.button = EventHelpersCommon.toMouseButton(e.nativeEvent);
 
         if (nativeEvent.shiftKey) {
             mouseEvent.shiftKey = nativeEvent.shiftKey;
@@ -333,44 +333,15 @@ export class EventHelpers {
         return dndEvent;
     }
 
-    toMouseButton(nativeEvent: any): number {
-        if (nativeEvent.button !== undefined) {
-            return nativeEvent.button;
-        } else if (nativeEvent.isRightButton || nativeEvent.IsRightButton) {
-            return 2;
-        } else if (nativeEvent.isMiddleButton || nativeEvent.IsMiddleButton) {
-            return 1;
-        }
-
-        return 0;
-    }
-
-    isActuallyMouseEvent(e: Types.TouchEvent | undefined): boolean {
-        if (!e) {
-            return false;
-        }
-
-        const nativeEvent = e as any;
-        if (nativeEvent.button !== undefined) {
-            return true;
-        } else if (nativeEvent.isRightButton || nativeEvent.IsRightButton) {
-            return true;
-        } else if (nativeEvent.isMiddleButton || nativeEvent.IsMiddleButton) {
-            return true;
-        }
-
-        return false;
-    }
-
     isRightMouseButton(e: Types.SyntheticEvent): boolean {
-        return (this.toMouseButton(e.nativeEvent) === 2);
+        return (EventHelpersCommon.toMouseButton(e.nativeEvent) === 2);
     }
 
     // Keyboard events do not inherently hold a position that can be used to show flyouts on keyboard input.
     // We simulate a mouse event so that we can show things like context Menus in the correct position.
     // Ensure offset is passed in {x = number, y= number} format. Using Top Left as anchor position.
     keyboardToMouseEvent(e: Types.KeyboardEvent, layoutInfo: Types.LayoutInfo,
-        contextMenuOffset: { x: number; y: number }): Types.MouseEvent {
+            contextMenuOffset: { x: number; y: number }): Types.MouseEvent {
         const mouseEvent = this.toMouseEvent(e);
 
         if ((layoutInfo.x !== undefined) && (contextMenuOffset.x !== undefined)) {

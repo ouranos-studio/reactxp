@@ -33,9 +33,7 @@ export class UserInterface extends RX.UserInterface {
         this._rootViewRegistry = {};
     }
 
-    measureLayoutRelativeToWindow(component: React.Component<any, any>):
-        Promise<RX.Types.LayoutInfo> {
-
+    measureLayoutRelativeToWindow(component: React.Component<any, any>): Promise<RX.Types.LayoutInfo> {
         const deferred = new Defer<RX.Types.LayoutInfo>();
         const nodeHandle = RN.findNodeHandle(component);
 
@@ -47,16 +45,16 @@ export class UserInterface extends RX.UserInterface {
                     x: x,
                     y: y,
                     width: width,
-                    height: height
+                    height: height,
                 });
-            }
+            },
         );
 
         return deferred.promise();
     }
 
     measureLayoutRelativeToAncestor(component: React.Component<any, any>,
-        ancestor: React.Component<any, any>): Promise<RX.Types.LayoutInfo> {
+            ancestor: React.Component<any, any>): Promise<RX.Types.LayoutInfo> {
 
         const deferred = new Defer<RX.Types.LayoutInfo>();
         const nodeHandle = RN.findNodeHandle(component);
@@ -71,9 +69,9 @@ export class UserInterface extends RX.UserInterface {
                     x: x,
                     y: y,
                     width: width,
-                    height: height
+                    height: height,
                 });
-            }
+            },
         );
 
         return deferred.promise();
@@ -96,7 +94,7 @@ export class UserInterface extends RX.UserInterface {
             x: 0,
             y: 0,
             width: dimensions.width,
-            height: dimensions.height
+            height: dimensions.height,
         };
     }
 
@@ -112,30 +110,6 @@ export class UserInterface extends RX.UserInterface {
         }
 
         return deferred.promise();
-    }
-
-    getMaxContentSizeMultiplier(): Promise<number> {
-        const deferred = new Defer<number>();
-
-        // TODO: #727532 Remove conditional after implementing UIManager.getContentSizeMultiplier for UWP
-        // TODO:(alregner) Remove conditional after implementing UIManager.getContentSizeMultiplier for macos
-        if (RN.Platform.OS === 'windows' || RN.Platform.OS === 'macos') {
-            deferred.resolve(1);
-        } else {
-            RN.NativeModules.UIManager.getMaxContentSizeMultiplier((value: number) => {
-                deferred.resolve(value);
-            });
-        }
-
-        return deferred.promise();
-    }
-
-    setMaxContentSizeMultiplier(maxContentSizeMultiplier: number): void {
-        // TODO: #727532 Remove conditional after implementing UIManager.getContentSizeMultiplier for UWP
-        // TODO:(alregner) Remove conditional after implementing UIManager.getContentSizeMultiplier for macos
-        if (RN.Platform.OS !== 'windows' && RN.Platform.OS !== 'macos') {
-            RN.NativeModules.UIManager.setMaxContentSizeMultiplier(maxContentSizeMultiplier);
-        }
     }
 
     useCustomScrollbars(enable = true) {
@@ -210,7 +184,7 @@ export class UserInterface extends RX.UserInterface {
 
     private _keyboardNavigationStateChanged = (isNavigatingWithKeyboard: boolean) => {
         this._isNavigatingWithKeyboard = isNavigatingWithKeyboard;
-    }
+    };
 
     notifyRootViewInstanceCreated(rootViewId: string, nodeHandle: number): void {
         if (AppConfig.isDevelopmentMode()) {

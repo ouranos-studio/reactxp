@@ -178,7 +178,7 @@ export class Scrollbar {
     private _updateCallback = this.update.bind(this);
     private _asyncInitTimer: number | undefined;
 
-    static getNativeScrollbarWidth() {
+    static getNativeScrollbarWidth(): number {
         // Have we cached the value alread?
         if (_nativeSrollBarWidth >= 0) {
             return _nativeSrollBarWidth;
@@ -218,7 +218,7 @@ export class Scrollbar {
         return _nativeSrollBarWidth;
     }
 
-    private static _installStyleSheet() {
+    private static _installStyleSheet(): void {
         // Have we installed the style sheet already?
         if (_isStyleSheetInstalled) {
             return;
@@ -250,13 +250,9 @@ export class Scrollbar {
         this._container = container;
     }
 
-    private _tryLtrOverride() {
-        if (typeof document === 'undefined') {
-          return;
-        }
+    private _tryLtrOverride(): void {
         const rtlbox = document.createElement('div');
         rtlbox.style.cssText = 'position: absolute; overflow-y: scroll; width: 30px; visibility: hidden;';
-        // tslint:disable-next-line
         rtlbox.innerHTML = '<div class="probe"></div>';
         this._container.appendChild(rtlbox);
         const probe = rtlbox.querySelector('.probe')!;
@@ -271,16 +267,15 @@ export class Scrollbar {
             this._container.classList.add(NEUTRAL_OVERRIDE_CLASS);
         }
 
-        // tslint:disable-next-line
         rtlbox.innerHTML = '';
         this._container.removeChild(rtlbox);
     }
 
-    private _prevent(e: React.SyntheticEvent<any>) {
+    private _prevent(e: React.SyntheticEvent<any>): void {
         e.preventDefault();
     }
 
-    private _updateSliders() {
+    private _updateSliders(): void {
         if (this._hasHorizontal) {
             // Read from DOM before we write back
             const newSliderWidth = this._horizontalBar.sliderSize + UNIT;
@@ -298,7 +293,7 @@ export class Scrollbar {
         }
     }
 
-    private _handleDrag(e: React.MouseEvent<any>) {
+    private _handleDrag(e: React.MouseEvent<any>): void {
         if (this._dragIsVertical) {
             this._viewport.scrollTop = (e.pageY - this._verticalBar.dragOffset!) * this._verticalBar.slider2Scroll!;
         } else {
@@ -306,7 +301,7 @@ export class Scrollbar {
         }
     }
 
-    private _startDrag(dragIsVertical: boolean, e: React.MouseEvent<any>) {
+    private _startDrag(dragIsVertical: boolean, e: React.MouseEvent<any>): void {
         if (!this._dragging) {
             window.addEventListener('mouseup', this._stopDragCallback);
             window.addEventListener('mousemove', this._handleDragCallback);
@@ -323,14 +318,14 @@ export class Scrollbar {
         this._prevent(e);
     }
 
-    private _stopDrag() {
+    private _stopDrag(): void {
         this._container.classList.remove('scrolling');
         window.removeEventListener('mouseup', this._stopDragCallback);
         window.removeEventListener('mousemove', this._handleDragCallback);
         this._dragging = false;
     }
 
-    private _handleWheel(e: React.WheelEvent<any>) {
+    private _handleWheel(e: React.WheelEvent<any>): void {
         // Always prefer the vertical axis if present. User can override with the control key.
         if (this._hasVertical) {
             this._viewport.scrollTop = this._normalizeDelta(e) + this._viewport.scrollTop;
@@ -339,7 +334,7 @@ export class Scrollbar {
         }
     }
 
-    private _handleMouseDown(e: React.MouseEvent<HTMLElement>) {
+    private _handleMouseDown(e: React.MouseEvent<HTMLElement>): void {
         const target = e.currentTarget;
 
         if (this._dragging || !target) {
@@ -362,7 +357,7 @@ export class Scrollbar {
         }
     }
 
-    private _normalizeDelta(e: React.WheelEvent<any>) {
+    private _normalizeDelta(e: React.WheelEvent<any>): number {
         if (e.deltaY) {
             return e.deltaY > 0 ? 100 : -100;
         }
@@ -373,7 +368,7 @@ export class Scrollbar {
         return 0;
     }
 
-    private _addListeners() {
+    private _addListeners(): void {
         if (this._hasVertical) {
             this._verticalBar.slider!.addEventListener('mousedown', this._startDragVCallback);
             this._verticalBar.rail!.addEventListener('wheel', this._handleWheelCallback, { passive: true });
@@ -387,7 +382,7 @@ export class Scrollbar {
         }
     }
 
-    private _removeListeners() {
+    private _removeListeners(): void {
         if (this._hasVertical) {
             this._verticalBar.slider!.removeEventListener('mousedown', this._startDragVCallback);
             this._verticalBar.rail!.removeEventListener('wheel', this._handleWheelCallback);
@@ -408,7 +403,7 @@ export class Scrollbar {
         return div;
     }
 
-    private _addScrollBar(scrollbarInfo: ScrollbarInfo, railClass: string, hasBoth: boolean) {
+    private _addScrollBar(scrollbarInfo: ScrollbarInfo, railClass: string, hasBoth: boolean): void {
         const slider = this._createDivWithClass('slider');
 
         scrollbarInfo.rail = this._createDivWithClass('rail ' + railClass + (hasBoth ? ' railBoth' : ''));
@@ -418,7 +413,7 @@ export class Scrollbar {
         this._container.appendChild(scrollbarInfo.rail);
     }
 
-    private _addScrollbars() {
+    private _addScrollbars(): void {
         const containerClass = this._hasVertical ? 'rxCustomScrollV' : 'rxCustomScrollH';
 
         if (this._hasVertical) {
@@ -434,21 +429,19 @@ export class Scrollbar {
         this._viewport = this._container.querySelector('.scrollViewport') as HTMLElement;
     }
 
-    private _removeScrollbars() {
+    private _removeScrollbars(): void {
         if (this._hasVertical) {
-            // tslint:disable-next-line
             this._verticalBar.rail!.innerHTML = '';
             this._container.removeChild(this._verticalBar.rail!);
         }
 
         if (this._hasHorizontal) {
-            // tslint:disable-next-line
             this._horizontalBar.rail!.innerHTML = '';
             this._container.removeChild(this._horizontalBar.rail!);
         }
     }
 
-    private _calcNewBarSize(bar: ScrollbarInfo, newSize: number, newScrollSize: number, hasBoth: boolean) {
+    private _calcNewBarSize(bar: ScrollbarInfo, newSize: number, newScrollSize: number, hasBoth: boolean): void {
         if (hasBoth || this._hasHiddenScrollbar) {
             newSize -= SCROLLER_NEGATIVE_MARGIN;
             newScrollSize -= SCROLLER_NEGATIVE_MARGIN - Scrollbar.getNativeScrollbarWidth();
@@ -475,7 +468,7 @@ export class Scrollbar {
         }
     }
 
-    private _resize() {
+    private _resize(): void {
         if (this._hasHorizontal) {
             this._calcNewBarSize(this._horizontalBar, this._viewport.offsetWidth, this._viewport.scrollWidth, this._hasVertical);
         }
@@ -485,7 +478,7 @@ export class Scrollbar {
         }
     }
 
-    update() {
+    update(): void {
         this._resize();
 
         // We add one below to provide a small fudge factor because browsers round their scroll and offset values to the
@@ -499,7 +492,7 @@ export class Scrollbar {
         }
     }
 
-    show() {
+    show(): void {
         if (!this._scrollingVisible) {
             this._container.classList.add('active');
             this._addListeners();
@@ -507,7 +500,7 @@ export class Scrollbar {
         }
     }
 
-    hide() {
+    hide(): void {
         if (this._scrollingVisible) {
             this._container.classList.remove('active');
             this._removeListeners();
@@ -515,7 +508,7 @@ export class Scrollbar {
         }
     }
 
-    init(options?: ScrollbarOptions) {
+    init(options?: ScrollbarOptions): void {
         if (options) {
             this._hasHorizontal = !!options.horizontal;
 
@@ -543,7 +536,7 @@ export class Scrollbar {
         }, 0);
     }
 
-    dispose() {
+    dispose(): void {
         if (this._asyncInitTimer) {
             Timers.clearInterval(this._asyncInitTimer);
             this._asyncInitTimer = undefined;

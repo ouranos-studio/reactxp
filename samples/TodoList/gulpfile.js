@@ -19,7 +19,7 @@ var gutil = require('gulp-util');
 var jshint = require('gulp-jshint');
 var notifier = require('node-notifier');
 var os = require('os');
-var path = require('path');
+var path = require('path-posix');
 var prettyTime = require('pretty-hrtime');
 var rename = require('gulp-rename');
 var replaceWithSM = require('gulp-replace-with-sourcemaps');
@@ -420,13 +420,6 @@ gulp.task('compile-rn', function () {
         .pipe(enableSrcMaps ? sourcemaps.init() : gutil.noop())
         .pipe(tsProject());
 
-    var shouldAssert = isDevEnv || (!isCandidateBuild && !isPublicRelease && !isInsidersRelease);
-    if (!shouldAssert) {
-        stream = stream
-            .pipe(unassert());
-    }
-
-    // must run after unassert
     if (enableSrcMaps) {
         stream = stream.pipe(sourcemaps.write('.',
             { sourceRoot: path.join(process.cwd(), config.ts.srcRoot) }));

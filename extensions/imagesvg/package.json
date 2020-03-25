@@ -1,32 +1,33 @@
 {
   "name": "reactxp-imagesvg",
-  "version": "2.0.0-rc.1",
+  "version": "2.0.0",
   "description": "Plugin for ReactXP that provides support for SVG (scalable vector graphics) for all platforms",
   "author": "ReactXP Team <reactxp@microsoft.com>",
   "license": "MIT",
   "scripts": {
-    "build": "npm run tslint && tsc",
-    "tslint": "tslint -p tsconfig.json -r tslint.json --fix || true"
+    "build": "tsc",
+    "lint": "eslint --ext .ts,.tsx src",
+    "lint:fix": "npm run lint -- --fix"
   },
   "dependencies": {
-    "react-native-svg": "^9.5.1"
+    "react-native-svg": "^9.13.3"
   },
   "peerDependencies": {
-    "react": "^16.0",
-    "reactxp": "^2.0.0-rc.1",
-    "react-dom": "^16.0",
-    "react-native": ">=0.57 <0.60",
+    "react": "^16.3",
+    "reactxp": "^2.0.0",
+    "react-dom": "^16.3",
+    "react-native": ">=0.57",
     "react-native-windows": "^0.57.1"
   },
   "devDependencies": {
-    "@types/react-native": "^0.57.62",
-    "@types/node": "^11.13.14",
-    "reactxp": "^2.0.0-rc.1",
-    "tslint": "^5.17.0",
-    "tslint-microsoft-contrib": "^6.2.0",
-    "tslint-react": "^4.0.0",
-    "tsutils": "^3.14.0",
-    "typescript": "^3.5.1"
+    "@types/react-native": "^0.60.23",
+    "@typescript-eslint/eslint-plugin": "2.15.0",
+    "eslint": "6.8.0",
+    "eslint-config-skype": "1.5.0",
+    "eslint-plugin-import": "2.19.1",
+    "eslint-plugin-react": "7.17.0",
+    "reactxp": "^2.0.0",
+    "typescript": "3.7.4"
   },
   "types": "dist/web/PluginBase.d.ts"
 }

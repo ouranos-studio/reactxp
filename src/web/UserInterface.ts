@@ -25,9 +25,7 @@ export class UserInterface extends RX.UserInterface {
         this.keyboardNavigationEvent.subscribe(this._keyboardNavigationStateChanged);
     }
 
-    measureLayoutRelativeToWindow(component: React.Component<any, any>) :
-            Promise<RX.Types.LayoutInfo> {
-
+    measureLayoutRelativeToWindow(component: React.Component<any, any>): Promise<RX.Types.LayoutInfo> {
         const deferred = new Defer<RX.Types.LayoutInfo>();
         let componentDomNode: HTMLElement | null = null;
 
@@ -46,7 +44,7 @@ export class UserInterface extends RX.UserInterface {
                 x: componentBoundingRect.left,
                 y: componentBoundingRect.top,
                 width: componentBoundingRect.width,
-                height: componentBoundingRect.height
+                height: componentBoundingRect.height,
             });
         }
 
@@ -54,8 +52,7 @@ export class UserInterface extends RX.UserInterface {
     }
 
     measureLayoutRelativeToAncestor(component: React.Component<any, any>,
-        ancestor: React.Component<any, any>) : Promise<RX.Types.LayoutInfo> {
-
+            ancestor: React.Component<any, any>): Promise<RX.Types.LayoutInfo> {
         const deferred = new Defer<RX.Types.LayoutInfo>();
         let componentDomNode: HTMLElement | null = null;
         let ancestorDomNode: HTMLElement | null = null;
@@ -77,7 +74,7 @@ export class UserInterface extends RX.UserInterface {
                 x: componentBoundingRect.left - ancestorBoundingRect.left,
                 y: componentBoundingRect.top - ancestorBoundingRect.top,
                 width: componentBoundingRect.width,
-                height: componentBoundingRect.height
+                height: componentBoundingRect.height,
             });
         }
 
@@ -109,18 +106,6 @@ export class UserInterface extends RX.UserInterface {
         return Promise.resolve(1);
     }
 
-    getMaxContentSizeMultiplier(): Promise<number> {
-        // Browsers don't support font-specific scaling. They scale all of their
-        // UI elements the same.
-        return Promise.resolve(0);
-    }
-
-    setMaxContentSizeMultiplier(maxContentSizeMultiplier: number) {
-        // Browsers don't support font-specific scaling. They scale all of their
-        // UI elements the same.
-        // No-op.
-    }
-
     isHighPixelDensityScreen(): boolean {
         return this.getPixelRatio() > 1;
     }
@@ -138,15 +123,15 @@ export class UserInterface extends RX.UserInterface {
         FrontLayerViewManager.setMainView(element, shouldHydrate);
     }
 
-    registerRootView(viewKey: string, getComponentFunc: Function) {
+    registerRootView(viewKey: string, getComponentFunc: Function): void {
         // Nothing to do
     }
 
-    useCustomScrollbars(enable = true) {
+    useCustomScrollbars(enable = true): void {
         ScrollViewConfig.setUseCustomScrollbars(enable);
     }
 
-    dismissKeyboard() {
+    dismissKeyboard(): void {
         // Nothing to do
     }
 
@@ -154,7 +139,7 @@ export class UserInterface extends RX.UserInterface {
         // Nothing to do
     }
 
-    evaluateTouchLatency(e: RX.Types.MouseEvent) {
+    evaluateTouchLatency(e: RX.Types.MouseEvent): void {
         // Nothing to do
     }
 
@@ -162,9 +147,9 @@ export class UserInterface extends RX.UserInterface {
         return this._isNavigatingWithKeyboard;
     }
 
-    private _keyboardNavigationStateChanged = (isNavigatingWithKeyboard: boolean) => {
+    private _keyboardNavigationStateChanged = (isNavigatingWithKeyboard: boolean): void => {
         this._isNavigatingWithKeyboard = isNavigatingWithKeyboard;
-    }
+    };
 }
 
 export default new UserInterface();

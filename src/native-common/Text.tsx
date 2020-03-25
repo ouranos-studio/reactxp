@@ -21,8 +21,8 @@ import Styles from './Styles';
 
 const _styles = {
     defaultText: Styles.createTextStyle({
-        overflow: 'hidden'
-    })
+        overflow: 'hidden',
+    }),
 };
 
 export interface TextContext {
@@ -34,13 +34,13 @@ export interface TextContext {
 export class Text extends React.Component<Types.TextProps, Types.Stateless> implements React.ChildContextProvider<TextContext> {
     static contextTypes: React.ValidationMap<any> = {
         focusArbitrator: PropTypes.object,
-        isRxParentAContextMenuResponder: PropTypes.bool
+        isRxParentAContextMenuResponder: PropTypes.bool,
     };
 
     context!: TextContext;
 
     static childContextTypes: React.ValidationMap<any> = {
-        isRxParentAText: PropTypes.bool.isRequired
+        isRxParentAText: PropTypes.bool.isRequired,
     };
 
     protected _mountedComponent: RN.Text | undefined;
@@ -85,16 +85,16 @@ export class Text extends React.Component<Types.TextProps, Types.Stateless> impl
 
     protected _onMount = (component: RN.Text | null) => {
         this._mountedComponent = component || undefined;
-    }
+    };
 
     protected _getExtendedProperties(): RN.ExtendedTextProps {
-        const { maxContentSizeMultiplier, onContextMenu } = this.props;
+        const { onContextMenu } = this.props;
 
         // The presence of an onContextMenu on this instance or on the first responder parent up the tree
         // should disable any system provided context menu
         const disableContextMenu = !!onContextMenu || !!this.context.isRxParentAContextMenuResponder;
 
-        return { maxContentSizeMultiplier, disableContextMenu };
+        return { disableContextMenu };
     }
 
     private _onPress = (e: RN.GestureResponderEvent) => {
@@ -107,7 +107,7 @@ export class Text extends React.Component<Types.TextProps, Types.Stateless> impl
                 this.props.onPress(EventHelpers.toMouseEvent(e));
             }
         }
-    }
+    };
 
     getChildContext() {
         // Let descendant RX components know that their nearest RX ancestor is an RX.Text.
@@ -124,7 +124,7 @@ export class Text extends React.Component<Types.TextProps, Types.Stateless> impl
         FocusArbitratorProvider.requestFocus(
             this,
             () => this.focus(),
-            () => !!this._mountedComponent
+            () => !!this._mountedComponent,
         );
     }
 

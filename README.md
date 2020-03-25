@@ -1,6 +1,6 @@
 # ReactXP
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/Microsoft/reactxp/blob/master/LICENSE) [![npm version](https://img.shields.io/npm/v/reactxp.svg?style=flat-square)](https://www.npmjs.com/package/reactxp) [![Build Status](https://dev.azure.com/ms/reactxp/_apis/build/status/Microsoft.reactxp)](https://dev.azure.com/ms/reactxp/_build/latest?definitionId=16) [![Build Status](https://img.shields.io/travis/Microsoft/reactxp/master.svg?style=flat-square)](https://travis-ci.org/Microsoft/reactxp) [![npm downloads](https://img.shields.io/npm/dm/reactxp.svg?style=flat-square)](https://www.npmjs.com/package/reactxp) [![David](https://img.shields.io/david/Microsoft/reactxp.svg?style=flat-square)](https://github.com/Microsoft/reactxp) [![David](https://img.shields.io/david/dev/Microsoft/reactxp.svg?style=flat-square)](https://github.com/Microsoft/reactxp) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/Microsoft/reactxp#contributing) [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg?style=flat-square)](https://gitter.im/msreactxp/Lobby)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/Microsoft/reactxp/blob/master/LICENSE) [![npm version](https://img.shields.io/npm/v/reactxp.svg?style=flat-square)](https://www.npmjs.com/package/reactxp) [![Build Status](https://dev.azure.com/ms/reactxp/_apis/build/status/Microsoft.reactxp?)](https://dev.azure.com/ms/reactxp/_build/latest?definitionId=16) [![Build Status](https://img.shields.io/travis/Microsoft/reactxp/master.svg?style=flat-square)](https://travis-ci.org/Microsoft/reactxp) [![npm downloads](https://img.shields.io/npm/dm/reactxp.svg?style=flat-square)](https://www.npmjs.com/package/reactxp) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/Microsoft/reactxp#contributing) [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg?style=flat-square)](https://gitter.im/msreactxp/Lobby)
 
 
 ReactXP is a library for cross-platform app development using React and React Native.
@@ -42,6 +42,12 @@ This will create a directory called **AppName** inside the current working direc
 ### Prerequisites
 * [Node.Js](https://nodejs.org/) ([Setup Instructions](https://nodejs.org/en/download/package-manager/))
 * [React Native](https://facebook.github.io/react-native/) ([Setup Instructions](https://facebook.github.io/react-native/docs/getting-started))
+
+## ESLint rules
+
+> [TSLint will be deprecated some time in 2019](https://github.com/palantir/tslint)
+
+If you plan to migrate your projects from TSLint to ESlint and want to continue using the [_rules_](https://github.com/microsoft/reactxp/tree/master/src/tslint) to automate search common problems in *ReactXP* usage, you can use [eslint-plugin-reactxp](https://github.com/a-tarasyuk/eslint-plugin-reactxp).
 
 ## Contributing
 
