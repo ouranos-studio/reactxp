@@ -27,9 +27,7 @@ var Input = /** @class */ (function (_super) {
     __extends(Input, _super);
     function Input() {
         var _this = _super.call(this) || this;
-        RN.BackHandler.addEventListener('hardwareBackPress', function () {
-            return _this.backButtonEvent.fire();
-        });
+        RN.BackHandler.addEventListener('hardwareBackPress', function () { return _this.backButtonEvent.fire(); });
         return _this;
     }
     return Input;

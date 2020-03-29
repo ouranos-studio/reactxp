@@ -33,8 +33,8 @@ var AccessibilityAnnouncer_1 = require("./AccessibilityAnnouncer");
 var _isRootInputViewSupported = !!RNW.RootInputViewWindows;
 var _styles = RN.StyleSheet.create({
     appWrapperStyle: {
-        flex: 1
-    }
+        flex: 1,
+    },
 });
 function _renderTopView(content, onKeyDown, onKeyDownCapture, onKeyUp, onTouchStartCapture) {
     return (React.createElement(RNW.RootInputViewWindows, { onTouchStartCapture: onTouchStartCapture, onAccelKeyDown: function (e) { onKeyDownCapture(e); onKeyDown(e); }, onAccelKeyUp: onKeyUp, style: _styles.appWrapperStyle }, content));

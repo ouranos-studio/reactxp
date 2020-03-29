@@ -88,7 +88,7 @@ var StylesWalker = /** @class */ (function (_super) {
                         _this._definedStyles[nodeName] = {
                             isReferenced: false,
                             start: property.getStart(),
-                            width: property.getWidth()
+                            width: property.getWidth(),
                         };
                     }
                     hasChildren = true;
@@ -114,7 +114,7 @@ var StylesWalker = /** @class */ (function (_super) {
     };
     StylesWalker.prototype._markReferencedStyles = function (functionText) {
         var _this = this;
-        var stylesRegEx = /\_styles\.[\_\.a-zA-Z0-9]+/g;
+        var stylesRegEx = /_styles\.[_.a-zA-Z0-9]+/g;
         var matches = functionText.match(stylesRegEx);
         if (matches) {
             _.each(matches, function (match) {

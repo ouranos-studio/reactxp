@@ -32,7 +32,6 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// tslint:disable:function-name
 var PropTypes = require("prop-types");
 var React = require("react");
 var RN = require("react-native");
@@ -48,8 +47,8 @@ var KEY_CODE_TAB = 9;
 var KEY_CODE_ESC = 27;
 var _styles = RN.StyleSheet.create({
     appWrapperStyle: {
-        flex: 1
-    }
+        flex: 1,
+    },
 });
 function applyDesktopBehaviorMixin(RootViewBase) {
     var _a;
@@ -125,7 +124,7 @@ function applyDesktopBehaviorMixin(RootViewBase) {
             RootView.prototype.getChildContext = function () {
                 // Provide the context with root FocusManager to all descendants.
                 return {
-                    focusManager: this._focusManager
+                    focusManager: this._focusManager,
                 };
             };
             RootView.prototype.renderTopView = function (content) {
@@ -142,14 +141,14 @@ function applyDesktopBehaviorMixin(RootViewBase) {
                     onKeyDownCapture: this._onKeyDownCapture,
                     onKeyUp: this._onKeyUp,
                     onTouchStartCapture: this._onTouchStartCapture,
-                    collapsable: false
+                    collapsable: false,
                 };
                 return (React.createElement(RN.View, __assign({}, internalProps, { style: _styles.appWrapperStyle }), content));
             };
             return RootView;
         }(RootViewBase)),
         _a.childContextTypes = {
-            focusManager: PropTypes.object
+            focusManager: PropTypes.object,
         },
         _a;
 }

@@ -8,7 +8,6 @@
  * Manages focusable elements for better keyboard navigation.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-// tslint:disable:no-invalid-this
 var PropTypes = require("prop-types");
 var AppConfig_1 = require("../../common/AppConfig");
 var Interfaces_1 = require("../../common/Interfaces");
@@ -52,7 +51,7 @@ var FocusManager = /** @class */ (function () {
             limitedCountAccessible: 0,
             onFocus: function () {
                 FocusManager._currentFocusedComponent = storedComponent;
-            }
+            },
         };
         component.focusableComponentId = componentId;
         FocusManager._allFocusableComponents[componentId] = storedComponent;
@@ -233,9 +232,7 @@ var FocusManager = /** @class */ (function () {
     FocusManager.unsubscribe = function (component, callback) {
         var storedComponent = FocusManager._getStoredComponent(component);
         if (storedComponent && storedComponent.callbacks) {
-            storedComponent.callbacks = storedComponent.callbacks.filter(function (cb) {
-                return cb !== callback;
-            });
+            storedComponent.callbacks = storedComponent.callbacks.filter(function (cb) { return cb !== callback; });
         }
     };
     FocusManager.prototype.setRestrictionStateCallback = function (callback) {
@@ -289,7 +286,7 @@ exports.FocusManager = FocusManager;
 // they exist and should be accounted during the focus restriction.
 //
 // isConditionallyFocusable is an optional callback which will be
-// called for componentDidMount() or for componentWillUpdate() to
+// called for componentDidMount() or for UNSAFE_componentWillUpdate() to
 // determine if the component is actually focusable.
 //
 // accessibleOnly is true for components that support just being focused
@@ -308,7 +305,7 @@ function applyFocusableComponentMixin(Component, isConditionallyFocusable, acces
     inheritMethod('componentWillUnmount', function (focusManager) {
         focusManager.removeFocusableComponent(this);
     });
-    inheritMethod('componentWillUpdate', function (focusManager, origArgs) {
+    inheritMethod('UNSAFE_componentWillUpdate', function (focusManager, origArgs) {
         if (isConditionallyFocusable) {
             var isFocusable = isConditionallyFocusable.apply(this, origArgs);
             if (isFocusable && !this.focusableComponentId) {

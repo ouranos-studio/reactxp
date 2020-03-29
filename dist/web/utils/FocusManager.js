@@ -331,7 +331,6 @@ function applyFocusableComponentMixin(Component, isConditionallyFocusable) {
     if (origFocus) {
         Component.prototype.focus = function () {
             try {
-                // tslint:disable-next-line
                 var el = ReactDOM.findDOMNode(this);
                 if (el) {
                     FocusManager.setLastFocusedProgrammatically(el);
@@ -340,7 +339,6 @@ function applyFocusableComponentMixin(Component, isConditionallyFocusable) {
             catch (_a) {
                 // Swallow exception due to component unmount race condition.
             }
-            // tslint:disable-next-line
             origFocus.apply(this, arguments);
         };
     }

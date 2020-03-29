@@ -30,9 +30,7 @@ var Styles = /** @class */ (function (_super) {
     function Styles() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         // Use memoize to cache the result after the first call.
-        _this._createDummyElement = _.memoize(function () {
-            return document.createElement('testCss');
-        });
+        _this._createDummyElement = _.memoize(function () { return document.createElement('testCss'); });
         _this._getCssPropertyAliasesJsStyle = _.memoize(function () {
             var props = [
                 'flex',
@@ -51,7 +49,7 @@ var Styles = /** @class */ (function (_super) {
                 'animationName',
                 'hyphens',
                 'filter',
-                'appRegion'
+                'appRegion',
             ];
             var aliases = {};
             props.forEach(function (prop) {

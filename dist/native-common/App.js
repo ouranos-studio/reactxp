@@ -32,7 +32,7 @@ var _rnStateToRxState = {
     'inactive': RX.Types.AppActivationState.Inactive,
     'extension': RX.Types.AppActivationState.Extension,
     // uninitialized means in Background on android since last change I did
-    'uninitialized': RX.Types.AppActivationState.Background
+    'uninitialized': RX.Types.AppActivationState.Background,
 };
 var App = /** @class */ (function (_super) {
     __extends(App, _super);

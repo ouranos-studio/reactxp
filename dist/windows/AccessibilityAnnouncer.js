@@ -35,8 +35,8 @@ var _styles = {
         top: -30,
         height: 30,
         left: 0,
-        right: 0
-    })
+        right: 0,
+    }),
 };
 var AccessibilityAnnouncer = /** @class */ (function (_super) {
     __extends(AccessibilityAnnouncer, _super);
@@ -61,9 +61,7 @@ var AccessibilityAnnouncer = /** @class */ (function (_super) {
                     // ultimately does not fully support this case. Narrator tends to ignore subsequent identical texts at all.
                     // NVDA tends to announce 2 or 3 subsequent identical texts but usually ignores 4+ ones.
                     var textToAnnounce = (announcement && announcement === _this._lastAnnouncement) ? announcement + ' ' : announcement;
-                    _this._viewElement.setNativeProps({
-                        accessibilityLabel: textToAnnounce
-                    });
+                    _this._viewElement.setNativeProps({ accessibilityLabel: textToAnnounce });
                     _this._lastAnnouncement = textToAnnounce;
                     // 2 seconds is probably enough for screen reader to finally receive UIA live region event
                     // and go query the accessible name of the region to put into its own queue, so that we can
@@ -77,9 +75,7 @@ var AccessibilityAnnouncer = /** @class */ (function (_super) {
                     // We want to hide the view used for announcement from screen reader so user cannot navigate to it.
                     // We do it by emptying accessible name on it as soon as possible - after we think screen reader
                     // already processed live region event.
-                    _this._viewElement.setNativeProps({
-                        accessibilityLabel: ''
-                    });
+                    _this._viewElement.setNativeProps({ accessibilityLabel: '' });
                 }
                 _this._lastAnnouncement = undefined;
                 _this._announcementQueueTimer = undefined;

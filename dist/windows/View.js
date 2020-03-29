@@ -250,7 +250,7 @@ var View = /** @class */ (function (_super) {
                             if (e.preventDefault) {
                                 e.preventDefault();
                             }
-                        }
+                        },
                     });
                 };
             }
@@ -279,7 +279,7 @@ var View = /** @class */ (function (_super) {
                             if (e.preventDefault) {
                                 e.preventDefault();
                             }
-                        }
+                        },
                     });
                 };
             }
@@ -341,7 +341,7 @@ var View = /** @class */ (function (_super) {
             var originalRef = this._internalProps.ref;
             assert_1.default(!(typeof originalRef === 'string'), 'View: ReactXP must not use string refs internally');
             var componentRef = originalRef;
-            var focusableViewProps = __assign({}, this._internalProps, { ref: this._onFocusableRef, componentRef: componentRef, isTabStop: windowsTabFocusable, tabIndex: tabIndex, importantForAccessibility: importantForAccessibility, disableSystemFocusVisuals: false, handledKeyDownKeys: DOWN_KEYCODES, handledKeyUpKeys: UP_KEYCODES, onKeyDown: this._onFocusableKeyDown, onKeyUp: this._onFocusableKeyUp, onFocus: this._onFocus, onBlur: this._onBlur, onAccessibilityTap: this._internalProps.onPress, testID: this.props.testId });
+            var focusableViewProps = __assign(__assign({}, this._internalProps), { ref: this._onFocusableRef, componentRef: componentRef, isTabStop: windowsTabFocusable, tabIndex: tabIndex, importantForAccessibility: importantForAccessibility, disableSystemFocusVisuals: false, handledKeyDownKeys: DOWN_KEYCODES, handledKeyUpKeys: UP_KEYCODES, onKeyDown: this._onFocusableKeyDown, onKeyUp: this._onFocusableKeyUp, onFocus: this._onFocus, onBlur: this._onBlur, onAccessibilityTap: this._internalProps.onPress, testID: this.props.testId });
             var PotentiallyAnimatedFocusableView = this._isButton(this.props) ? FocusableAnimatedView : FocusableView;
             return (React.createElement(PotentiallyAnimatedFocusableView, __assign({}, focusableViewProps)));
         }
@@ -451,7 +451,7 @@ var View = /** @class */ (function (_super) {
         // This covers cases where outside the view focusable controls are not controlled and/or not controllable
         // by FocusManager
         var viewProps = {
-            tabNavigation: restricted !== FocusManager_2.RestrictFocusType.Unrestricted ? 'cycle' : 'local'
+            tabNavigation: restricted !== FocusManager_2.RestrictFocusType.Unrestricted ? 'cycle' : 'local',
         };
         this.setNativeProps(viewProps);
     };
@@ -490,7 +490,7 @@ var View = /** @class */ (function (_super) {
             this._focusableElement.setNativeProps({
                 tabIndex: tabIndex,
                 isTabStop: windowsTabFocusable,
-                importantForAccessibility: importantForAccessibility
+                importantForAccessibility: importantForAccessibility,
             });
         }
     };

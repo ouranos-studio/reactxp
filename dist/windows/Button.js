@@ -155,7 +155,7 @@ var Button = /** @class */ (function (_super) {
         var originalRef = internalProps.ref;
         assert_1.default(!(typeof originalRef === 'string'), 'Button: ReactXP must not use string refs internally');
         var componentRef = originalRef;
-        var focusableViewProps = __assign({}, internalProps, { ref: onMount, componentRef: componentRef, onMouseEnter: this._onMouseEnter, onMouseLeave: this._onMouseLeave, isTabStop: windowsTabFocusable, tabIndex: tabIndex, importantForAccessibility: importantForAccessibility, disableSystemFocusVisuals: false, handledKeyDownKeys: DOWN_KEYCODES, handledKeyUpKeys: UP_KEYCODES, onKeyDown: this._onKeyDown, onKeyUp: this._onKeyUp, onFocus: this._onFocus, onBlur: this._onBlur, onAccessibilityTap: this._onAccessibilityTap });
+        var focusableViewProps = __assign(__assign({}, internalProps), { ref: onMount, componentRef: componentRef, onMouseEnter: this._onMouseEnter, onMouseLeave: this._onMouseLeave, isTabStop: windowsTabFocusable, tabIndex: tabIndex, importantForAccessibility: importantForAccessibility, disableSystemFocusVisuals: false, handledKeyDownKeys: DOWN_KEYCODES, handledKeyUpKeys: UP_KEYCODES, onKeyDown: this._onKeyDown, onKeyUp: this._onKeyUp, onFocus: this._onFocus, onBlur: this._onBlur, onAccessibilityTap: this._onAccessibilityTap });
         return (React.createElement(FocusableAnimatedView, __assign({}, focusableViewProps), this.props.children));
     };
     Button.prototype.focus = function () {
@@ -214,7 +214,7 @@ var Button = /** @class */ (function (_super) {
             this._buttonElement.setNativeProps({
                 tabIndex: tabIndex,
                 isTabStop: windowsTabFocusable,
-                importantForAccessibility: importantForAccessibility
+                importantForAccessibility: importantForAccessibility,
             });
         }
     };

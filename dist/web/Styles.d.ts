@@ -7,9 +7,6 @@
  * Web-specific implementation of style functions.
  */
 import * as RX from '../common/Interfaces';
-declare type CssAliasMap = {
-    [prop: string]: string;
-};
 export declare class Styles extends RX.Styles {
     combine<S>(ruleSet1: RX.Types.StyleRuleSetRecursive<S> | undefined, ruleSet2?: RX.Types.StyleRuleSetRecursive<S>): S | undefined;
     createViewStyle(ruleSet: RX.Types.ViewStyle, cacheStyle?: boolean): RX.Types.ViewStyleRuleSet;
@@ -28,7 +25,7 @@ export declare class Styles extends RX.Styles {
     private _createDummyElement;
     private _getCssPropertyAliasesJsStyle;
     convertJsToCssStyle(prop: string): string;
-    _cssPropertyAliasesCssStyle: () => CssAliasMap;
+    private _cssPropertyAliasesCssStyle;
     getCssPropertyAliasesCssStyle(): {
         [key: string]: string;
     };

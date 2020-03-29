@@ -50,7 +50,6 @@ export declare abstract class UserInterface {
     abstract measureWindow(rootViewId?: string): Types.Dimensions;
     abstract getContentSizeMultiplier(): Promise<number>;
     contentSizeMultiplierChangedEvent: SubscribableEvent<(multiplier: number) => void>;
-    abstract setMaxContentSizeMultiplier(maxContentSizeMultiplier: number): void;
     abstract dismissKeyboard(): void;
     abstract enableTouchLatencyEvents(latencyThresholdMs: number): void;
     touchLatencyEvent: SubscribableEvent<(observedLatencyMs: number) => void>;

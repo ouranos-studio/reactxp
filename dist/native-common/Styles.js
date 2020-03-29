@@ -30,7 +30,7 @@ var StyleLeakDetector_1 = require("./StyleLeakDetector");
 var forbiddenProps = [
     'wordBreak',
     'appRegion',
-    'cursor'
+    'cursor',
 ];
 // RN would crash if it gets an undeclared property.
 // The properties below are declared only in RN UWP.

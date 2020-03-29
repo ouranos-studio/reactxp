@@ -36,19 +36,19 @@ var _styles = {
         flexGrow: 0,
         position: 'relative',
         display: 'inline',
-        cursor: 'pointer'
+        cursor: 'pointer',
     },
     ellipsis: {
         textOverflow: 'ellipsis',
         whiteSpace: 'pre',
-        msHyphens: 'none'
+        msHyphens: 'none',
     },
     selectable: {
         WebkitUserSelect: 'text',
         MozUserSelect: 'text',
         msUserSelect: 'text',
-        userSelect: 'text'
-    }
+        userSelect: 'text',
+    },
 };
 var _longPressTime = 1000;
 var Link = /** @class */ (function (_super) {
@@ -129,7 +129,7 @@ var Link = /** @class */ (function (_super) {
         return Styles_1.default.combine([_styles.defaultStyle, ellipsisStyles, this.props.style, selectableStyles]);
     };
     Link.contextTypes = {
-        focusArbitrator: PropTypes.object
+        focusArbitrator: PropTypes.object,
     };
     return Link;
 }(React.Component));

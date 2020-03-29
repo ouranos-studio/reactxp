@@ -45,8 +45,8 @@ var _styles = {
         flex: 0,
         overflow: 'hidden',
         width: undefined,
-        height: undefined
-    })
+        height: undefined,
+    }),
 };
 var Image = /** @class */ (function (_super) {
     __extends(Image, _super);
@@ -113,9 +113,9 @@ var Image = /** @class */ (function (_super) {
         var styles = this.getStyles();
         var extendedProps = {
             source: this._buildSource(),
-            tooltip: this.props.title
+            tooltip: this.props.title,
         };
-        var props = __assign({ accessibilityLabel: this.props.accessibilityLabel, resizeMethod: this.props.resizeMethod, resizeMode: this._buildResizeMode(), testID: this.props.testId, onError: this._onError, onLoad: this.props.onLoad ? this._onLoad : undefined, ref: this._onMount }, this._getAdditionalProps(), extendedProps);
+        var props = __assign(__assign({ accessibilityLabel: this.props.accessibilityLabel, resizeMethod: this.props.resizeMethod, resizeMode: this._buildResizeMode(), testID: this.props.testId, onError: this._onError, onLoad: this.props.onLoad ? this._onLoad : undefined, ref: this._onMount }, this._getAdditionalProps()), extendedProps);
         /**
          * The <RN.Image> component cannot contain "children" elements.
          * This functionality was removed in the version 0.50.0 - @see https://github.com/facebook/react-native/releases/tag/v0.50.0,
@@ -204,7 +204,7 @@ var Image = /** @class */ (function (_super) {
         return this._nativeImageHeight;
     };
     Image.childContextTypes = {
-        isRxParentAText: PropTypes.bool.isRequired
+        isRxParentAText: PropTypes.bool.isRequired,
     };
     return Image;
 }(React.Component));

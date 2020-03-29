@@ -45,5 +45,5 @@ declare class RootViewUsingProps extends BaseRootView<RootViewPropsWithMainViewT
     constructor(props: RootViewPropsWithMainViewType);
     protected _getPropsForMainView(): {};
 }
-export { BaseRootViewProps, RootViewPropsWithMainViewType, RootViewState, BaseRootView, RootViewUsingStore as RootView, RootViewUsingProps };
+export { BaseRootViewProps, RootViewPropsWithMainViewType, RootViewState, BaseRootView, RootViewUsingStore as RootView, RootViewUsingProps, };
 export default RootViewUsingStore;

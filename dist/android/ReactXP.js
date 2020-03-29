@@ -82,7 +82,7 @@ var ReactXP;
     ReactXP.UserInterface = UserInterface_1.default;
     ReactXP.UserPresence = UserPresence_1.default;
     ReactXP.View = View_1.default;
-    var androidAnimatedClasses = __assign({}, Animated_1.CommonAnimatedClasses, { Text: RN.Animated.createAnimatedComponent(Text_1.default) });
+    var androidAnimatedClasses = __assign(__assign({}, Animated_1.CommonAnimatedClasses), { Text: RN.Animated.createAnimatedComponent(Text_1.default) });
     ReactXP.Animated = Animated_1.makeAnimated(androidAnimatedClasses);
     ReactXP.Types = RXTypes;
     ReactXP.Component = React.Component;
@@ -93,7 +93,6 @@ var ReactXP;
 })(ReactXP || (ReactXP = {}));
 // -- STRANGE THINGS GOING ON HERE --
 // See web/ReactXP.ts for more details.
-// tslint:disable-next-line
 var _rxImplementsRxInterface = ReactXP;
 _rxImplementsRxInterface = _rxImplementsRxInterface;
 module.exports = ReactXP;

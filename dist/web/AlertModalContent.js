@@ -33,12 +33,12 @@ var _styles = {
         flex: 1,
         backgroundColor: 'rgba(0, 0, 0, 0.1)',
         alignItems: 'center',
-        alignSelf: 'stretch'
+        alignSelf: 'stretch',
     }),
     verticalRoot: Styles_1.default.createViewStyle({
         flex: 1,
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
     }),
     defaultBody: Styles_1.default.createViewStyle({
         width: 300,
@@ -47,46 +47,46 @@ var _styles = {
         borderWidth: 1,
         alignItems: 'stretch',
         paddingHorizontal: 8,
-        paddingVertical: 4
+        paddingVertical: 4,
     }),
     defaultTitleText: Styles_1.default.createTextStyle({
         fontSize: 20,
         fontWeight: 'bold',
         alignSelf: 'center',
         padding: 12,
-        flex: 1
+        flex: 1,
     }),
     defaultMessageText: Styles_1.default.createTextStyle({
         fontSize: 16,
         alignSelf: 'center',
         padding: 12,
-        flex: 1
+        flex: 1,
     }),
     defaultButtonContainer: Styles_1.default.createButtonStyle({
         padding: 8,
-        flex: 1
+        flex: 1,
     }),
     defaultButton: Styles_1.default.createButtonStyle({
         alignItems: 'center',
         flex: 1,
         borderWidth: 1,
         borderRadius: 8,
-        borderColor: '#bbb'
+        borderColor: '#bbb',
     }),
     defaultButtonHover: Styles_1.default.createButtonStyle({
-        backgroundColor: '#eee'
+        backgroundColor: '#eee',
     }),
     defaultCancelButton: Styles_1.default.createButtonStyle({
-        borderColor: 'red'
+        borderColor: 'red',
     }),
     defaultBtnText: Styles_1.default.createTextStyle({
         fontSize: 14,
         padding: 8,
-        color: '#333'
+        color: '#333',
     }),
     defaultCancelBtnText: Styles_1.default.createTextStyle({
-        color: 'red'
-    })
+        color: 'red',
+    }),
 };
 var AlertModalContent = /** @class */ (function (_super) {
     __extends(AlertModalContent, _super);
@@ -101,7 +101,7 @@ var AlertModalContent = /** @class */ (function (_super) {
             }
         };
         _this.state = {
-            hoverIndex: -1
+            hoverIndex: -1,
         };
         return _this;
     }

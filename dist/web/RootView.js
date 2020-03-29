@@ -65,14 +65,17 @@ var MainViewContainer = /** @class */ (function (_super) {
     }
     MainViewContainer.prototype.getChildContext = function () {
         return {
-            isInRxMainView: true
+            isInRxMainView: true,
         };
+    };
+    MainViewContainer.prototype.shouldComponentUpdate = function () {
+        return false;
     };
     MainViewContainer.prototype.render = function () {
         return (this.props.children);
     };
     MainViewContainer.childContextTypes = {
-        isInRxMainView: PropTypes.bool
+        isInRxMainView: PropTypes.bool,
     };
     return MainViewContainer;
 }(React.Component));
@@ -231,7 +234,7 @@ var RootView = /** @class */ (function (_super) {
     RootView.prototype.getChildContext = function () {
         // Provide the context with root FocusManager to all descendants.
         return {
-            focusManager: this._focusManager
+            focusManager: this._focusManager,
         };
     };
     RootView.prototype._getInitialState = function () {
@@ -245,7 +248,7 @@ var RootView = /** @class */ (function (_super) {
             popupHeight: 0,
             constrainedPopupWidth: 0,
             constrainedPopupHeight: 0,
-            focusClass: this.props.mouseFocusOutline
+            focusClass: this.props.mouseFocusOutline,
         };
     };
     RootView.prototype.UNSAFE_componentWillReceiveProps = function (prevProps) {
@@ -313,7 +316,7 @@ var RootView = /** @class */ (function (_super) {
         var popupContainerStyle = {
             display: 'flex',
             position: 'fixed',
-            zIndex: 100001
+            zIndex: 100001,
         };
         if (!hidden) {
             popupContainerStyle.top = this.state.popupY;
@@ -338,7 +341,7 @@ var RootView = /** @class */ (function (_super) {
             width: '100%',
             height: '100%',
             display: 'flex',
-            cursor: 'default'
+            cursor: 'default',
         };
         var optionalPopups = [];
         if (this.props.activePopup) {
@@ -491,7 +494,7 @@ var RootView = /** @class */ (function (_super) {
         }
     };
     RootView.childContextTypes = {
-        focusManager: PropTypes.object
+        focusManager: PropTypes.object,
     };
     return RootView;
 }(React.Component));

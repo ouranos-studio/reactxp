@@ -36,8 +36,8 @@ var _styles = {
         flex: '1 1 auto',
         alignSelf: 'stretch',
         overflow: 'hidden',
-        zIndex: 10000
-    }
+        zIndex: 10000,
+    },
 };
 var ModalContainer = /** @class */ (function (_super) {
     __extends(ModalContainer, _super);

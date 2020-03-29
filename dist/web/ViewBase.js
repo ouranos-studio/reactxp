@@ -137,7 +137,7 @@ var ViewBase = /** @class */ (function (_super) {
                     x: newX,
                     y: newY,
                     width: _this._lastWidth,
-                    height: _this._lastHeight
+                    height: _this._lastHeight,
                 });
                 deferred_1.resolve(void 0);
             });

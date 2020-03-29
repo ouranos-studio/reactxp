@@ -8,23 +8,23 @@
  * It provides support for the scroll wheel, clicks and double clicks.
  */
 import * as React from 'react';
+import GestureViewCommon from '../common/GestureView';
 import { Types } from '../common/Interfaces';
 export interface GestureViewContext {
     isInRxMainView?: boolean;
 }
-export declare class GestureView extends React.Component<Types.GestureViewProps, Types.Stateless> {
+export declare abstract class GestureView extends GestureViewCommon {
     private _id;
     private _isMounted;
     private _container;
-    private _pendingLongPressEvent;
-    private _longPressTimer;
-    private _doubleTapTimer;
-    private _lastTapEvent;
+    private _initialTouch;
+    private _ongoingGesture;
     private _responder;
-    private _pendingGestureType;
+    private _pendingMouseGestureType;
     private _gestureTypeLocked;
-    private _skipNextTap;
     static contextTypes: React.ValidationMap<any>;
+    protected _getPreferredPanRatio(): number;
+    protected _getEventTimestamp(e: Types.TouchEvent | Types.MouseEvent): number;
     componentDidMount(): void;
     componentWillUnmount(): void;
     render(): JSX.Element;
@@ -38,23 +38,19 @@ export declare class GestureView extends React.Component<Types.GestureViewProps,
     private _onMouseDown;
     private _onClick;
     private _sendContextMenuEvent;
+    private static _reactTouchEventToBasic;
+    private static _mapReactTouchListToBasic;
+    private static _mapReactTouchToRx;
+    private _onTouchStart;
+    private _onTouchMove;
+    private _onTouchEnd;
     private _detectGestureType;
-    private _getPanPixelThreshold;
-    private _shouldRespondToPan;
-    private _shouldRespondToPanVertical;
-    private _shouldRespondToPanHorizontal;
     private _onWheel;
-    private _calcDistance;
-    private _isDoubleTap;
-    private _startLongPressTimer;
-    private _cancelLongPressTimer;
-    private _startDoubleTapTimer;
-    private _cancelDoubleTapTimer;
-    private _reportDelayedTap;
-    private _reportLongPress;
-    private _sendTapEvent;
-    private _sendDoubleTapEvent;
-    private _sendPanEvent;
+    private _sendMousePanEvent;
+    protected _getClientXYOffset(): {
+        x: number;
+        y: number;
+    };
     private _getGestureViewClientRect;
 }
 export default GestureView;

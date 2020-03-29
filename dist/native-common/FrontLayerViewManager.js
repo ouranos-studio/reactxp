@@ -37,8 +37,8 @@ var _styles = {
         flex: 1,
         alignSelf: 'stretch',
         overflow: 'visible',
-        backgroundColor: 'transparent' // otherwise in UWP it will be removed from the tree and won't receive mouse events
-    }
+        backgroundColor: 'transparent',
+    },
 };
 var MAX_CACHED_POPUPS = 4;
 var FrontLayerViewManager = /** @class */ (function () {

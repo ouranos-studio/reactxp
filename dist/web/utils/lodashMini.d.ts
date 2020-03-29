@@ -34,4 +34,4 @@ import omit = require('lodash/omit');
 import remove = require('lodash/remove');
 import throttle = require('lodash/throttle');
 import union = require('lodash/union');
-export { assign, clone, cloneDeep, defer, each, endsWith, extend, filter, findIndex, findLast, flatten, get, isEmpty, isEqual, isNumber, isObject, isUndefined, kebabCase, keys, map, mapValues, max, memoize, merge, omit, remove, throttle, union };
+export { assign, clone, cloneDeep, defer, each, endsWith, extend, filter, findIndex, findLast, flatten, get, isEmpty, isEqual, isNumber, isObject, isUndefined, kebabCase, keys, map, mapValues, max, memoize, merge, omit, remove, throttle, union, };

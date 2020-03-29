@@ -39,12 +39,12 @@ var _styles = {
         flexShrink: 0,
         overflowX: 'hidden',
         overflowY: 'auto',
-        alignItems: 'stretch'
+        alignItems: 'stretch',
     },
     formStyle: {
         display: 'flex',
-        flex: 1
-    }
+        flex: 1,
+    },
 };
 var TextInputPlaceholderSupport = /** @class */ (function () {
     function TextInputPlaceholderSupport() {
@@ -70,7 +70,7 @@ var TextInputPlaceholderSupport = /** @class */ (function () {
             document.head.appendChild(style);
             cache[key] = {
                 refCounter: 1,
-                styleElement: style
+                styleElement: style,
             };
         }
     };
@@ -99,7 +99,7 @@ var TextInputPlaceholderSupport = /** @class */ (function () {
             '::-webkit-input-placeholder',
             '::-moz-placeholder',
             ':-moz-placeholder',
-            ':-ms-input-placeholder' // IE 10+
+            ':-ms-input-placeholder',
         ];
         return selectors
             .map(function (pseudoSelector) {
@@ -176,7 +176,7 @@ var TextInput = /** @class */ (function (_super) {
                         // track of the modified value.
                         if (_this.props.value === undefined) {
                             _this.setState({
-                                inputValue: value
+                                inputValue: value,
                             });
                         }
                         if (_this.props.onChangeText) {
@@ -231,7 +231,7 @@ var TextInput = /** @class */ (function (_super) {
         };
         _this.state = {
             inputValue: props.value !== undefined ? props.value : (props.defaultValue || ''),
-            autoResize: TextInput._shouldAutoResize(props)
+            autoResize: TextInput._shouldAutoResize(props),
         };
         return _this;
     }
@@ -298,7 +298,7 @@ var TextInput = /** @class */ (function (_super) {
         }
         else {
             var _a = this._getKeyboardType(), keyboardTypeValue = _a.keyboardTypeValue, wrapInForm = _a.wrapInForm, pattern = _a.pattern;
-            var input = (React.createElement("input", { ref: this._onMount, style: combinedStyles, value: this.state.inputValue, title: this.props.title, tabIndex: this.props.tabIndex, className: className, autoCorrect: this.props.autoCorrect === false ? 'off' : undefined, spellCheck: spellCheck, disabled: !editable, maxLength: this.props.maxLength, placeholder: this.props.placeholder, size: 1, onChange: this._onInputChanged, onKeyDown: this._onKeyDown, onKeyUp: this._checkSelectionChanged, onInput: this._onInput, onFocus: this._onFocus, onBlur: this._onBlur, onMouseDown: this._checkSelectionChanged, onMouseUp: this._checkSelectionChanged, onPaste: this._onPaste, "aria-label": this.props.accessibilityLabel || this.props.title, type: keyboardTypeValue, pattern: pattern, "data-test-id": this.props.testId }));
+            var input = (React.createElement("input", { ref: this._onMount, style: combinedStyles, value: this.state.inputValue, title: this.props.title, tabIndex: this.props.tabIndex, className: className, autoCapitalize: this.props.autoCapitalize, autoCorrect: this.props.autoCorrect === false ? 'off' : undefined, spellCheck: spellCheck, disabled: !editable, maxLength: this.props.maxLength, placeholder: this.props.placeholder, size: 1, onChange: this._onInputChanged, onKeyDown: this._onKeyDown, onKeyUp: this._checkSelectionChanged, onInput: this._onInput, onFocus: this._onFocus, onBlur: this._onBlur, onMouseDown: this._checkSelectionChanged, onMouseUp: this._checkSelectionChanged, onPaste: this._onPaste, "aria-label": this.props.accessibilityLabel || this.props.title, type: keyboardTypeValue, pattern: pattern, "data-test-id": this.props.testId }));
             if (wrapInForm) {
                 // Wrap the input in a form tag if required
                 input = (React.createElement("form", { action: '', onSubmit: function (ev) { /* prevent form submission/page reload */ ev.preventDefault(); _this.blur(); }, style: _styles.formStyle }, input));
@@ -352,7 +352,7 @@ var TextInput = /** @class */ (function (_super) {
             element = element.parentElement;
             results.push({
                 el: element,
-                top: element.scrollTop
+                top: element.scrollTop,
             });
         }
         return results;
@@ -418,7 +418,7 @@ var TextInput = /** @class */ (function (_super) {
     TextInput.prototype.getSelectionRange = function () {
         var range = {
             start: 0,
-            end: 0
+            end: 0,
         };
         if (this._mountedComponent) {
             range.start = this._mountedComponent.selectionStart || 0;
@@ -435,7 +435,7 @@ var TextInput = /** @class */ (function (_super) {
                 this._mountedComponent.value = inputValue;
             }
             this.setState({
-                inputValue: inputValue
+                inputValue: inputValue,
             });
             if (this.props.onChangeText) {
                 this.props.onChangeText(value);
@@ -443,7 +443,7 @@ var TextInput = /** @class */ (function (_super) {
         }
     };
     TextInput.contextTypes = {
-        focusArbitrator: PropTypes.object
+        focusArbitrator: PropTypes.object,
     };
     return TextInput;
 }(React.Component));

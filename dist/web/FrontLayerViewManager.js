@@ -28,10 +28,8 @@ var FrontLayerViewManager = /** @class */ (function () {
             typeof document.documentElement !== 'undefined' && document.documentElement.dir === 'rtl';
         this._isRtlAllowed = true;
         this._isRtlForced = false;
-        this._shouldPopupBeDismissed = function (options) {
-            return !!_this._activePopupOptions &&
-                _this._activePopupOptions.getAnchor() === options.getAnchor();
-        };
+        this._shouldPopupBeDismissed = function (options) { return (!!_this._activePopupOptions &&
+            _this._activePopupOptions.getAnchor() === options.getAnchor()); };
     }
     FrontLayerViewManager.prototype.setMainView = function (element, shouldHydrate) {
         this._mainView = element;

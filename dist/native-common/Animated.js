@@ -44,7 +44,7 @@ exports.CommonAnimatedClasses = {
     Image: RN.Animated.createAnimatedComponent(Image_1.default),
     Text: RN.Animated.createAnimatedComponent(Text_1.default),
     TextInput: RN.Animated.createAnimatedComponent(TextInput_1.default),
-    View: RN.Animated.createAnimatedComponent(View_1.default)
+    View: RN.Animated.createAnimatedComponent(View_1.default),
 };
 var animatedClasses = exports.CommonAnimatedClasses;
 var AnimatedWrapper = /** @class */ (function (_super) {
@@ -161,7 +161,7 @@ var timing = function (value, config) {
                     duration: config.duration,
                     delay: config.delay,
                     isInteraction: config.isInteraction,
-                    useNativeDriver: config.useNativeDriver
+                    useNativeDriver: config.useNativeDriver,
                 };
                 RN.Animated.timing(value, timingConfig).start(function (result) {
                     if (onEnd) {
@@ -180,8 +180,20 @@ var timing = function (value, config) {
         stop: function () {
             isLooping = false;
             value.stopAnimation();
-        }
+        },
     };
+};
+exports.AnimatedCommon = {
+    Easing: Easing_1.default,
+    timing: timing,
+    parallel: RN.Animated.parallel,
+    sequence: RN.Animated.sequence,
+    Value: RN.Animated.Value,
+    createValue: function (initialValue) { return new RN.Animated.Value(initialValue); },
+    interpolate: function (animatedValue, inputRange, outputRange) { return animatedValue.interpolate({
+        inputRange: inputRange,
+        outputRange: outputRange,
+    }); },
 };
 function makeAnimated(nativeAnimatedClasses, useFocusRestrictedView) {
     if (nativeAnimatedClasses) {
@@ -193,18 +205,4 @@ function makeAnimated(nativeAnimatedClasses, useFocusRestrictedView) {
     return animated;
 }
 exports.makeAnimated = makeAnimated;
-exports.AnimatedCommon = {
-    Easing: Easing_1.default,
-    timing: timing,
-    parallel: RN.Animated.parallel,
-    sequence: RN.Animated.sequence,
-    Value: RN.Animated.Value,
-    createValue: function (initialValue) { return new RN.Animated.Value(initialValue); },
-    interpolate: function (animatedValue, inputRange, outputRange) {
-        return animatedValue.interpolate({
-            inputRange: inputRange,
-            outputRange: outputRange
-        });
-    }
-};
 exports.default = exports.AnimatedCommon;

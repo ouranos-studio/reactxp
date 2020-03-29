@@ -54,7 +54,7 @@ var _styles = {
         flexGrow: 0,
         flexShrink: 0,
         overflow: 'hidden',
-        alignItems: 'stretch'
+        alignItems: 'stretch',
     },
     // See resize detector comments in renderResizeDetectorIfNeeded() method below.
     resizeDetectorContainerStyles: {
@@ -65,20 +65,20 @@ var _styles = {
         bottom: '0',
         overflow: 'scroll',
         zIndex: '-1',
-        visibility: 'hidden'
+        visibility: 'hidden',
     },
     resizeGrowDetectorStyles: {
         position: 'absolute',
         left: '100500px',
         top: '100500px',
         width: '1px',
-        height: '1px'
+        height: '1px',
     },
     resizeShrinkDetectorStyles: {
         position: 'absolute',
         width: '150%',
-        height: '150%'
-    }
+        height: '150%',
+    },
 };
 if (typeof document !== 'undefined') {
     var ignorePointerEvents = '.reactxp-ignore-pointer-events  * { pointer-events: auto; }';
@@ -158,7 +158,7 @@ var View = /** @class */ (function (_super) {
             (React.createElement("div", { key: 'grow', style: _styles.resizeDetectorContainerStyles, ref: this._onResizeDetectorGrowRef, onScroll: this._resizeDetectorOnScroll },
                 React.createElement("div", { style: _styles.resizeGrowDetectorStyles }))),
             (React.createElement("div", { key: 'shrink', style: _styles.resizeDetectorContainerStyles, ref: this._onResizeDetectorShrinkRef, onScroll: this._resizeDetectorOnScroll },
-                React.createElement("div", { style: _styles.resizeShrinkDetectorStyles })))
+                React.createElement("div", { style: _styles.resizeShrinkDetectorStyles }))),
         ];
     };
     View.prototype._resizeDetectorReset = function () {
@@ -182,7 +182,7 @@ var View = /** @class */ (function (_super) {
         // Because they're in an Types.View, they should use their normal styling rather than their
         // special styling for appearing inline with text.
         var childContext = {
-            isRxParentAText: false
+            isRxParentAText: false,
         };
         // Provide the descendants with the focus manager and popup container (if any).
         if (this._focusManager) {
@@ -315,7 +315,7 @@ var View = /** @class */ (function (_super) {
             onFocus: this.props.onFocus,
             onBlur: this.props.onBlur,
             onKeyDown: this.props.onKeyPress,
-            id: this.props.id
+            id: this.props.id,
         };
         if (this.props.blockPointerEvents) {
             // Make this element and all children transparent to pointer events
@@ -412,13 +412,13 @@ var View = /** @class */ (function (_super) {
         isRxParentAText: PropTypes.bool,
         focusManager: PropTypes.object,
         popupContainer: PropTypes.object,
-        focusArbitrator: PropTypes.object
+        focusArbitrator: PropTypes.object,
     };
     View.childContextTypes = {
         isRxParentAText: PropTypes.bool.isRequired,
         focusManager: PropTypes.object,
         popupContainer: PropTypes.object,
-        focusArbitrator: PropTypes.object
+        focusArbitrator: PropTypes.object,
     };
     return View;
 }(ViewBase_1.default));

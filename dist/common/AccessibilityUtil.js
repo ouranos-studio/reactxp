@@ -7,8 +7,8 @@
  *
  * Common accessibility interface for platform-specific accessibility utilities.
  */
-Object.defineProperty(exports, "__esModule", { value: true });
 var _a;
+Object.defineProperty(exports, "__esModule", { value: true });
 var Interfaces_1 = require("../common/Interfaces");
 exports.ImportantForAccessibilityMap = (_a = {},
     _a[Interfaces_1.Types.ImportantForAccessibility.Auto] = 'auto',

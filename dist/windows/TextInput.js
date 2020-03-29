@@ -46,7 +46,7 @@ var TextInput = /** @class */ (function (_super) {
     TextInput.prototype._render = function (props, onMount) {
         var _this = this;
         var extendedProps = {
-            tabIndex: this.getTabIndex()
+            tabIndex: this.getTabIndex(),
         };
         return (React.createElement(RN.TextInput, __assign({}, props, extendedProps, { ref: onMount, importantForAccessibility: this.getImportantForAccessibility(), onFocus: function (e) { _this._onFocusEx(e, props.onFocus); } })));
     };
@@ -82,7 +82,7 @@ var TextInput = /** @class */ (function (_super) {
                 tabIndex: tabIndex,
                 value: this.state.inputValue,
                 isTabStop: this.props.editable && tabIndex >= 0,
-                importantForAccessibility: importantForAccessibility
+                importantForAccessibility: importantForAccessibility,
             });
         }
     };

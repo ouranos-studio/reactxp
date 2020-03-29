@@ -56,7 +56,7 @@ var UserInterface = /** @class */ (function (_super) {
                 x: componentBoundingRect.left,
                 y: componentBoundingRect.top,
                 width: componentBoundingRect.width,
-                height: componentBoundingRect.height
+                height: componentBoundingRect.height,
             });
         }
         return deferred.promise();
@@ -82,7 +82,7 @@ var UserInterface = /** @class */ (function (_super) {
                 x: componentBoundingRect.left - ancestorBoundingRect.left,
                 y: componentBoundingRect.top - ancestorBoundingRect.top,
                 width: componentBoundingRect.width,
-                height: componentBoundingRect.height
+                height: componentBoundingRect.height,
             });
         }
         return deferred.promise();
@@ -110,16 +110,6 @@ var UserInterface = /** @class */ (function (_super) {
         // Browsers don't support font-specific scaling. They scale all of their
         // UI elements the same.
         return Promise.resolve(1);
-    };
-    UserInterface.prototype.getMaxContentSizeMultiplier = function () {
-        // Browsers don't support font-specific scaling. They scale all of their
-        // UI elements the same.
-        return Promise.resolve(0);
-    };
-    UserInterface.prototype.setMaxContentSizeMultiplier = function (maxContentSizeMultiplier) {
-        // Browsers don't support font-specific scaling. They scale all of their
-        // UI elements the same.
-        // No-op.
     };
     UserInterface.prototype.isHighPixelDensityScreen = function () {
         return this.getPixelRatio() > 1;

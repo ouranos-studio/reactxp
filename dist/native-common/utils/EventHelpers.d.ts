@@ -4,8 +4,6 @@ export declare class EventHelpers {
     toFocusEvent(e: Types.SyntheticEvent): Types.FocusEvent;
     toMouseEvent(e: Types.SyntheticEvent): Types.MouseEvent;
     toDragEvent(e: Types.SyntheticEvent): Types.DragEvent;
-    toMouseButton(nativeEvent: any): number;
-    isActuallyMouseEvent(e: Types.TouchEvent | undefined): boolean;
     isRightMouseButton(e: Types.SyntheticEvent): boolean;
     keyboardToMouseEvent(e: Types.KeyboardEvent, layoutInfo: Types.LayoutInfo, contextMenuOffset: {
         x: number;

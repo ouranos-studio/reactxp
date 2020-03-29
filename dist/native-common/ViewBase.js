@@ -37,7 +37,7 @@ var ViewBase = /** @class */ (function (_super) {
                     x: event.nativeEvent.layout.x,
                     y: event.nativeEvent.layout.y,
                     width: event.nativeEvent.layout.width,
-                    height: event.nativeEvent.layout.height
+                    height: event.nativeEvent.layout.height,
                 };
                 // Only fire the onLayout callback if the layout values change
                 if (!lodashMini_1.isEqual(_this._layoutEventValues, layoutEventValues)) {

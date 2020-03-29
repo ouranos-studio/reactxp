@@ -54,7 +54,7 @@ var PopupContainerView = /** @class */ (function (_super) {
             popupWidth: 0,
             popupHeight: 0,
             constrainedPopupWidth: 0,
-            constrainedPopupHeight: 0
+            constrainedPopupHeight: 0,
         };
     };
     PopupContainerView.prototype.UNSAFE_componentWillReceiveProps = function (prevProps) {
@@ -102,7 +102,7 @@ var PopupContainerView = /** @class */ (function (_super) {
             opacity: this.state.isMeasuringPopup ? 0 : 1,
             overflow: this.props.hidden ? 'hidden' : 'visible',
             width: this.props.hidden ? 0 : undefined,
-            height: this.props.hidden ? 0 : undefined
+            height: this.props.hidden ? 0 : undefined,
         };
         var importantForAccessibility = this.props.hidden
             ? AccessibilityUtil_1.default.importantForAccessibilityToString(Interfaces_1.Types.ImportantForAccessibility.NoHideDescendants)
@@ -127,7 +127,7 @@ var PopupContainerView = /** @class */ (function (_super) {
             RN.NativeModules.UIManager.measureInWindow(_this._viewHandle, function (x, y, width, height) {
                 var popupRect = {
                     left: x, top: y, right: x + width, bottom: y + height,
-                    width: width, height: height
+                    width: width, height: height,
                 };
                 _this._recalcPositionFromLayoutData(anchorRect, popupRect);
             });

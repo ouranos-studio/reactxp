@@ -38,22 +38,18 @@ var _styles = {
         flexShrink: 1,
         // This forces some browsers (like Chrome) to create a new render context,
         // which can significantly speed up scrolling.
-        transform: 'translateZ(0)'
+        transform: 'translateZ(0)',
     },
     verticalStyle: {
         flexDirection: 'column',
         overflowY: 'auto',
-        overflowX: 'hidden'
+        overflowX: 'hidden',
     },
     horizontalStyle: {
         flexDirection: 'row',
         overflowY: 'hidden',
-        overflowX: 'auto'
+        overflowX: 'auto',
     },
-    bothStyle: {
-        overflowY: 'auto',
-        overflowX: 'auto'
-    }
 };
 var _initializedCustomStyles = false;
 var _customStyles = {
@@ -63,23 +59,22 @@ var _customStyles = {
         flexDirection: 'column',
         // This forces some browsers (like Chrome) to create a new render context,
         // which can significantly speed up scrolling.
-        transform: 'translateZ(0)'
+        transform: 'translateZ(0)',
     },
     verticalStyle: {},
     horizontalStyle: {},
-    bothStyle: {},
     customScrollContainer: {
         position: 'relative',
         overflow: 'hidden',
         boxSizing: 'border-box',
-        alignSelf: 'stretch'
+        alignSelf: 'stretch',
     },
     customScrollVertical: {
         // Set flex only for vertical scroll view.
         // Don't set flex for horizontal scroll view, otherwise it disappears.
         display: 'flex',
-        flex: '1 1 0px'
-    }
+        flex: '1 1 0px',
+    },
 };
 // Default to once per frame.
 var _defaultScrollThrottleValue = 1000 / 60;
@@ -157,7 +152,7 @@ var ScrollView = /** @class */ (function (_super) {
                 // Fixes a bug for Chrome beta where the parent flexbox (customScrollContainer) doesn't
                 // recognize that its child got populated with items. Smallest default width gives an
                 // indication that content will exist here.
-                minHeight: 0
+                minHeight: 0,
             };
             _customStyles.horizontalStyle = {
                 // The display needs to be set to flex, otherwise the scrollview incorrectly shows up vertically.
@@ -168,9 +163,8 @@ var ScrollView = /** @class */ (function (_super) {
                 // Fixes a bug for Chrome beta where the parent flexbox (customScrollContainer) doesn't
                 // recognize that its child got populated with items. Smallest default width gives an
                 // indication that content will exist here.
-                minWidth: 0
+                minWidth: 0,
             };
-            _customStyles.bothStyle = Styles_1.default.combine([_customStyles.verticalStyle, _customStyles.horizontalStyle]);
         }
         return _this;
     }
@@ -226,7 +220,6 @@ var ScrollView = /** @class */ (function (_super) {
         if (this._mounted && this._customScrollbarEnabled) {
             if (this._customScrollbar) {
                 if (this.props.horizontal === props.horizontal &&
-                    this.props.vertical === props.vertical &&
                     this.props.showsHorizontalScrollIndicator === props.showsHorizontalScrollIndicator &&
                     this.props.showsVerticalScrollIndicator === props.showsVerticalScrollIndicator) {
                     // No need to re-create the scrollbar.
@@ -239,11 +232,11 @@ var ScrollView = /** @class */ (function (_super) {
             if (element) {
                 this._customScrollbar = new CustomScrollbar_1.default(element);
                 var horizontalHidden = (props.horizontal && props.showsHorizontalScrollIndicator === false);
-                var verticalHidden = (props.vertical && props.showsVerticalScrollIndicator === false);
+                var verticalHidden = (!props.horizontal && props.showsVerticalScrollIndicator === false);
                 this._customScrollbar.init({
                     horizontal: props.horizontal && !horizontalHidden,
-                    vertical: props.vertical && !verticalHidden,
-                    hiddenScrollbar: horizontalHidden || verticalHidden
+                    vertical: !props.horizontal && !verticalHidden,
+                    hiddenScrollbar: horizontalHidden || verticalHidden,
                 });
             }
         }
@@ -253,10 +246,7 @@ var ScrollView = /** @class */ (function (_super) {
         var styles = [{ display: 'block' }];
         var sourceStyles = this._customScrollbarEnabled ? _customStyles : _styles;
         styles.push(sourceStyles.defaultStyle);
-        if (scrollEnabled && this.props.horizontal && this.props.vertical) {
-            styles.push(sourceStyles.bothStyle);
-        }
-        else if (scrollEnabled && this.props.horizontal) {
+        if (scrollEnabled && this.props.horizontal) {
             styles.push(sourceStyles.horizontalStyle);
         }
         else if (scrollEnabled) {
@@ -273,7 +263,7 @@ var ScrollView = /** @class */ (function (_super) {
         if (this.props.horizontal) {
             scrollComponentClassNames.push('scrollViewportH');
         }
-        if (this.props.vertical || this.props.vertical === undefined) {
+        else {
             scrollComponentClassNames.push('scrollViewportV');
             containerStyles = _.extend({}, _customStyles.customScrollVertical, containerStyles);
         }

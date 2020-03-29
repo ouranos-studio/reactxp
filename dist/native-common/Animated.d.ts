@@ -15,8 +15,7 @@ export interface AnimatedClasses {
     View: typeof RN.ReactNativeBaseComponent;
 }
 export declare const CommonAnimatedClasses: AnimatedClasses;
-export declare function makeAnimated(nativeAnimatedClasses: AnimatedClasses, useFocusRestrictedView?: boolean): RX.Animated;
-export declare let AnimatedCommon: {
+export declare const AnimatedCommon: {
     Easing: RX.Types.Animated.Easing;
     timing: (value: RX.Types.AnimatedValue, config: RX.Types.Animated.TimingAnimationConfig) => RX.Types.Animated.CompositeAnimation;
     parallel: typeof RN.Animated.parallel;
@@ -25,4 +24,5 @@ export declare let AnimatedCommon: {
     createValue: (initialValue: number) => RN.Animated.Value;
     interpolate: (animatedValue: RX.Types.AnimatedValue, inputRange: number[], outputRange: string[]) => RX.Types.InterpolatedValue;
 };
+export declare function makeAnimated(nativeAnimatedClasses: AnimatedClasses, useFocusRestrictedView?: boolean): RX.Animated;
 export default AnimatedCommon;

@@ -13,7 +13,7 @@ var Timers_1 = require("./Timers");
 var _sortAndFilter;
 var _autoFocusTimer;
 var _lastFocusArbitratorProviderId = 0;
-var rootFocusArbitratorProvider;
+var rootFocusArbitratorProvider; // eslint-disable-line prefer-const
 var FocusCandidateType;
 (function (FocusCandidateType) {
     FocusCandidateType[FocusCandidateType["Focus"] = 1] = "Focus";
@@ -59,7 +59,7 @@ var FocusArbitratorProvider = /** @class */ (function () {
             focus: focus,
             isAvailable: isAvailable,
             type: type,
-            accessibilityId: accessibilityId
+            accessibilityId: accessibilityId,
         });
         this._notifyParent();
     };
@@ -84,7 +84,7 @@ var FocusArbitratorProvider = /** @class */ (function () {
                     component.__focusCandidateInternal = candidate;
                     toArbitrate_1.push({
                         component: component,
-                        accessibilityId: candidate.accessibilityId
+                        accessibilityId: candidate.accessibilityId,
                     });
                 }
             });

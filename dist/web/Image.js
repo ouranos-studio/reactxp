@@ -47,14 +47,14 @@ var _styles = {
         flexDirection: 'column',
         opacity: 0,
         maxWidth: '100%',
-        maxHeight: '100%'
+        maxHeight: '100%',
     },
     defaultContainer: Styles_1.default.createImageStyle({
         position: 'relative',
         flex: 0,
         overflow: 'visible',
-        backgroundColor: 'transparent'
-    })
+        backgroundColor: 'transparent',
+    }),
 };
 var XhrBlobUrlCache = /** @class */ (function () {
     function XhrBlobUrlCache() {
@@ -75,7 +75,7 @@ var XhrBlobUrlCache = /** @class */ (function () {
             var xhrBlobUrlCacheEntry = {
                 xhrBlobUrl: xhrBlobUrl,
                 insertionDate: Date.now(),
-                refCount: 1
+                refCount: 1,
             };
             XhrBlobUrlCache._cachedXhrBlobUrls[source] = xhrBlobUrlCacheEntry;
         }
@@ -134,7 +134,7 @@ var Image = /** @class */ (function (_super) {
             // We can hide the img now. We assume that if the img. URL resolved without error,
             // then the background img. URL also did.
             _this.setState({
-                showImgTag: false
+                showImgTag: false,
             });
             if (_this.props.onLoad) {
                 _this.props.onLoad({ width: _this._nativeImageWidth, height: _this._nativeImageHeight });
@@ -186,7 +186,7 @@ var Image = /** @class */ (function (_super) {
         img.onload = (function (event) {
             defer.resolve({
                 width: img.naturalWidth,
-                height: img.naturalHeight
+                height: img.naturalHeight,
             });
         });
         img.onerror = (function (event) {
@@ -222,8 +222,8 @@ var Image = /** @class */ (function (_super) {
         // requests take some time and cause flicker during rendering. Even when we're hitting the browser cache, we've
         // seen it stall and take some time.
         var cachedXhrBlobUrl = props.headers ? XhrBlobUrlCache.get(props.source) : null;
-        var displayUrl = !!cachedXhrBlobUrl ? cachedXhrBlobUrl :
-            !!props.headers ? '' : props.source;
+        var displayUrl = cachedXhrBlobUrl ? cachedXhrBlobUrl :
+            props.headers ? '' : props.source;
         // Only make the xhr request if headers are specified and there was no cache hit.
         var performXhrRequest = !!props.headers && !cachedXhrBlobUrl;
         // We normally don't show an img tag because we use background images.  However, if the caller has supplied an
@@ -233,7 +233,7 @@ var Image = /** @class */ (function (_super) {
         var newState = {
             showImgTag: (!performXhrRequest || !!cachedXhrBlobUrl) && (!!props.onLoad || !!props.onError),
             xhrRequest: !!props.headers,
-            displayUrl: displayUrl
+            displayUrl: displayUrl,
         };
         if (initial) {
             this.state = newState;
@@ -253,7 +253,7 @@ var Image = /** @class */ (function (_super) {
         this.setState({
             displayUrl: newUrl,
             // If we have an onload handler, we need to now load the img tag to get dimensions for the load.
-            showImgTag: !!this.props.onLoad
+            showImgTag: !!this.props.onLoad,
         });
     };
     Image.prototype._startXhrImageFetch = function (props) {
@@ -279,7 +279,7 @@ var Image = /** @class */ (function (_super) {
                 credentials: withCredentials ? 'include' : 'same-origin',
                 method: 'GET',
                 mode: 'cors',
-                headers: headers_1
+                headers: headers_1,
             });
             fetch(xhr)
                 .then(function (response) {
@@ -346,7 +346,7 @@ var Image = /** @class */ (function (_super) {
         var backgroundImage = "url(\"" + this.state.displayUrl + "\")";
         // Types doesn't support border styles other than "solid" for images.
         var borderStyle = styles.borderWidth ? 'solid' : 'none';
-        return __assign({}, styles, { backgroundPosition: 'center center', backgroundRepeat: backgroundRepeat,
+        return __assign(__assign({}, styles), { backgroundPosition: 'center center', backgroundRepeat: backgroundRepeat,
             backgroundImage: backgroundImage,
             backgroundSize: backgroundSize,
             borderStyle: borderStyle, display: 'flex' });
@@ -375,7 +375,7 @@ var Image = /** @class */ (function (_super) {
         // We can hide the img now. We assume that if the img. URL failed to resolve,
         // then the background img. URL also did.
         this.setState({
-            showImgTag: false
+            showImgTag: false,
         });
         if (this.props.onError) {
             this.props.onError(err);
@@ -389,10 +389,10 @@ var Image = /** @class */ (function (_super) {
         return this._nativeImageHeight;
     };
     Image.contextTypes = {
-        isRxParentAText: PropTypes.bool
+        isRxParentAText: PropTypes.bool,
     };
     Image.childContextTypes = {
-        isRxParentAText: PropTypes.bool.isRequired
+        isRxParentAText: PropTypes.bool.isRequired,
     };
     return Image;
 }(React.Component));

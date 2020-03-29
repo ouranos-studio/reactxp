@@ -20,17 +20,6 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var RN = require("react-native");
@@ -40,8 +29,8 @@ var Text_1 = require("../native-common/Text");
 var _styles = {
     defaultText: Styles_1.default.createTextStyle({
         includeFontPadding: false,
-        textAlignVertical: 'center'
-    })
+        textAlignVertical: 'center',
+    }),
 };
 var Text = /** @class */ (function (_super) {
     __extends(Text, _super);
@@ -57,10 +46,7 @@ var Text = /** @class */ (function (_super) {
     // to null to indicate the default behavior.
     Text.prototype.render = function () {
         var importantForAccessibility = AccessibilityUtil_1.default.importantForAccessibilityToString(this.props.importantForAccessibility);
-        var extendedProps = {
-            maxContentSizeMultiplier: this.props.maxContentSizeMultiplier
-        };
-        return (React.createElement(RN.Text, __assign({ style: this._getStyles(), ref: this._onMount, importantForAccessibility: importantForAccessibility, numberOfLines: this.props.numberOfLines === 0 ? undefined : this.props.numberOfLines, allowFontScaling: this.props.allowFontScaling, ellipsizeMode: this.props.ellipsizeMode, onPress: this.props.onPress, textBreakStrategy: this.props.textBreakStrategy, testID: this.props.testId }, extendedProps), this.props.children));
+        return (React.createElement(RN.Text, { style: this._getStyles(), ref: this._onMount, importantForAccessibility: importantForAccessibility, numberOfLines: this.props.numberOfLines === 0 ? undefined : this.props.numberOfLines, allowFontScaling: this.props.allowFontScaling, ellipsizeMode: this.props.ellipsizeMode, onPress: this.props.onPress, textBreakStrategy: this.props.textBreakStrategy, testID: this.props.testId }, this.props.children));
     };
     return Text;
 }(Text_1.Text));

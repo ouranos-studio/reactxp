@@ -38,8 +38,8 @@ var _styles = {
         left: 0,
         right: 0,
         height: 30,
-        whiteSpace: 'pre'
-    })
+        whiteSpace: 'pre',
+    }),
 };
 var AccessibilityAnnouncer = /** @class */ (function (_super) {
     __extends(AccessibilityAnnouncer, _super);
@@ -58,7 +58,7 @@ var AccessibilityAnnouncer = /** @class */ (function (_super) {
                     // annnouncementText should never be in nested div for mac.
                     // Voice over ignores reading nested divs in aria-live container.
                     _this.setState({
-                        announcementText: announcement
+                        announcementText: announcement,
                     });
                 }
                 else {
@@ -67,7 +67,7 @@ var AccessibilityAnnouncer = /** @class */ (function (_super) {
                     // not announce aria-live reliably without this, for example.
                     _this.setState({
                         announcementText: announcement,
-                        announcementTextInNestedDiv: !_this.state.announcementTextInNestedDiv
+                        announcementTextInNestedDiv: !_this.state.announcementTextInNestedDiv,
                     });
                 }
             });
@@ -77,7 +77,7 @@ var AccessibilityAnnouncer = /** @class */ (function (_super) {
     AccessibilityAnnouncer.prototype._getInitialState = function () {
         return {
             announcementText: '',
-            announcementTextInNestedDiv: false
+            announcementTextInNestedDiv: false,
         };
     };
     AccessibilityAnnouncer.prototype.componentDidUpdate = function (prevProps, prevState) {
@@ -113,7 +113,7 @@ var AccessibilityAnnouncer = /** @class */ (function (_super) {
         this._cancelClearAnnouncementTimer();
         this._clearAnnouncementTimer = Timers_1.default.setTimeout(function () {
             _this.setState({
-                announcementText: ''
+                announcementText: '',
             });
         }, 2000);
     };

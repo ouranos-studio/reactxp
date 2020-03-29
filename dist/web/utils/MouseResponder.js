@@ -49,7 +49,7 @@ var MouseResponder = /** @class */ (function () {
                     return;
                 }
                 config.onTerminate(event, gestureState);
-            }
+            },
         };
         MouseResponder._responders.push(responder);
         return {
@@ -58,7 +58,7 @@ var MouseResponder = /** @class */ (function () {
                 if (MouseResponder._responders.length === 0) {
                     MouseResponder._removeEventHandlers();
                 }
-            }
+            },
         };
     };
     MouseResponder._initializeEventHandlers = function () {
@@ -103,16 +103,14 @@ var MouseResponder = /** @class */ (function () {
             velocityY: 0,
             timeStamp: Date.now(),
             isComplete: false,
-            isTouch: false
+            isTouch: false,
         };
         // We must sort them properly to be consistent with native PanResponder picks it's first responders
         // In native there is no z-index and PanResponder picks always the last registered element.
         // in case of native, that's last element in "DOM"
         MouseResponder._responders.sort(_compareDOMOrder);
         // We need to pick a responder that will handle this GestureView
-        var firstResponder = _.findLast(MouseResponder._responders, function (responder) {
-            return responder.shouldBecomeFirstResponder(event, MouseResponder._pendingGestureState);
-        });
+        var firstResponder = _.findLast(MouseResponder._responders, function (responder) { return (responder.shouldBecomeFirstResponder(event, MouseResponder._pendingGestureState)); });
         if (firstResponder) {
             MouseResponder._currentResponder = firstResponder;
         }
@@ -127,7 +125,7 @@ var MouseResponder = /** @class */ (function () {
                 pageY: event.pageY,
                 velocityX: velocityX,
                 velocityY: velocityY,
-                isComplete: false
+                isComplete: false,
             });
             if (event.buttons === 0) {
                 MouseResponder._onMouseUp(event);
@@ -155,7 +153,7 @@ var MouseResponder = /** @class */ (function () {
                 pageY: event.pageY,
                 velocityX: velocityX,
                 velocityY: velocityY,
-                isComplete: true
+                isComplete: true,
             });
             MouseResponder._currentResponder.onTerminate(event, MouseResponder._pendingGestureState);
             MouseResponder._currentResponder = null;
@@ -168,7 +166,7 @@ var MouseResponder = /** @class */ (function () {
         var velocityY = (e.clientY - gestureState.initialClientY) / time;
         return {
             velocityX: velocityX,
-            velocityY: velocityY
+            velocityY: velocityY,
         };
     };
     return MouseResponder;

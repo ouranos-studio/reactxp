@@ -13,6 +13,5 @@
 import { RuleFailure, Rules } from 'tslint';
 import * as ts from 'typescript';
 export declare class Rule extends Rules.AbstractRule {
-    static FAILURE_STRING_PART: string;
     apply(sourceFile: ts.SourceFile): RuleFailure[];
 }

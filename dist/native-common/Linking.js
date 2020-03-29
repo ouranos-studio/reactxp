@@ -40,7 +40,7 @@ var Linking = /** @class */ (function (_super) {
                 var linkingError = {
                     code: Interfaces_1.Types.LinkingErrorCode.NoAppFound,
                     url: url,
-                    description: 'No app found to handle url: ' + url
+                    description: 'No app found to handle url: ' + url,
                 };
                 return Promise.reject(linkingError);
             }
@@ -51,18 +51,18 @@ var Linking = /** @class */ (function (_super) {
             var linkingError = {
                 code: Interfaces_1.Types.LinkingErrorCode.UnexpectedFailure,
                 url: url,
-                description: error
+                description: error,
             };
             return Promise.reject(linkingError);
         });
     };
     Linking.prototype.getInitialUrl = function () {
         return RN.Linking.getInitialURL()
-            .then(function (url) { return !!url ? url : undefined; })
+            .then(function (url) { return url ? url : undefined; })
             .catch(function (error) {
             var linkingError = {
                 code: Interfaces_1.Types.LinkingErrorCode.InitialUrlNotFound,
-                description: error
+                description: error,
             };
             return Promise.reject(linkingError);
         });

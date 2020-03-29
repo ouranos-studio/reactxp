@@ -25,7 +25,7 @@ var RX = require("./Interfaces");
 var lodashMini_1 = require("./lodashMini");
 // Collection of Regex that help validate an email.
 // The name can be any of these characters.
-var emailNameRegex = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.@-]+$/i;
+var emailNameRegex = /^[a-z0-9!#$%&'*+/=?^_`{|}~.@-]+$/i;
 // However, the name cannot contain '..', or start/end with '.'.
 var emailNameConstraintViolationRegex = /\.\.|^\.|\.$/i;
 // The host is limited to these characters.

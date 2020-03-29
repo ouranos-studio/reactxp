@@ -45,8 +45,8 @@ var _styles = {
         backgroundColor: 'transparent',
         borderColor: 'transparent',
         textAlign: 'left',
-        borderWidth: '0'
-    }
+        borderWidth: '0',
+    },
 };
 var _longPressTime = 1000;
 var _defaultAccessibilityTrait = Interfaces_1.Types.AccessibilityTrait.Button;
@@ -274,10 +274,10 @@ var Button = /** @class */ (function (_super) {
     };
     Button.contextTypes = {
         hasRxButtonAscendant: PropTypes.bool,
-        focusArbitrator: PropTypes.object
+        focusArbitrator: PropTypes.object,
     };
     Button.childContextTypes = {
-        hasRxButtonAscendant: PropTypes.bool
+        hasRxButtonAscendant: PropTypes.bool,
     };
     return Button;
 }(Interfaces_1.Button));

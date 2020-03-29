@@ -7,4 +7,4 @@
  *
  * Window module to enable easy mocking.
  */
-module.exports = typeof (window) !== 'undefined' ? window : {};
+module.exports = typeof window !== 'undefined' ? window : {};

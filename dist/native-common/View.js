@@ -141,8 +141,8 @@ var View = /** @class */ (function (_super) {
             }
             _this._nativeComponent.setNativeProps({
                 style: [{
-                        backgroundColor: _underlayInactive
-                    }, _this.props.style]
+                        backgroundColor: _underlayInactive,
+                    }, _this.props.style],
             });
         };
         _this._updateMixin(props, true);
@@ -188,16 +188,16 @@ var View = /** @class */ (function (_super) {
             var updateConfig = {
                 delay: 0,
                 duration: 300,
-                type: LayoutAnimation.Types.easeOut
+                type: LayoutAnimation.Types.easeOut,
             };
             var createConfig = {
                 delay: 75,
                 duration: 150,
                 type: LayoutAnimation.Types.linear,
-                property: LayoutAnimation.Properties.opacity
+                property: LayoutAnimation.Properties.opacity,
             };
             var configDictionary = {
-                duration: 300
+                duration: 300,
             };
             if (nextProps.animateChildMove) {
                 configDictionary.update = updateConfig;
@@ -237,7 +237,7 @@ var View = /** @class */ (function (_super) {
                 // Properties that View and RN.Touchable.Mixin have in common. View needs
                 // to dispatch these methods to RN.Touchable.Mixin manually.
                 'componentDidMount',
-                'componentWillUnmount'
+                'componentWillUnmount',
             ]);
             this._mixin_componentDidMount = RN.Touchable.Mixin.componentDidMount || noop;
             this._mixin_componentWillUnmount = RN.Touchable.Mixin.componentWillUnmount || noop;
@@ -252,7 +252,7 @@ var View = /** @class */ (function (_super) {
         else if (!isButton && this._mixinIsApplied) {
             removeMixin(this, RN.Touchable.Mixin, [
                 'componentDidMount',
-                'componentWillUnmount'
+                'componentWillUnmount',
             ]);
             delete this._mixin_componentDidMount;
             delete this._mixin_componentWillUnmount;
@@ -293,7 +293,7 @@ var View = /** @class */ (function (_super) {
             accessibilityLabel: props.accessibilityLabel || props.title,
             accessibilityTraits: AccessibilityUtil_1.default.accessibilityTraitToString(props.accessibilityTraits),
             accessibilityComponentType: AccessibilityUtil_1.default.accessibilityComponentTypeToString(props.accessibilityTraits),
-            accessibilityLiveRegion: AccessibilityUtil_1.default.accessibilityLiveRegionToString(props.accessibilityLiveRegion)
+            accessibilityLiveRegion: AccessibilityUtil_1.default.accessibilityLiveRegionToString(props.accessibilityLiveRegion),
         };
         if (_isNativeMacOs && App_1.default.supportsExperimentalKeyboardNavigation && (props.onPress ||
             (props.tabIndex !== undefined && props.tabIndex >= 0))) {
@@ -330,7 +330,7 @@ var View = /** @class */ (function (_super) {
                 onResponderGrant: this.props.onResponderGrant || this.touchableHandleResponderGrant,
                 onResponderMove: this.props.onResponderMove || this.touchableHandleResponderMove,
                 onResponderRelease: this.props.onResponderRelease || this.touchableHandleResponderRelease,
-                onResponderTerminate: this.props.onResponderTerminate || this.touchableHandleResponderTerminate
+                onResponderTerminate: this.props.onResponderTerminate || this.touchableHandleResponderTerminate,
             };
             this._internalProps = lodashMini_1.extend(this._internalProps, responderProps);
             if (!this.props.disableTouchOpacityAnimation) {
@@ -339,7 +339,7 @@ var View = /** @class */ (function (_super) {
                     this._defaultOpacityValue = opacityValueFromProps;
                     this._opacityAnimatedValue = new Animated_1.default.Value(this._defaultOpacityValue);
                     this._opacityAnimatedStyle = Styles_1.default.createAnimatedViewStyle({
-                        opacity: this._opacityAnimatedValue
+                        opacity: this._opacityAnimatedValue,
                     });
                 }
                 this._internalProps.style = Styles_1.default.combine([baseStyle, this._opacityAnimatedStyle]);
@@ -370,7 +370,7 @@ var View = /** @class */ (function (_super) {
         Animated_1.default.timing(this._opacityAnimatedValue, {
             toValue: value,
             duration: duration,
-            easing: Animated_1.default.Easing.InOut()
+            easing: Animated_1.default.Easing.InOut(),
         }).start();
     };
     View.prototype._showUnderlay = function () {
@@ -379,8 +379,8 @@ var View = /** @class */ (function (_super) {
         }
         this._nativeComponent.setNativeProps({
             style: {
-                backgroundColor: this.props.underlayColor
-            }
+                backgroundColor: this.props.underlayColor,
+            },
         });
     };
     View.prototype._isButton = function (viewProps) {
@@ -496,10 +496,10 @@ var View = /** @class */ (function (_super) {
         }
     };
     View.contextTypes = {
-        focusArbitrator: PropTypes.object
+        focusArbitrator: PropTypes.object,
     };
     View.childContextTypes = {
-        focusArbitrator: PropTypes.object
+        focusArbitrator: PropTypes.object,
     };
     return View;
 }(ViewBase_1.default));

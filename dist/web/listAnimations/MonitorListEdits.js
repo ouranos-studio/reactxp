@@ -41,7 +41,7 @@ var _ = require("./../utils/lodashMini");
 function getPosition(el) {
     return {
         left: el.offsetLeft,
-        top: el.offsetTop
+        top: el.offsetTop,
     };
 }
 function extractChildrenKeys(children) {
@@ -155,7 +155,7 @@ var MonitorListEdits = /** @class */ (function (_super) {
                 removed: removed_1,
                 other: other_1,
                 prevPositions: computePositions(this._itemRefs),
-                prevChildrenMap: prevChildrenMap_1
+                prevChildrenMap: prevChildrenMap_1,
             };
         }
     };
@@ -173,7 +173,7 @@ var MonitorListEdits = /** @class */ (function (_super) {
                 if (!refData || refData.exisiting !== childElement_1.ref) {
                     refData = {
                         replacement: function (refValue) { _this._saveRef(childElement_1, refValue); },
-                        exisiting: childElement_1.ref
+                        exisiting: childElement_1.ref,
                     };
                     _this._refReplacementCache[childElement_1.key] = refData;
                 }
@@ -186,7 +186,7 @@ var MonitorListEdits = /** @class */ (function (_super) {
                     _this._childrenToRender.push(React.cloneElement(childElement, {
                         ref: function (refValue) {
                             _this._saveRef(childElement, refValue);
-                        }
+                        },
                     }));
                 }
             });
@@ -205,11 +205,9 @@ var MonitorListEdits = /** @class */ (function (_super) {
             var phaseInfo_1 = this._willAnimatePhaseInfo;
             var prevPositions_1 = phaseInfo_1.prevPositions;
             var nextPositions_1 = computePositions(this._itemRefs);
-            var added = phaseInfo_1.added.map(function (child) {
-                return {
-                    element: _this._itemRefs[child.key].reactElement
-                };
-            });
+            var added = phaseInfo_1.added.map(function (child) { return ({
+                element: _this._itemRefs[child.key].reactElement,
+            }); });
             var removed = phaseInfo_1.removed.map(function (child) {
                 var key = child.key;
                 var prevPos = prevPositions_1[key];
@@ -217,7 +215,7 @@ var MonitorListEdits = /** @class */ (function (_super) {
                 return {
                     leftDelta: nextPos.left - prevPos.left,
                     topDelta: nextPos.top - prevPos.top,
-                    element: _this._itemRefs[key].reactElement
+                    element: _this._itemRefs[key].reactElement,
                 };
             });
             var moved_1 = [];
@@ -229,7 +227,7 @@ var MonitorListEdits = /** @class */ (function (_super) {
                     moved_1.push({
                         leftDelta: nextPos.left - prevPos.left,
                         topDelta: nextPos.top - prevPos.top,
-                        element: _this._itemRefs[key].reactElement
+                        element: _this._itemRefs[key].reactElement,
                     });
                 }
             });
@@ -238,7 +236,7 @@ var MonitorListEdits = /** @class */ (function (_super) {
             this.props.componentWillAnimate({
                 added: added,
                 moved: moved_1,
-                removed: removed
+                removed: removed,
             }, function () {
                 _this._phase = ComponentPhaseEnum.rest;
                 if (_this._isMounted) {
@@ -259,7 +257,7 @@ var MonitorListEdits = /** @class */ (function (_super) {
             // Cache both the react component reference and the corresponding HTML DOM node (for perf reasons).
             this._itemRefs[reactElement.key] = {
                 reactElement: refValue,
-                domElement: ReactDOM.findDOMNode(refValue)
+                domElement: ReactDOM.findDOMNode(refValue),
             };
         }
         assert_1.default(typeof reactElement.ref === 'function' || reactElement.ref === undefined || reactElement.ref === null, 'Invalid ref: ' + reactElement.ref + '. Only callback refs are supported when using child animations on a `View`');

@@ -35,9 +35,7 @@ var Accessibility = /** @class */ (function (_super) {
         _this._isHighContrast = RN.AccessibilityInfo.initialHighContrast || false;
         // Work around the fact that the public react-native type definition doesn't
         // include 'highContrastDidChange' in RN.AccessibilityEventName.
-        RN.AccessibilityInfo.addEventListener('highContrastDidChange', function (isEnabled) {
-            _this._updateIsHighContrast(isEnabled);
-        });
+        RN.AccessibilityInfo.addEventListener('highContrastDidChange', function (isEnabled) { return _this._updateIsHighContrast(isEnabled); });
         return _this;
     }
     Accessibility.prototype._updateIsHighContrast = function (isEnabled) {

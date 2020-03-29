@@ -15,4 +15,4 @@ import sortBy = require('lodash/sortBy');
 export interface Dictionary<T> {
     [index: string]: T;
 }
-export { clone, compact, filter, isEqual, pull, sortBy };
+export { clone, compact, filter, isEqual, pull, sortBy, };

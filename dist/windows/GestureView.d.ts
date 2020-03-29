@@ -11,6 +11,6 @@ import { Types } from '../common/Interfaces';
 export declare class GestureView extends BaseGestureView {
     constructor(props: Types.GestureViewProps);
     protected _getPreferredPanRatio(): number;
-    protected _getEventTimestamp(e: Types.TouchEvent): number;
+    protected _getEventTimestamp(e: Types.TouchEvent | Types.MouseEvent): number;
 }
 export default GestureView;

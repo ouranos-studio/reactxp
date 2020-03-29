@@ -61,7 +61,7 @@ function recalcPositionFromLayoutData(windowDims, anchorRect, popupRect, positio
         anchorOffset: 0,
         anchorPosition: 'top',
         constrainedPopupWidth: popupRect.width,
-        constrainedPopupHeight: popupRect.height
+        constrainedPopupHeight: popupRect.height,
     };
     var foundPerfectFit = false;
     var foundPartialFit = false;
@@ -117,7 +117,7 @@ function recalcPositionFromLayoutData(windowDims, anchorRect, popupRect, positio
                         constrainedWidth = anchorRect.left - ALLEY_WIDTH;
                     }
                     break;
-                case 'context':
+                case 'context': {
                     // Search for perfect fits on the LR, LL, TR, and TL corners.
                     var fitsAbove = anchorRect.top - popupRect.height >= ALLEY_WIDTH;
                     var fitsBelow = anchorRect.top + anchorRect.height + popupRect.height <= windowDims.height - ALLEY_WIDTH;
@@ -144,6 +144,7 @@ function recalcPositionFromLayoutData(windowDims, anchorRect, popupRect, positio
                         absY = anchorRect.top - popupRect.height;
                     }
                     break;
+                }
             }
             var effectiveWidth = constrainedWidth || popupRect.width;
             var effectiveHeight = constrainedHeight || popupRect.height;
@@ -234,7 +235,7 @@ function recalcInnerPosition(anchorRect, positionToUse, popupWidth, popupHeight)
         anchorOffset: anchorOffset,
         anchorPosition: positionToUse,
         constrainedPopupWidth: popupWidth,
-        constrainedPopupHeight: popupHeight
+        constrainedPopupHeight: popupHeight,
     };
     return result;
 }
@@ -248,13 +249,13 @@ var PopupContainerViewBase = /** @class */ (function (_super) {
     PopupContainerViewBase.prototype.getChildContext = function () {
         return {
             focusManager: this.context.focusManager,
-            popupContainer: this
+            popupContainer: this,
         };
     };
     PopupContainerViewBase.prototype.registerPopupComponent = function (onShow, onHide) {
         var component = {
             onShow: onShow,
-            onHide: onHide
+            onHide: onHide,
         };
         this._popupComponentStack.push(component);
         return component;
@@ -280,11 +281,11 @@ var PopupContainerViewBase = /** @class */ (function (_super) {
         }
     };
     PopupContainerViewBase.contextTypes = {
-        focusManager: PropTypes.object
+        focusManager: PropTypes.object,
     };
     PopupContainerViewBase.childContextTypes = {
         focusManager: PropTypes.object,
-        popupContainer: PropTypes.object
+        popupContainer: PropTypes.object,
     };
     return PopupContainerViewBase;
 }(React.Component));

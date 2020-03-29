@@ -88,6 +88,10 @@ export class MainViewContainer extends React.Component<Types.CommonProps<MainVie
             isInRxMainView: true,
         };
     }
+  
+  shouldComponentUpdate() {
+    return false
+  }
 
     render() {
         return (

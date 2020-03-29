@@ -51,7 +51,7 @@ var Location = /** @class */ (function (_super) {
                 message: 'Position unavailable because device does not support it.',
                 PERMISSION_DENIED: 0,
                 POSITION_UNAVAILABLE: 1,
-                TIMEOUT: 0
+                TIMEOUT: 0,
             };
             return Promise.reject(error);
         }

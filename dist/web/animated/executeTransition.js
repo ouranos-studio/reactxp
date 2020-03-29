@@ -31,12 +31,13 @@ function executeTransition(element, transitions, done) {
         // Resolve styles. This is a trick to force the browser to refresh the
         // computed styles. Without this, it won't pick up the new "from" value
         // that we just set above.
-        // tslint:disable-next-line
+        // eslint-disable-next-line no-unused-expressions
         getComputedStyle(element).opacity;
         // TODO: Cross-browser equivalent of 'transition' style (e.g. vendor prefixed).
         cssTransitions.push(property + ' ' + duration + 'ms ' + timing + ' ' + delay + 'ms');
     });
     element.style.transition = cssTransitions.join(', ');
+    // eslint-disable-next-line prefer-const
     var finish;
     var onTransitionEnd = function (ev) {
         if (ev.target === element && ev.propertyName === longestDurationProperty) {

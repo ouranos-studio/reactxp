@@ -49,7 +49,7 @@ var Text = /** @class */ (function (_super) {
     }
     Text.prototype._getExtendedProperties = function () {
         var superExtendedProps = _super.prototype._getExtendedProperties.call(this);
-        return __assign({}, superExtendedProps, { onSelectionChange: this._onSelectionChange });
+        return __assign(__assign({}, superExtendedProps), { onSelectionChange: this._onSelectionChange });
     };
     Text.prototype.requestFocus = function () {
         // UWP doesn't support casually focusing RN.Text elements. We override requestFocus in order to drop any focus requests
@@ -80,7 +80,7 @@ var Text = /** @class */ (function (_super) {
         if (this._mountedComponent) {
             var importantForAccessibility = this.getImportantForAccessibility();
             this._mountedComponent.setNativeProps({
-                importantForAccessibility: importantForAccessibility
+                importantForAccessibility: importantForAccessibility,
             });
         }
     };

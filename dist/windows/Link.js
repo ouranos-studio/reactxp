@@ -56,7 +56,7 @@ var Link = /** @class */ (function (_super) {
         var _this = _super.call(this, props) || this;
         _this._restrictedOrLimitedCallback = function (restrictedOrLimited) {
             _this.setState({
-                isRestrictedOrLimited: restrictedOrLimited
+                isRestrictedOrLimited: restrictedOrLimited,
             });
         };
         _this._focusableElement = null;
@@ -108,7 +108,7 @@ var Link = /** @class */ (function (_super) {
             }
         };
         _this.state = {
-            isRestrictedOrLimited: false
+            isRestrictedOrLimited: false,
         };
         return _this;
     }
@@ -156,7 +156,7 @@ var Link = /** @class */ (function (_super) {
         var originalRef = internalProps.ref;
         assert_1.default(!(typeof originalRef === 'string'), 'Link: ReactXP must not use string refs internally');
         var componentRef = originalRef;
-        var focusableTextProps = __assign({}, internalProps, { componentRef: componentRef, ref: this._onFocusableRef, isTabStop: windowsTabFocusable, tabIndex: tabIndex,
+        var focusableTextProps = __assign(__assign({}, internalProps), { componentRef: componentRef, ref: this._onFocusableRef, isTabStop: windowsTabFocusable, tabIndex: tabIndex,
             importantForAccessibility: importantForAccessibility, disableSystemFocusVisuals: false, handledKeyDownKeys: DOWN_KEYCODES, handledKeyUpKeys: UP_KEYCODES, onKeyDown: this._onKeyDown, onKeyUp: this._onKeyUp, onFocus: this._onFocus, onAccessibilityTap: this._onPress });
         return focusableTextProps;
     };
@@ -222,7 +222,7 @@ var Link = /** @class */ (function (_super) {
             this._focusableElement.setNativeProps({
                 tabIndex: tabIndex,
                 isTabStop: windowsTabFocusable,
-                importantForAccessibility: importantForAccessibility
+                importantForAccessibility: importantForAccessibility,
             });
         }
     };

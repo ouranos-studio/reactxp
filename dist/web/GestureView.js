@@ -25,8 +25,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var PropTypes = require("prop-types");
 var React = require("react");
 var ReactDOM = require("react-dom");
+var GestureView_1 = require("../common/GestureView");
 var Interfaces_1 = require("../common/Interfaces");
-var Timers_1 = require("../common/utils/Timers");
 var AccessibilityUtil_1 = require("./AccessibilityUtil");
 var lodashMini_1 = require("./utils/lodashMini");
 var MouseResponder_1 = require("./utils/MouseResponder");
@@ -41,21 +41,11 @@ var _styles = {
         flexShrink: 0,
         overflow: 'hidden',
         alignItems: 'stretch',
-        justifyContent: 'center'
-    }
+        justifyContent: 'center',
+    },
 };
-var _longPressDurationThreshold = 750;
-var _doubleTapDurationThreshold = 250;
-var _doubleTapPixelThreshold = 20;
-var _panPixelThreshold = 10;
+// Unique to web
 var _preferredPanRatio = 3;
-var GestureType;
-(function (GestureType) {
-    GestureType[GestureType["None"] = 0] = "None";
-    GestureType[GestureType["Pan"] = 1] = "Pan";
-    GestureType[GestureType["PanVertical"] = 2] = "PanVertical";
-    GestureType[GestureType["PanHorizontal"] = 3] = "PanHorizontal";
-})(GestureType || (GestureType = {}));
 var _idCounter = 1;
 var GestureView = /** @class */ (function (_super) {
     __extends(GestureView, _super);
@@ -63,10 +53,8 @@ var GestureView = /** @class */ (function (_super) {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this._id = _idCounter++;
         _this._isMounted = false;
-        // private _pendingGestureState: Types.PanGestureState = null;
-        _this._pendingGestureType = GestureType.None;
+        _this._pendingMouseGestureType = GestureView_1.GestureType.None;
         _this._gestureTypeLocked = false;
-        _this._skipNextTap = false;
         _this._setContainerRef = function (container) {
             // safe since div refs resolve into HTMLElement and not react element.
             _this._container = container;
@@ -84,67 +72,90 @@ var GestureView = /** @class */ (function (_super) {
                 e.preventDefault();
             }
             if (_this.props.onLongPress) {
-                _this._startLongPressTimer(e);
+                var gsState = _this._mouseEventToTapGestureState(e);
+                _this._startLongPressTimer(gsState, true);
             }
         };
         _this._onClick = function (e) {
             _this._cancelLongPressTimer();
+            var gsState = _this._mouseEventToTapGestureState(e);
             if (!_this.props.onDoubleTap) {
                 // If there is no double-tap handler, we can invoke the tap handler immediately.
-                _this._sendTapEvent(e);
+                _this._sendTapEvent(gsState);
             }
-            else if (_this._isDoubleTap(e)) {
+            else if (_this._isDoubleTap(gsState)) {
                 // This is a double-tap, so swallow the previous single tap.
                 _this._cancelDoubleTapTimer();
-                _this._sendDoubleTapEvent(e);
-                _this._lastTapEvent = undefined;
+                _this._sendDoubleTapEvent(gsState);
             }
             else {
                 // This wasn't a double-tap. Report any previous single tap and start the double-tap
                 // timer so we can determine whether the current tap is a single or double.
                 _this._reportDelayedTap();
-                _this._startDoubleTapTimer(e);
+                _this._startDoubleTapTimer(gsState);
             }
         };
         _this._sendContextMenuEvent = function (e) {
             if (_this.props.onContextMenu) {
                 e.preventDefault();
                 e.stopPropagation();
-                var clientRect = _this._getGestureViewClientRect();
-                if (clientRect) {
-                    var tapEvent = {
-                        pageX: e.pageX,
-                        pageY: e.pageY,
-                        clientX: e.clientX - clientRect.left,
-                        clientY: e.clientY - clientRect.top,
-                        timeStamp: e.timeStamp,
-                        isTouch: false
-                    };
-                    _this.props.onContextMenu(tapEvent);
-                }
+                var tapEvent = _this._mouseEventToTapGestureState(e);
+                _this.props.onContextMenu(tapEvent);
+            }
+        };
+        _this._onTouchStart = function (e) {
+            if (!_this._initialTouch) {
+                var ft = e.touches[0];
+                _this._initialTouch = { x: ft.clientX, y: ft.clientY };
+                _this._ongoingGesture = { dx: 0, dy: 0, vx: 0, vy: 0 };
+                _this._onTouchSeriesStart(GestureView._reactTouchEventToBasic(e));
+            }
+        };
+        _this._onTouchMove = function (e) {
+            if (!_this._initialTouch || !_this._ongoingGesture) {
+                return;
+            }
+            var ft = e.touches[0];
+            _this._ongoingGesture = {
+                dx: ft.clientX - _this._initialTouch.x,
+                dy: ft.clientY - _this._initialTouch.y,
+                // TODO: calculate velocity?
+                vx: 0,
+                vy: 0,
+            };
+            _this._onTouchChange(GestureView._reactTouchEventToBasic(e), _this._ongoingGesture);
+        };
+        _this._onTouchEnd = function (e) {
+            if (!_this._initialTouch || !_this._ongoingGesture) {
+                return;
+            }
+            if (e.touches.length === 0) {
+                _this._onTouchSeriesFinished(GestureView._reactTouchEventToBasic(e), _this._ongoingGesture);
+                _this._initialTouch = undefined;
+                _this._ongoingGesture = undefined;
             }
         };
         _this._detectGestureType = function (gestureState) {
             // we need to lock gesture type until it's completed
             if (_this._gestureTypeLocked) {
-                return _this._pendingGestureType;
+                return _this._pendingMouseGestureType;
             }
             _this._gestureTypeLocked = true;
-            if (_this._shouldRespondToPan(gestureState)) {
-                return GestureType.Pan;
+            var gsBasic = {
+                dx: gestureState.clientX - gestureState.initialClientX,
+                dy: gestureState.clientY - gestureState.initialClientY,
+            };
+            if (_this._shouldRespondToPan(gsBasic)) {
+                return GestureView_1.GestureType.Pan;
             }
-            else if (_this._shouldRespondToPanVertical(gestureState)) {
-                return GestureType.PanVertical;
+            else if (_this._shouldRespondToPanVertical(gsBasic)) {
+                return GestureView_1.GestureType.PanVertical;
             }
-            else if (_this._shouldRespondToPanHorizontal(gestureState)) {
-                return GestureType.PanHorizontal;
+            else if (_this._shouldRespondToPanHorizontal(gsBasic)) {
+                return GestureView_1.GestureType.PanHorizontal;
             }
             _this._gestureTypeLocked = false;
-            return GestureType.None;
-        };
-        _this._getPanPixelThreshold = function () {
-            return (!lodashMini_1.isUndefined(_this.props.panPixelThreshold) && _this.props.panPixelThreshold > 0) ?
-                _this.props.panPixelThreshold : _panPixelThreshold;
+            return GestureView_1.GestureType.None;
         };
         _this._onWheel = function (e) {
             if (_this.props.onScrollWheel) {
@@ -157,25 +168,25 @@ var GestureView = /** @class */ (function (_super) {
                         pageY: e.pageY,
                         scrollAmount: e.deltaY,
                         timeStamp: e.timeStamp,
-                        isTouch: false
+                        isTouch: false,
                     };
                     _this.props.onScrollWheel(scrollWheelEvent);
                 }
             }
         };
-        _this._sendPanEvent = function (gestureState) {
-            switch (_this._pendingGestureType) {
-                case GestureType.Pan:
+        _this._sendMousePanEvent = function (gestureState) {
+            switch (_this._pendingMouseGestureType) {
+                case GestureView_1.GestureType.Pan:
                     if (_this.props.onPan) {
                         _this.props.onPan(gestureState);
                     }
                     break;
-                case GestureType.PanVertical:
+                case GestureView_1.GestureType.PanVertical:
                     if (_this.props.onPanVertical) {
                         _this.props.onPanVertical(gestureState);
                     }
                     break;
-                case GestureType.PanHorizontal:
+                case GestureView_1.GestureType.PanHorizontal:
                     if (_this.props.onPanHorizontal) {
                         _this.props.onPanHorizontal(gestureState);
                     }
@@ -184,26 +195,33 @@ var GestureView = /** @class */ (function (_super) {
                 // do nothing;
             }
             // we need to clean taps in case there was a pan event in the meantime
-            if (_this._pendingGestureType !== GestureType.None) {
-                _this._lastTapEvent = undefined;
+            if (_this._pendingMouseGestureType !== GestureView_1.GestureType.None) {
+                _this._clearLastTap();
                 _this._cancelDoubleTapTimer();
-                _this._skipNextTap = true;
+                _this._skipNextTap();
             }
         };
         return _this;
     }
+    // Get preferred pan ratio for platform.
+    GestureView.prototype._getPreferredPanRatio = function () {
+        return _preferredPanRatio;
+    };
+    // Returns the timestamp for the touch event in milliseconds.
+    GestureView.prototype._getEventTimestamp = function (e) {
+        return e.timeStamp;
+    };
     GestureView.prototype.componentDidMount = function () {
         this._isMounted = true;
     };
     GestureView.prototype.componentWillUnmount = function () {
+        _super.prototype.componentWillUnmount.call(this);
         this._isMounted = false;
-        // Dispose of timer before the component goes away.
-        this._cancelDoubleTapTimer();
     };
     GestureView.prototype.render = function () {
         var ariaRole = AccessibilityUtil_1.default.accessibilityTraitToString(this.props.accessibilityTraits);
         var isAriaHidden = AccessibilityUtil_1.default.isHidden(this.props.importantForAccessibility);
-        return (React.createElement("div", { style: this._getStyles(), tabIndex: this.props.tabIndex, ref: this._setContainerRef, onMouseDown: this._onMouseDown, onClick: this._onClick, onWheel: this._onWheel, onFocus: this.props.onFocus, onBlur: this.props.onBlur, onKeyPress: this.props.onKeyPress, role: ariaRole, "aria-label": this.props.accessibilityLabel, "aria-hidden": isAriaHidden, onContextMenu: this.props.onContextMenu ? this._sendContextMenuEvent : undefined, "data-test-id": this.props.testId }, this.props.children));
+        return (React.createElement("div", { style: this._getStyles(), tabIndex: this.props.tabIndex, ref: this._setContainerRef, onMouseDown: this._onMouseDown, onClick: this._onClick, onWheel: this._onWheel, onTouchStart: this._onTouchStart, onTouchMove: this._onTouchMove, onTouchEnd: this._onTouchEnd, onFocus: this.props.onFocus, onBlur: this.props.onBlur, onKeyPress: this.props.onKeyPress, role: ariaRole, "aria-label": this.props.accessibilityLabel, "aria-hidden": isAriaHidden, onContextMenu: this.props.onContextMenu ? this._sendContextMenuEvent : undefined, "data-test-id": this.props.testId }, this.props.children));
     };
     GestureView.prototype.blur = function () {
         var el = this._getContainer();
@@ -252,19 +270,19 @@ var GestureView = /** @class */ (function (_super) {
                 return false;
             },
             onMove: function (event, gestureState) {
-                _this._pendingGestureType = _this._detectGestureType(gestureState);
-                if (_this._pendingGestureType !== GestureType.None) {
+                _this._pendingMouseGestureType = _this._detectGestureType(gestureState);
+                if (_this._pendingMouseGestureType !== GestureView_1.GestureType.None) {
                     _this._cancelLongPressTimer();
                 }
-                _this._sendPanEvent(gestureState);
+                _this._sendMousePanEvent(gestureState);
             },
             onTerminate: function (event, gestureState) {
                 _this._cancelLongPressTimer();
-                _this._pendingGestureType = _this._detectGestureType(gestureState);
-                _this._sendPanEvent(gestureState);
-                _this._pendingGestureType = GestureType.None;
+                _this._pendingMouseGestureType = _this._detectGestureType(gestureState);
+                _this._sendMousePanEvent(gestureState);
+                _this._pendingMouseGestureType = GestureView_1.GestureType.None;
                 _this._gestureTypeLocked = false;
-            }
+            },
         });
     };
     GestureView.prototype._disposeMouseResponder = function () {
@@ -313,161 +331,55 @@ var GestureView = /** @class */ (function (_super) {
         }
         return combinedStyles;
     };
-    GestureView.prototype._shouldRespondToPan = function (gestureState) {
-        if (!this.props.onPan) {
-            return false;
+    // The RN and React touch event types are basically identical except that React uses "clientX/Y"
+    // and RN uses "locationX/Y", so we need to map one to the other.  Unfortunately, due to inertia,
+    // web loses.  So, we need these 3 ugly functions...
+    GestureView._reactTouchEventToBasic = function (e) {
+        var ne = lodashMini_1.clone(e);
+        ne.changedTouches = this._mapReactTouchListToBasic(e.changedTouches);
+        ne.targetTouches = this._mapReactTouchListToBasic(e.targetTouches);
+        ne.touches = this._mapReactTouchListToBasic(e.touches);
+        var ft = ne.touches[0];
+        if (ft) {
+            // RN also apparently shims the first touch's location info onto the root touch event
+            ne.pageX = ft.pageX;
+            ne.pageY = ft.pageY;
+            ne.locationX = ft.locationX;
+            ne.locationY = ft.locationY;
         }
-        var threshold = this._getPanPixelThreshold();
-        var distance = this._calcDistance(gestureState.clientX - gestureState.initialClientX, gestureState.clientY - gestureState.initialClientY);
-        if (distance < threshold) {
-            return false;
-        }
-        return true;
+        return ne;
     };
-    GestureView.prototype._shouldRespondToPanVertical = function (gestureState) {
-        if (!this.props.onPanVertical) {
-            return false;
+    GestureView._mapReactTouchListToBasic = function (l) {
+        var nl = new Array(l.length);
+        for (var i = 0; i < l.length; i++) {
+            nl[i] = this._mapReactTouchToRx(l[i]);
         }
-        var dx = gestureState.clientX - gestureState.initialClientX;
-        var dy = gestureState.clientY - gestureState.initialClientY;
-        // Has the user started to pan?
-        var panThreshold = this._getPanPixelThreshold();
-        var isPan = Math.abs(dy) >= panThreshold;
-        if (isPan && this.props.preferredPan === Interfaces_1.Types.PreferredPanGesture.Horizontal) {
-            return Math.abs(dy) > Math.abs(dx * _preferredPanRatio);
-        }
-        return isPan;
+        return nl;
     };
-    GestureView.prototype._shouldRespondToPanHorizontal = function (gestureState) {
-        if (!this.props.onPanHorizontal) {
-            return false;
-        }
-        var dx = gestureState.clientX - gestureState.initialClientX;
-        var dy = gestureState.clientY - gestureState.initialClientY;
-        // Has the user started to pan?
-        var panThreshold = this._getPanPixelThreshold();
-        var isPan = Math.abs(dx) >= panThreshold;
-        if (isPan && this.props.preferredPan === Interfaces_1.Types.PreferredPanGesture.Vertical) {
-            return Math.abs(dx) > Math.abs(dy * _preferredPanRatio);
-        }
-        return isPan;
+    GestureView._mapReactTouchToRx = function (l) {
+        return {
+            identifier: l.identifier,
+            locationX: l.clientX,
+            locationY: l.clientY,
+            screenX: l.screenX,
+            screenY: l.screenY,
+            clientX: l.clientX,
+            clientY: l.clientY,
+            pageX: l.pageX,
+            pageY: l.pageY,
+        };
     };
-    GestureView.prototype._calcDistance = function (dx, dy) {
-        return Math.sqrt(dx * dx + dy * dy);
-    };
-    // This method assumes that the caller has already determined that two
-    // clicks have been detected in a row. It is responsible for determining if
-    // they occurred within close proximity and within a certain threshold of time.
-    GestureView.prototype._isDoubleTap = function (e) {
-        var timeStamp = e.timeStamp.valueOf();
-        var pageX = e.pageX;
-        var pageY = e.pageY;
-        if (!this._lastTapEvent) {
-            return false;
-        }
-        return (timeStamp - this._lastTapEvent.timeStamp.valueOf() <= _doubleTapDurationThreshold &&
-            this._calcDistance(this._lastTapEvent.pageX - pageX, this._lastTapEvent.pageY - pageY) <=
-                _doubleTapPixelThreshold);
-    };
-    GestureView.prototype._startLongPressTimer = function (event) {
-        var _this = this;
-        event.persist();
-        this._pendingLongPressEvent = event;
-        this._longPressTimer = Timers_1.default.setTimeout(function () {
-            _this._reportLongPress();
-            _this._longPressTimer = undefined;
-        }, _longPressDurationThreshold);
-    };
-    GestureView.prototype._cancelLongPressTimer = function () {
-        if (this._longPressTimer) {
-            Timers_1.default.clearTimeout(this._longPressTimer);
-            this._longPressTimer = undefined;
-        }
-        this._pendingLongPressEvent = undefined;
-    };
-    // Starts a timer that reports a previous tap if it's not canceled by a subsequent gesture.
-    GestureView.prototype._startDoubleTapTimer = function (e) {
-        var _this = this;
-        this._lastTapEvent = lodashMini_1.clone(e);
-        this._doubleTapTimer = Timers_1.default.setTimeout(function () {
-            _this._reportDelayedTap();
-            _this._doubleTapTimer = undefined;
-        }, _doubleTapDurationThreshold);
-    };
-    // Cancels any pending double-tap timer.
-    GestureView.prototype._cancelDoubleTapTimer = function () {
-        if (this._doubleTapTimer) {
-            Timers_1.default.clearTimeout(this._doubleTapTimer);
-            this._doubleTapTimer = undefined;
-        }
-    };
-    // If there was a previous tap recorded but we haven't yet reported it because we were
-    // waiting for a potential second tap, report it now.
-    GestureView.prototype._reportDelayedTap = function () {
-        if (this._lastTapEvent && this.props.onTap) {
-            this._sendTapEvent(this._lastTapEvent);
-            this._lastTapEvent = undefined;
-        }
-    };
-    GestureView.prototype._reportLongPress = function () {
-        if (this.props.onLongPress) {
-            var tapEvent = {
-                pageX: this._pendingLongPressEvent.pageX,
-                pageY: this._pendingLongPressEvent.pageY,
-                clientX: this._pendingLongPressEvent.clientX,
-                clientY: this._pendingLongPressEvent.clientY,
-                timeStamp: this._pendingLongPressEvent.timeStamp,
-                isTouch: false
-            };
-            this.props.onLongPress(tapEvent);
-        }
-        this._pendingLongPressEvent = undefined;
-    };
-    GestureView.prototype._sendTapEvent = function (e) {
-        // we need to skip tap after succesfull pan event
-        // mouse up would otherwise trigger both pan & tap
-        if (this._skipNextTap) {
-            this._skipNextTap = false;
-            return;
-        }
-        if (this.props.onTap) {
-            var clientRect = this._getGestureViewClientRect();
-            if (clientRect) {
-                var tapEvent = {
-                    pageX: e.pageX,
-                    pageY: e.pageY,
-                    clientX: e.clientX - clientRect.left,
-                    clientY: e.clientY - clientRect.top,
-                    timeStamp: e.timeStamp,
-                    isTouch: false
-                };
-                this.props.onTap(tapEvent);
-            }
-        }
-    };
-    GestureView.prototype._sendDoubleTapEvent = function (e) {
-        if (this.props.onDoubleTap) {
-            var clientRect = this._getGestureViewClientRect();
-            if (clientRect) {
-                var tapEvent = {
-                    pageX: e.pageX,
-                    pageY: e.pageY,
-                    clientX: e.clientX - clientRect.left,
-                    clientY: e.clientY - clientRect.top,
-                    timeStamp: e.timeStamp,
-                    isTouch: false
-                };
-                this.props.onDoubleTap(tapEvent);
-            }
-        }
+    GestureView.prototype._getClientXYOffset = function () {
+        var rect = this._getGestureViewClientRect();
+        return rect ? { x: rect.left, y: rect.top } : { x: 0, y: 0 };
     };
     GestureView.prototype._getGestureViewClientRect = function () {
         return this._container ? this._container.getBoundingClientRect() : null;
     };
     GestureView.contextTypes = {
-        isInRxMainView: PropTypes.bool
+        isInRxMainView: PropTypes.bool,
     };
     return GestureView;
-}(React.Component));
+}(GestureView_1.default));
 exports.GestureView = GestureView;
 exports.default = GestureView;

@@ -11,7 +11,7 @@ import * as React from 'react';
 import SubscribableEvent from 'subscribableevent';
 export declare class MainViewStore extends SubscribableEvent<() => void> {
     private _mainView;
-    getMainView(): React.ReactElement<any, string | ((props: any) => React.ReactElement<any, string | any | (new (props: any) => React.Component<any, any, any>)> | null) | (new (props: any) => React.Component<any, any, any>)> | undefined;
+    getMainView(): React.ReactElement<any> | undefined;
     setMainView(view: React.ReactElement<any>): void;
 }
 declare const _default: MainViewStore;

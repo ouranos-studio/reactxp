@@ -7,6 +7,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * Licensed under the MIT license.
  */
 var react_native_1 = require("react-native");
+var EventHelpersCommon = require("../../common/utils/EventHelpers");
 var lodashMini_1 = require("./lodashMini");
 var _isNativeMacOs = react_native_1.Platform.OS === 'macos';
 // These helpers promote a SyntheticEvent to their higher level counterparts
@@ -245,7 +246,7 @@ var EventHelpers = /** @class */ (function () {
         if (nativeEvent.pageY !== undefined) {
             mouseEvent.clientY = mouseEvent.pageY = nativeEvent.pageY;
         }
-        mouseEvent.button = this.toMouseButton(e.nativeEvent);
+        mouseEvent.button = EventHelpersCommon.toMouseButton(e.nativeEvent);
         if (nativeEvent.shiftKey) {
             mouseEvent.shiftKey = nativeEvent.shiftKey;
         }
@@ -275,36 +276,8 @@ var EventHelpers = /** @class */ (function () {
         dndEvent.dataTransfer = e.nativeEvent.dataTransfer;
         return dndEvent;
     };
-    EventHelpers.prototype.toMouseButton = function (nativeEvent) {
-        if (nativeEvent.button !== undefined) {
-            return nativeEvent.button;
-        }
-        else if (nativeEvent.isRightButton || nativeEvent.IsRightButton) {
-            return 2;
-        }
-        else if (nativeEvent.isMiddleButton || nativeEvent.IsMiddleButton) {
-            return 1;
-        }
-        return 0;
-    };
-    EventHelpers.prototype.isActuallyMouseEvent = function (e) {
-        if (!e) {
-            return false;
-        }
-        var nativeEvent = e;
-        if (nativeEvent.button !== undefined) {
-            return true;
-        }
-        else if (nativeEvent.isRightButton || nativeEvent.IsRightButton) {
-            return true;
-        }
-        else if (nativeEvent.isMiddleButton || nativeEvent.IsMiddleButton) {
-            return true;
-        }
-        return false;
-    };
     EventHelpers.prototype.isRightMouseButton = function (e) {
-        return (this.toMouseButton(e.nativeEvent) === 2);
+        return (EventHelpersCommon.toMouseButton(e.nativeEvent) === 2);
     };
     // Keyboard events do not inherently hold a position that can be used to show flyouts on keyboard input.
     // We simulate a mouse event so that we can show things like context Menus in the correct position.

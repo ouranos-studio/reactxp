@@ -21,8 +21,8 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-Object.defineProperty(exports, "__esModule", { value: true });
 var _a, _b;
+Object.defineProperty(exports, "__esModule", { value: true });
 var AccessibilityUtil_1 = require("../common/AccessibilityUtil");
 var Interfaces_1 = require("../common/Interfaces");
 var _ = require("./utils/lodashMini");

@@ -72,7 +72,7 @@ var ActivityIndicator = /** @class */ (function (_super) {
     };
     ActivityIndicator.prototype.render = function () {
         var colorStyle = {
-            backgroundColor: this.props.color
+            backgroundColor: this.props.color,
         };
         var spinnerClasses = ['rx-activity'];
         if (this.props.size === 'tiny') {

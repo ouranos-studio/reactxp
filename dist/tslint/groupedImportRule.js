@@ -28,6 +28,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var tslint_1 = require("tslint");
 var tsutils = require("tsutils");
 var ts = require("typescript");
+var FAILURE_STRING_PART = 'Ambient and relative imports must be separated';
 var Rule = /** @class */ (function (_super) {
     __extends(Rule, _super);
     function Rule() {
@@ -38,7 +39,6 @@ var Rule = /** @class */ (function (_super) {
         var banModuleWalker = new GroupedImportModuleWalker(sourceFile, options);
         return this.applyWithWalker(banModuleWalker);
     };
-    Rule.FAILURE_STRING_PART = 'Ambient and relative imports must be separated';
     return Rule;
 }(tslint_1.Rules.AbstractRule));
 exports.Rule = Rule;
@@ -70,7 +70,7 @@ var GroupedImportModuleWalker = /** @class */ (function (_super) {
             this._inImportGroup = true;
             var importType = this._checkImportType(node);
             if (wasInImportGroup && importType !== this._lastImportType) {
-                this.addFailure(this.createFailure(node.getStart(), node.getWidth(), Rule.FAILURE_STRING_PART));
+                this.addFailure(this.createFailure(node.getStart(), node.getWidth(), FAILURE_STRING_PART));
             }
             this._lastImportType = importType;
         }

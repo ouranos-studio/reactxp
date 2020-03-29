@@ -45,17 +45,17 @@ export declare class InterpolatedValue extends Value {
     _getInterpolatedValue(inputVal: number | string): number | string;
     _isInterpolated(): boolean;
 }
-export declare let timing: RX.Types.Animated.TimingFunction;
-export declare let sequence: RX.Types.Animated.SequenceFunction;
-export declare let parallel: RX.Types.Animated.ParallelFunction;
-export declare let Image: typeof RX.AnimatedImage;
-export declare let Text: typeof RX.AnimatedText;
-export declare let TextInput: typeof RX.AnimatedTextInput;
-export declare let View: typeof RX.AnimatedView;
+export declare const timing: RX.Types.Animated.TimingFunction;
+export declare const sequence: RX.Types.Animated.SequenceFunction;
+export declare const parallel: RX.Types.Animated.ParallelFunction;
+export declare const Image: typeof RX.AnimatedImage;
+export declare const Text: typeof RX.AnimatedText;
+export declare const TextInput: typeof RX.AnimatedTextInput;
+export declare const View: typeof RX.AnimatedView;
 export declare type Image = RX.AnimatedImage;
 export declare type Text = RX.AnimatedText;
 export declare type TextInput = RX.AnimatedTextInput;
 export declare type View = RX.AnimatedView;
-export declare let createValue: (initialValue: number) => Value;
-export declare let interpolate: (value: Value, inputRange: number[], outputRange: string[]) => Value;
+export declare const createValue: (initialValue: number) => Value;
+export declare const interpolate: (value: Value, inputRange: number[], outputRange: string[]) => Value;
 export { Easing };

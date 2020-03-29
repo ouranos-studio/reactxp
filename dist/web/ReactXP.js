@@ -92,7 +92,6 @@ App_1.default.activationStateChangedEvent.subscribe(function (newState) {
 //    This forces TypeScript to type-check the above RX module against the common RX interface. Missing/incorrect types will cause errors.
 //    Note: RX must be a module so 'RX.Foo' can be a valid value ('new RX.Foo') and valid type ('var k: RX.Foo'), but modules cannot
 //    implement an interface. If RX was a class or variable then it could directly check this, but then 'RX.Foo' would not be a valid type.
-// tslint:disable-next-line
 var _rxImplementsRxInterface = ReactXP;
 _rxImplementsRxInterface = _rxImplementsRxInterface;
 module.exports = ReactXP;

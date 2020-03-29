@@ -64,7 +64,7 @@ var UserInterface = /** @class */ (function (_super) {
                 x: x,
                 y: y,
                 width: width,
-                height: height
+                height: height,
             });
         });
         return deferred.promise();
@@ -80,7 +80,7 @@ var UserInterface = /** @class */ (function (_super) {
                 x: x,
                 y: y,
                 width: width,
-                height: height
+                height: height,
             });
         });
         return deferred.promise();
@@ -101,7 +101,7 @@ var UserInterface = /** @class */ (function (_super) {
             x: 0,
             y: 0,
             width: dimensions.width,
-            height: dimensions.height
+            height: dimensions.height,
         };
     };
     UserInterface.prototype.getContentSizeMultiplier = function () {
@@ -115,27 +115,6 @@ var UserInterface = /** @class */ (function (_super) {
             deferred.resolve(RN.PixelRatio.getFontScale());
         }
         return deferred.promise();
-    };
-    UserInterface.prototype.getMaxContentSizeMultiplier = function () {
-        var deferred = new PromiseDefer_1.Defer();
-        // TODO: #727532 Remove conditional after implementing UIManager.getContentSizeMultiplier for UWP
-        // TODO:(alregner) Remove conditional after implementing UIManager.getContentSizeMultiplier for macos
-        if (RN.Platform.OS === 'windows' || RN.Platform.OS === 'macos') {
-            deferred.resolve(1);
-        }
-        else {
-            RN.NativeModules.UIManager.getMaxContentSizeMultiplier(function (value) {
-                deferred.resolve(value);
-            });
-        }
-        return deferred.promise();
-    };
-    UserInterface.prototype.setMaxContentSizeMultiplier = function (maxContentSizeMultiplier) {
-        // TODO: #727532 Remove conditional after implementing UIManager.getContentSizeMultiplier for UWP
-        // TODO:(alregner) Remove conditional after implementing UIManager.getContentSizeMultiplier for macos
-        if (RN.Platform.OS !== 'windows' && RN.Platform.OS !== 'macos') {
-            RN.NativeModules.UIManager.setMaxContentSizeMultiplier(maxContentSizeMultiplier);
-        }
     };
     UserInterface.prototype.useCustomScrollbars = function (enable) {
         if (enable === void 0) { enable = true; }

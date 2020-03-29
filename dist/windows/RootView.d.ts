@@ -16,5 +16,5 @@ declare class RootViewUsingProps extends RootViewUsingPropsBase {
     renderTopView(content: JSX.Element): JSX.Element;
     protected _renderAnnouncerView(): JSX.Element;
 }
-export { BaseRootViewProps, RootViewPropsWithMainViewType, RootViewState, BaseRootView, RootViewUsingStore as RootView, RootViewUsingProps };
+export { BaseRootViewProps, RootViewPropsWithMainViewType, RootViewState, BaseRootView, RootViewUsingStore as RootView, RootViewUsingProps, };
 export default RootViewUsingStore;

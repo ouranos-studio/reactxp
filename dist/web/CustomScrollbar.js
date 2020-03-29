@@ -92,12 +92,8 @@ var Scrollbar = /** @class */ (function () {
         _isStyleSheetInstalled = true;
     };
     Scrollbar.prototype._tryLtrOverride = function () {
-        if (typeof document === 'undefined') {
-            return;
-        }
         var rtlbox = document.createElement('div');
         rtlbox.style.cssText = 'position: absolute; overflow-y: scroll; width: 30px; visibility: hidden;';
-        // tslint:disable-next-line
         rtlbox.innerHTML = '<div class="probe"></div>';
         this._container.appendChild(rtlbox);
         var probe = rtlbox.querySelector('.probe');
@@ -110,7 +106,6 @@ var Scrollbar = /** @class */ (function () {
         if (isNeutral) {
             this._container.classList.add(NEUTRAL_OVERRIDE_CLASS);
         }
-        // tslint:disable-next-line
         rtlbox.innerHTML = '';
         this._container.removeChild(rtlbox);
     };
@@ -252,12 +247,10 @@ var Scrollbar = /** @class */ (function () {
     };
     Scrollbar.prototype._removeScrollbars = function () {
         if (this._hasVertical) {
-            // tslint:disable-next-line
             this._verticalBar.rail.innerHTML = '';
             this._container.removeChild(this._verticalBar.rail);
         }
         if (this._hasHorizontal) {
-            // tslint:disable-next-line
             this._horizontalBar.rail.innerHTML = '';
             this._container.removeChild(this._horizontalBar.rail);
         }

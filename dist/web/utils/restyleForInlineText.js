@@ -46,8 +46,8 @@ function restyleForInlineText(reactElement) {
             display: 'inline-block',
             // Reset the line height so the value from outside
             // the inlined item doesn't cascade into this element.
-            lineHeight: 'normal'
-        })
+            lineHeight: 'normal',
+        }),
     });
 }
 exports.default = restyleForInlineText;

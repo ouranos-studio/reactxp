@@ -127,6 +127,7 @@ var LocationErrorType;
 //
 // Animated
 // ----------------------------------------------------------------------
+// eslint-disable-next-line @typescript-eslint/no-namespace
 var Animated;
 (function (Animated) {
 })(Animated = exports.Animated || (exports.Animated = {}));

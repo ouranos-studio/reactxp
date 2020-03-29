@@ -92,10 +92,9 @@ var LinkBase = /** @class */ (function (_super) {
             onPress: this._onPress,
             onLongPress: this._onLongPress,
             allowFontScaling: this.props.allowFontScaling,
-            maxContentSizeMultiplier: this.props.maxContentSizeMultiplier,
             children: this.props.children,
             tooltip: this.props.title,
-            testID: this.props.testId
+            testID: this.props.testId,
         };
         return this._render(internalProps, this._onMount);
     };
@@ -130,7 +129,7 @@ var LinkBase = /** @class */ (function (_super) {
     };
     LinkBase.contextTypes = {
         focusArbitrator: PropTypes.object,
-        isRxParentAText: PropTypes.bool
+        isRxParentAText: PropTypes.bool,
     };
     return LinkBase;
 }(React.Component));

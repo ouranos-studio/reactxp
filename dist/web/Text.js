@@ -47,7 +47,7 @@ var _styles = {
         flexShrink: 0,
         overflow: 'hidden',
         whiteSpace: 'pre-wrap',
-        overflowWrap: 'break-word'
+        overflowWrap: 'break-word',
     },
     ellipsis: {
         position: 'relative',
@@ -56,8 +56,8 @@ var _styles = {
         flexShrink: 0,
         overflow: 'hidden',
         whiteSpace: 'pre',
-        textOverflow: 'ellipsis'
-    }
+        textOverflow: 'ellipsis',
+    },
 };
 var Text = /** @class */ (function (_super) {
     __extends(Text, _super);
@@ -139,10 +139,10 @@ var Text = /** @class */ (function (_super) {
         return ''; // Not implemented yet.
     };
     Text.contextTypes = {
-        focusArbitrator: PropTypes.object
+        focusArbitrator: PropTypes.object,
     };
     Text.childContextTypes = {
-        isRxParentAText: PropTypes.bool.isRequired
+        isRxParentAText: PropTypes.bool.isRequired,
     };
     return Text;
 }(Interfaces_1.Text));

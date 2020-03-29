@@ -19,4 +19,4 @@ import map = require('lodash/map');
 import max = require('lodash/max');
 import omit = require('lodash/omit');
 import union = require('lodash/union');
-export { clone, compact, extend, filter, findIndex, findLast, isEqual, isUndefined, last, map, max, omit, union };
+export { clone, compact, extend, filter, findIndex, findLast, isEqual, isUndefined, last, map, max, omit, union, };

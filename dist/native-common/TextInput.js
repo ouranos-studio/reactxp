@@ -42,8 +42,8 @@ var Styles_1 = require("./Styles");
 var _styles = {
     defaultTextInput: Styles_1.default.createTextInputStyle({
         borderWidth: 0,
-        padding: 0
-    })
+        padding: 0,
+    }),
 };
 var TextInput = /** @class */ (function (_super) {
     __extends(TextInput, _super);
@@ -110,14 +110,14 @@ var TextInput = /** @class */ (function (_super) {
         };
         _this.state = {
             inputValue: props.value !== undefined ? props.value : (props.defaultValue || ''),
-            isFocused: false
+            isFocused: false,
         };
         return _this;
     }
     TextInput.prototype.UNSAFE_componentWillReceiveProps = function (nextProps) {
         if (nextProps.value !== undefined && nextProps.value !== this.state.inputValue) {
             this.setState({
-                inputValue: nextProps.value || ''
+                inputValue: nextProps.value || '',
             });
         }
     };
@@ -164,10 +164,9 @@ var TextInput = /** @class */ (function (_super) {
             textBreakStrategy: 'simple',
             accessibilityLabel: this.props.accessibilityLabel,
             allowFontScaling: this.props.allowFontScaling,
-            maxContentSizeMultiplier: this.props.maxContentSizeMultiplier,
             underlineColorAndroid: 'transparent',
             clearButtonMode: this.props.clearButtonMode,
-            testID: this.props.testId
+            testID: this.props.testId,
         };
         this._selectionToSet = undefined;
         return this._render(internalProps, this._onMount);
@@ -213,7 +212,7 @@ var TextInput = /** @class */ (function (_super) {
         this._onChangeText(value);
     };
     TextInput.contextTypes = {
-        focusArbitrator: PropTypes.object
+        focusArbitrator: PropTypes.object,
     };
     return TextInput;
 }(React.Component));

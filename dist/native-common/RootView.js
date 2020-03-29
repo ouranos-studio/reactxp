@@ -25,8 +25,10 @@ var __rest = (this && this.__rest) || function (s, e) {
     for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
         t[p] = s[p];
     if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) if (e.indexOf(p[i]) < 0)
-            t[p[i]] = s[p[i]];
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -46,7 +48,7 @@ var _styles = {
     rootViewStyle: Styles_1.default.createViewStyle({
         flex: 1,
         alignItems: 'stretch',
-        overflow: 'visible'
+        overflow: 'visible',
     }),
     liveRegionContainer: Styles_1.default.createViewStyle({
         position: 'absolute',
@@ -55,8 +57,8 @@ var _styles = {
         bottom: 0,
         left: 0,
         right: 0,
-        height: 30
-    })
+        height: 30,
+    }),
 };
 // Abstract RootView class which handles rendering, front layer view changes and announcement
 // changes. Subclasses must set the mainView state value.
@@ -77,7 +79,7 @@ var BaseRootView = /** @class */ (function (_super) {
         this._newAnnouncementEventChangedSubscription =
             Accessibility_1.default.newAnnouncementReadyEvent.subscribe(function (announcement) {
                 _this.setState({
-                    announcementText: announcement
+                    announcementText: announcement,
                 });
             });
         this._memoryWarningEventSubscription = App_1.default.memoryWarningEvent.subscribe(function () {
@@ -112,11 +114,11 @@ var BaseRootView = /** @class */ (function (_super) {
         var popupLayerView = FrontLayerViewManager_1.default.getPopupLayerView(this._rootViewId);
         var isActivePopup = FrontLayerViewManager_1.default.isPopupActiveFor(this._rootViewId);
         var announcerView = this._renderAnnouncerView();
-        // When showing a modal/popup we want to hide the mainView shown behind from an accessibility
-        // standpoint to ensure that it won't get the focus and the screen reader's attention.
+        // When showing a modal/popup we want to hide the mainView shown behind from an accessibility
+        // standpoint to ensure that it won't get the focus and the screen reader's attention.
         var importantForAccessibility = (modalLayerView || isActivePopup) ?
             AccessibilityUtil_1.default.importantForAccessibilityToString(Interfaces_1.Types.ImportantForAccessibility.NoHideDescendants) :
-            undefined; // default
+            undefined; // default
         var content = (React.createElement(RN.Animated.View, { style: _styles.rootViewStyle },
             React.createElement(RN.View, { style: _styles.rootViewStyle, importantForAccessibility: importantForAccessibility }, this.state.mainView),
             modalLayerView,
@@ -141,7 +143,7 @@ var RootViewUsingStore = /** @class */ (function (_super) {
         _this._changeListener = _this._onChange.bind(_this);
         _this.state = {
             mainView: undefined,
-            announcementText: ''
+            announcementText: '',
         };
         return _this;
     }
@@ -163,7 +165,7 @@ var RootViewUsingStore = /** @class */ (function (_super) {
             mainView = React.cloneElement(mainView, this._mainViewProps);
         }
         return {
-            mainView: mainView
+            mainView: mainView,
         };
     };
     RootViewUsingStore.prototype._getPropsForMainView = function () {
@@ -189,7 +191,7 @@ var RootViewUsingProps = /** @class */ (function (_super) {
         }
         _this.state = {
             mainView: React.createElement(props.reactxp_mainViewType, _this._mainViewProps),
-            announcementText: ''
+            announcementText: '',
         };
         return _this;
     }

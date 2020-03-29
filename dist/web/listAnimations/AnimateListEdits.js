@@ -65,7 +65,7 @@ var AnimateListEdits = /** @class */ (function (_super) {
                                 to: 0,
                                 delay: delay,
                                 duration: 150,
-                                timing: 'linear'
+                                timing: 'linear',
                             }], animationCompleted);
                     }
                 }
@@ -87,7 +87,7 @@ var AnimateListEdits = /** @class */ (function (_super) {
                                 to: '',
                                 delay: delay,
                                 duration: 300,
-                                timing: 'ease-out'
+                                timing: 'ease-out',
                             }], animationCompleted);
                     }
                 }
@@ -109,7 +109,7 @@ var AnimateListEdits = /** @class */ (function (_super) {
                                 to: 1,
                                 delay: delay,
                                 duration: 150,
-                                timing: 'linear'
+                                timing: 'linear',
                             }], animationCompleted);
                     }
                 }

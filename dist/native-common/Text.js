@@ -42,8 +42,8 @@ var lodashMini_1 = require("./utils/lodashMini");
 var Styles_1 = require("./Styles");
 var _styles = {
     defaultText: Styles_1.default.createTextStyle({
-        overflow: 'hidden'
-    })
+        overflow: 'hidden',
+    }),
 };
 var Text = /** @class */ (function (_super) {
     __extends(Text, _super);
@@ -85,11 +85,11 @@ var Text = /** @class */ (function (_super) {
         }
     };
     Text.prototype._getExtendedProperties = function () {
-        var _a = this.props, maxContentSizeMultiplier = _a.maxContentSizeMultiplier, onContextMenu = _a.onContextMenu;
+        var onContextMenu = this.props.onContextMenu;
         // The presence of an onContextMenu on this instance or on the first responder parent up the tree
         // should disable any system provided context menu
         var disableContextMenu = !!onContextMenu || !!this.context.isRxParentAContextMenuResponder;
-        return { maxContentSizeMultiplier: maxContentSizeMultiplier, disableContextMenu: disableContextMenu };
+        return { disableContextMenu: disableContextMenu };
     };
     Text.prototype.getChildContext = function () {
         // Let descendant RX components know that their nearest RX ancestor is an RX.Text.
@@ -122,10 +122,10 @@ var Text = /** @class */ (function (_super) {
     };
     Text.contextTypes = {
         focusArbitrator: PropTypes.object,
-        isRxParentAContextMenuResponder: PropTypes.bool
+        isRxParentAContextMenuResponder: PropTypes.bool,
     };
     Text.childContextTypes = {
-        isRxParentAText: PropTypes.bool.isRequired
+        isRxParentAText: PropTypes.bool.isRequired,
     };
     return Text;
 }(React.Component));

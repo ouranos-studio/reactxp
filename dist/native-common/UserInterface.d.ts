@@ -20,8 +20,6 @@ export declare class UserInterface extends RX.UserInterface {
     measureLayoutRelativeToAncestor(component: React.Component<any, any>, ancestor: React.Component<any, any>): Promise<RX.Types.LayoutInfo>;
     measureWindow(rootViewId?: string): RX.Types.LayoutInfo;
     getContentSizeMultiplier(): Promise<number>;
-    getMaxContentSizeMultiplier(): Promise<number>;
-    setMaxContentSizeMultiplier(maxContentSizeMultiplier: number): void;
     useCustomScrollbars(enable?: boolean): void;
     dismissKeyboard(): void;
     isHighPixelDensityScreen(): boolean;

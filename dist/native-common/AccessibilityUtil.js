@@ -21,8 +21,8 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-Object.defineProperty(exports, "__esModule", { value: true });
 var _a, _b, _c;
+Object.defineProperty(exports, "__esModule", { value: true });
 var AccessibilityUtil_1 = require("../common/AccessibilityUtil");
 var Interfaces_1 = require("../common/Interfaces");
 var _ = require("./utils/lodashMini");
@@ -34,8 +34,9 @@ var liveRegionMap = (_a = {},
 // iOS supported map.
 var traitsMap = (_b = {},
     _b[Interfaces_1.Types.AccessibilityTrait.None] = 'none',
-    _b[Interfaces_1.Types.AccessibilityTrait.Tab] = 'none',
+    // NOTE: Tab trait isn't supported on iOS. Setting it to none, allows us to give it a custom
     // label. This needs to be done for any custom role, which needs to be supported on iOS.
+    _b[Interfaces_1.Types.AccessibilityTrait.Tab] = 'none',
     _b[Interfaces_1.Types.AccessibilityTrait.Button] = 'button',
     _b[Interfaces_1.Types.AccessibilityTrait.Link] = 'link',
     _b[Interfaces_1.Types.AccessibilityTrait.Header] = 'header',
@@ -57,9 +58,10 @@ var traitsMap = (_b = {},
 // Android supported map.
 var componentTypeMap = (_c = {},
     _c[Interfaces_1.Types.AccessibilityTrait.None] = 'none',
-    _c[Interfaces_1.Types.AccessibilityTrait.Tab] = 'none',
+    // NOTE: Tab component type isn't supported on Android. Setting it to none, allows us to give
     // it a custom label. This needs to be done for any custom role, which needs to be supported
     // on Android.
+    _c[Interfaces_1.Types.AccessibilityTrait.Tab] = 'none',
     _c[Interfaces_1.Types.AccessibilityTrait.Button] = 'button',
     _c[Interfaces_1.Types.AccessibilityTrait.Radio_button_checked] = 'radiobutton_checked',
     _c[Interfaces_1.Types.AccessibilityTrait.Radio_button_unchecked] = 'radiobutton_unchecked',

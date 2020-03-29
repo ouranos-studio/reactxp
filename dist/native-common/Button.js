@@ -52,11 +52,11 @@ var _styles = {
         alignItems: 'stretch',
         justifyContent: 'center',
         overflow: 'hidden',
-        backgroundColor: 'rgba(0, 0, 0, 0)'
+        backgroundColor: 'rgba(0, 0, 0, 0)',
     }),
     disabled: Styles_1.default.createButtonStyle({
-        opacity: 0.5
-    })
+        opacity: 0.5,
+    }),
 };
 var _isNativeMacOs = Platform_1.default.getType() === 'macos';
 var _defaultAccessibilityTrait = Interfaces_1.Types.AccessibilityTrait.Button;
@@ -138,12 +138,8 @@ var Button = /** @class */ (function (_super) {
                 _this.props.onLongPress(EventHelpers_1.default.toMouseEvent(e));
             }
         };
-        _this.touchableGetHighlightDelayMS = function () {
-            return 20;
-        };
-        _this.touchableGetPressRectOffset = function () {
-            return { top: 20, left: 20, right: 20, bottom: 100 };
-        };
+        _this.touchableGetHighlightDelayMS = function () { return 20; };
+        _this.touchableGetPressRectOffset = function () { return ({ top: 20, left: 20, right: 20, bottom: 100 }); };
         _this._onMount = function (btn) {
             _this._buttonElement = btn || undefined;
         };
@@ -177,15 +173,15 @@ var Button = /** @class */ (function (_super) {
             }
             _this._buttonElement.setNativeProps({
                 style: [{
-                        backgroundColor: _underlayInactive
-                    }, _this.props.style]
+                        backgroundColor: _underlayInactive,
+                    }, _this.props.style],
             });
         };
         applyMixin(_this, RN.Touchable.Mixin, [
             // Properties that Button and RN.Touchable.Mixin have in common. Button needs
             // to dispatch these methods to RN.Touchable.Mixin manually.
             'componentDidMount',
-            'componentWillUnmount'
+            'componentWillUnmount',
         ]);
         _this.state = _this.touchableGetInitialState();
         _this._setOpacityStyles(props);
@@ -208,7 +204,7 @@ var Button = /** @class */ (function (_super) {
         var disabledStyle = this.props.disabled ? _styles.disabled : undefined;
         if (this.props.disabled && this.props.disabledOpacity !== undefined) {
             disabledStyle = Styles_1.default.createButtonStyle({
-                opacity: this.props.disabledOpacity
+                opacity: this.props.disabledOpacity,
             }, false);
         }
         var extendedProps = {
@@ -229,7 +225,7 @@ var Button = /** @class */ (function (_super) {
             onResponderRelease: this.touchableHandleResponderRelease,
             onResponderTerminate: this.touchableHandleResponderTerminate,
             shouldRasterizeIOS: this.props.shouldRasterizeIOS,
-            testID: this.props.testId
+            testID: this.props.testId,
         };
         // Mac RN requires some addition props for button accessibility
         if (_isNativeMacOs && App_1.default.supportsExperimentalKeyboardNavigation && this.props.onPress) {
@@ -290,7 +286,7 @@ var Button = /** @class */ (function (_super) {
             this._defaultOpacityValue = opacityValueFromProps;
             this._opacityAnimatedValue = new Animated_1.default.Value(this._defaultOpacityValue);
             this._opacityAnimatedStyle = Styles_1.default.createAnimatedViewStyle({
-                opacity: this._opacityAnimatedValue
+                opacity: this._opacityAnimatedValue,
             });
         }
     };
@@ -317,7 +313,7 @@ var Button = /** @class */ (function (_super) {
         Animated_1.default.timing(this._opacityAnimatedValue, {
             toValue: value,
             duration: duration,
-            easing: Animated_1.default.Easing.InOut()
+            easing: Animated_1.default.Easing.InOut(),
         }).start();
     };
     Button.prototype._hasPressHandler = function () {
@@ -332,16 +328,16 @@ var Button = /** @class */ (function (_super) {
         }
         this._buttonElement.setNativeProps({
             style: {
-                backgroundColor: this.props.underlayColor
-            }
+                backgroundColor: this.props.underlayColor,
+            },
         });
     };
     Button.contextTypes = {
         hasRxButtonAscendant: PropTypes.bool,
-        focusArbitrator: PropTypes.object
+        focusArbitrator: PropTypes.object,
     };
     Button.childContextTypes = {
-        hasRxButtonAscendant: PropTypes.bool
+        hasRxButtonAscendant: PropTypes.bool,
     };
     return Button;
 }(Interfaces_1.Button));

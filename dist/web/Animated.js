@@ -32,7 +32,6 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// tslint:disable:function-name
 var React = require("react");
 var ReactDOM = require("react-dom");
 var AppConfig_1 = require("../common/AppConfig");
@@ -76,7 +75,7 @@ var animatedPropUnits = {
     borderRadius: 'px',
     // AnimatedTextStyleRules
     color: '',
-    fontSize: 'px'
+    fontSize: 'px',
 };
 // Every Animation subclass should extend this.
 var Animation = /** @class */ (function () {
@@ -209,7 +208,7 @@ var InterpolatedValue = /** @class */ (function (_super) {
             stopTransition: function (valueObject) {
                 _this._stopTransition();
                 return undefined;
-            }
+            },
         });
         return _this;
     }
@@ -252,9 +251,7 @@ var InterpolatedValue = /** @class */ (function (_super) {
             throw new Error('There is no interpolation config but one is required');
         }
         var numericInputValue = this._convertValueToNumeric(inputVal);
-        var outputValues = this._config.outputRange.map(function (value) {
-            return _this._convertValueToNumeric(value);
-        });
+        var outputValues = this._config.outputRange.map(function (value) { return _this._convertValueToNumeric(value); });
         if (this._interpolationConfig[numericInputValue]) {
             return this._interpolationConfig[numericInputValue];
         }
@@ -310,7 +307,7 @@ exports.timing = function (value, config) {
         stop: function () {
             stopLooping = true;
             value._stopTransition();
-        }
+        },
     };
 };
 exports.sequence = function (animations) {
@@ -345,7 +342,7 @@ exports.sequence = function (animations) {
                 hasBeenStopped = true;
                 animations[doneCount].stop();
             }
-        }
+        },
     };
     return result;
 };
@@ -383,7 +380,7 @@ exports.parallel = function (animations) {
             animations.forEach(function (animation) {
                 animation.stop();
             });
-        }
+        },
     };
     return result;
 };
@@ -455,7 +452,7 @@ function createAnimatedComponent(Component) {
                     timing: easing,
                     delay: delay,
                     toValue: toValue,
-                    onEnd: onEnd
+                    onEnd: onEnd,
                 };
                 updateTransition = true;
             }
@@ -474,7 +471,7 @@ function createAnimatedComponent(Component) {
                     timing: easing,
                     delay: delay,
                     toValue: toValue,
-                    onEnd: onEnd
+                    onEnd: onEnd,
                 };
                 updateTransition = true;
             }
@@ -578,7 +575,7 @@ function createAnimatedComponent(Component) {
                     to: this._generateCssTransformList(true),
                     duration: transformTransition.duration,
                     timing: transformTransition.timing,
-                    delay: transformTransition.delay
+                    delay: transformTransition.delay,
                 });
             }
             if (activeTransitions.length > 0) {

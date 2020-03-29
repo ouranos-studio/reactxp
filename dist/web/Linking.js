@@ -37,7 +37,7 @@ var Linking = /** @class */ (function (_super) {
             var linkingError = {
                 code: Interfaces_1.Types.LinkingErrorCode.Blocked,
                 url: url,
-                description: 'Window was blocked by popup blocker'
+                description: 'Window was blocked by popup blocker',
             };
             return Promise.reject(linkingError);
         }

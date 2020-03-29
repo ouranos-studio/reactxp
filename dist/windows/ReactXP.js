@@ -82,7 +82,7 @@ var ReactXP;
     ReactXP.UserInterface = UserInterface_1.default;
     ReactXP.UserPresence = UserPresence_1.default;
     ReactXP.View = View_1.default;
-    var windowsAnimatedClasses = __assign({}, Animated_1.CommonAnimatedClasses, { View: RN.Animated.createAnimatedComponent(View_1.default), TextInput: RN.Animated.createAnimatedComponent(TextInput_1.default), Text: RN.Animated.createAnimatedComponent(Text_1.default) });
+    var windowsAnimatedClasses = __assign(__assign({}, Animated_1.CommonAnimatedClasses), { View: RN.Animated.createAnimatedComponent(View_1.default), TextInput: RN.Animated.createAnimatedComponent(TextInput_1.default), Text: RN.Animated.createAnimatedComponent(Text_1.default) });
     ReactXP.Animated = Animated_1.makeAnimated(windowsAnimatedClasses, true);
     ReactXP.Types = RXTypes;
     ReactXP.Component = React.Component;

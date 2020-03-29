@@ -80,8 +80,8 @@ var ScrollView = /** @class */ (function (_super) {
             // https://facebook.github.io/react-native/docs/animated#handling-gestures-and-other-events
             var handlerWrapper = {
                 nativeEvent: {
-                    contentOffset: {}
-                }
+                    contentOffset: {},
+                },
             };
             if (this.props.scrollXAnimatedValue) {
                 handlerWrapper.nativeEvent.contentOffset.x = this.props.scrollXAnimatedValue;
@@ -90,7 +90,7 @@ var ScrollView = /** @class */ (function (_super) {
                 handlerWrapper.nativeEvent.contentOffset.y = this.props.scrollYAnimatedValue;
             }
             var eventConfig = {
-                useNativeDriver: true
+                useNativeDriver: true,
             };
             if (this.props.onScroll) {
                 eventConfig.listener = this._onScroll;
@@ -153,7 +153,7 @@ var ScrollView = /** @class */ (function (_super) {
             onScrollBeginDrag: this.props.onScrollBeginDrag,
             onScrollEndDrag: this.props.onScrollEndDrag,
             children: this.props.children,
-            testID: this.props.testId
+            testID: this.props.testId,
         };
         return this._render(internalProps);
     };
